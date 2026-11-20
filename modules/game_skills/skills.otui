@@ -259,6 +259,7 @@ MiniWindow
 
     SkillButton
       id: skillId4
+      visible: false
       SkillNameLabel
         !text: tr('Distance Fighting')
       SkillValueLabel
@@ -279,6 +280,7 @@ MiniWindow
 
     SkillButton
       id: skillId6
+      visible: false
       SkillNameLabel
         !text: tr('Fishing')
       SkillValueLabel
