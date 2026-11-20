@@ -124,6 +124,12 @@ function init()
     vocationBoxPaladin = spelllistWindow:getChildById('vocationBoxPaladin')
     vocationBoxKnight = spelllistWindow:getChildById('vocationBoxKnight')
     vocationBoxMonk = spelllistWindow:getChildById('vocationBoxMonk')
+    -- Os cinco botoes de vocacao mostram as classes do projeto (nomes da pele, gerados em spells.lua).
+    vocationBoxSorcerer:setText(VocationNames[1])
+    vocationBoxDruid:setText(VocationNames[2])
+    vocationBoxPaladin:setText(VocationNames[3])
+    vocationBoxKnight:setText(VocationNames[4])
+    vocationBoxMonk:setText(VocationNames[5])
 
     groupBoxAny = spelllistWindow:getChildById('groupBoxAny')
     groupBoxAttack = spelllistWindow:getChildById('groupBoxAttack')
@@ -260,10 +266,8 @@ local function vocationMatches(vocations, filterId)
     if filterId == FILTER_VOCATION_ANY then
         return true
     end
-    if filterId == FILTER_VOCATION_MONK then
-        return table.find(vocations, VocationsServer.Monk) or table.find(vocations, VocationsServer.ExaltedMonk)
-    end
-    return table.find(vocations, filterId) or table.find(vocations, filterId + 4)
+    -- Projeto: 5 classes com ids 1..5 (Lutador, Ferramentas, Invocador, Barreira, Curandeiro); sem promocoes.
+    return table.find(vocations, filterId) ~= nil
 end
 
 function updateSpelllist()
@@ -305,9 +309,7 @@ function updateSpellInformation(widget)
 
         for i = 1, #info.vocations do
             local vocationId = info.vocations[i]
-            if vocationId <= 4 or not (table.find(info.vocations, (vocationId - 4))) then
-                vocation = vocation .. (vocation:len() == 0 and '' or ', ') .. VocationNames[vocationId]
-            end
+            vocation = vocation .. (vocation:len() == 0 and '' or ', ') .. VocationNames[vocationId]
         end
 
         cooldown = (info.exhaustion / 1000) .. 's'
