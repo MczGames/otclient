@@ -344,7 +344,7 @@ PhantomMiniWindow
       margin-top: 3
 
       Label
-        !text: tr('Soul')
+        !text: tr('Gold')
         text.align: center
         font: cipsoftFont
         anchors.horizontalCenter: parent.horizontalCenter
@@ -441,7 +441,7 @@ PhantomMiniWindow
         color: #c0c0c0ff
 
       Label
-        !text: tr('Soul')
+        !text: tr('Gold')
         text.align: center
         font: cipsoftFont
         anchors.horizontalCenter: parent.horizontalCenter

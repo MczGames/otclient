@@ -156,21 +156,44 @@ local function inventoryEvent(player, slot, item, oldItem)
     end
 end
 
-local function onSoulChange(localPlayer, soul)
+-- Projeto: o painel que era "Soul" mostra o OURO da carteira digital (saldo do banco do servidor).
+local function formatGold(value)
+    value = math.floor(value or 0)
+    if value >= 1000000 then
+        return string.format('%.1fM', value / 1000000)
+    elseif value >= 10000 then
+        return string.format('%.1fk', value / 1000)
+    end
+    return tostring(value)
+end
+
+local function setGold(value)
     local ui = getInventoryUi()
-    if not localPlayer then
+    if not ui then
         return
     end
-    if not soul then
-        return
-    end
-
+    local text = formatGold(value)
+    local tip = tostring(math.floor(value or 0)) .. ' ' .. tr('Gold')
     if ui.soulPanel and ui.soulPanel.soul then
-        ui.soulPanel.soul:setText(soul)
+        ui.soulPanel.soul:setText(text)
+        ui.soulPanel:setTooltip(tip)
     end
-
     if ui.soulAndCapacity and ui.soulAndCapacity.soul then
-        ui.soulAndCapacity.soul:setText(soul)
+        ui.soulAndCapacity.soul:setText(text)
+    end
+end
+
+local function onResourcesBalanceChange(value, oldBalance, resourceType)
+    if resourceType == ResourceTypes.BANK_BALANCE then
+        setGold(value)
+    end
+end
+
+local function onSoulChange(localPlayer, soul)
+    -- A alma nao e usada no jogo; o painel mostra o ouro.
+    local player = g_game.getLocalPlayer()
+    if player then
+        setGold(player:getResourceBalance(ResourceTypes.BANK_BALANCE))
     end
 end
 
@@ -291,6 +314,9 @@ function inventoryController:onInit()
         onInventoryChange = inventoryEvent,
         onSoulChange = onSoulChange,
         onFreeCapacityChange = onFreeCapacityChange
+    })
+    inventoryController:registerEvents(g_game, {
+        onResourcesBalanceChange = onResourcesBalanceChange
     })
 end
 

@@ -433,6 +433,7 @@ locale = {
     ["Sort by name"] = "Ordenar por nome",
     ["Sort by status"] = "Ordenar por status",
     ["Sort by type"] = "Ordenar por tipo",
+    ["Gold"] = "Ouro",
     ["Soul"] = "Alma",
     ["Soul Points"] = "Pontos de Alma",
     ["Special"] = "Especial",
