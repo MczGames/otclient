@@ -6,3 +6,6 @@
 *.ot* eol=lf 
 *.cpp eol=lf 
 *.h   eol=lf 
+
+# Patches do vcpkg precisam de LF (CRLF quebra o git apply)
+*.patch text eol=lf
