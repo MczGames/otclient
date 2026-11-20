@@ -8,8 +8,11 @@ Services = {
     --websites = "http://localhost/?subtopic=accountmanagement", --./client_entergame "Forgot password and/or email"
     --createAccount = "http://localhost/clientcreateaccount.php", --./client_entergame -- createAccount.lua
     --getCoinsUrl = "http://localhost/?subtopic=shop&step=terms", --./game_market
+    -- PROJETO JJK: download automático DESLIGADO. O repositório padrão (dudantas/tibia-client)
+    -- traz assets do Tibia/CipSoft, proibidos pela regra nº 1 do CLAUDE.md. Só ligue com um
+    -- repositório de assets próprios nossos.
     clientAssets = {
-        enabled = true,
+        enabled = false,
         repository = "dudantas/tibia-client",
         installSounds = true,
         strictManifestSha256 = true,
