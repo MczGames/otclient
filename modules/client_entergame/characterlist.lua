@@ -51,7 +51,7 @@ local PINNED_CHARACTERS_SETTING = 'characterlist-pinned-characters'
     true  -> panel is displayed
     false -> panel is hidden
 ]]
-local SHOW_PREMIUM_WIDGETS = true
+local SHOW_PREMIUM_WIDGETS = false
 
 -- autoReconnect Button
 local autoReconnectButton

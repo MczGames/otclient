@@ -37,7 +37,6 @@ Module
     - game_spelllist
     - game_cooldown
     - game_modaldialog
-    - game_unjustifiedpoints
     - game_shaders
     - game_attachedeffects
     - game_paperdolls
