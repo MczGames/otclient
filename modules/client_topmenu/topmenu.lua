@@ -112,6 +112,13 @@ function init()
 
     topLeftYoutubeLink = topMenu:recursiveGetChildById('youtubeIcon')
     topLeftDiscordLink = topMenu:recursiveGetChildById('discordIcon')
+    -- Projeto: sem links do Discord/YouTube nem contagem de jogadores do OTClient.
+    for _, w in ipairs({ topLeftOnlinePlayersLabel, topLeftDiscordStreamersLabel, topLeftYoutubeViewersLabel,
+                         topLeftYoutubeStreamersLabel, topLeftYoutubeLink, topLeftDiscordLink }) do
+        if w then
+            w:setVisible(false)
+        end
+    end
 
     Keybind.new("UI", "Toggle Top Menu", "Ctrl+Shift+T", "")
     Keybind.bind("UI", "Toggle Top Menu", {
