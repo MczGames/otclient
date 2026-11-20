@@ -34,6 +34,7 @@ SpelllistSettings = {
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
+-- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 SpellInfo = {
     Default = {
         ["Maré Baixa"] = {id = 9001, name = "Maré Baixa", words = "tecn1", type = 'Instant', level = 1, mana = 30, soul = 0, maglevel = 0, icon = '', clientId = 35, group = {[1] = 4000}, needTarget = false, parameter = false, range = -1, exhaustion = 4000, premium = false, vocations = {1}, special = false, source = 0, description = "Técnica inata da classe."},
