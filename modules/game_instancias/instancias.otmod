@@ -1,0 +1,7 @@
+Module
+  name: game_instancias
+  description: Janela "Entrada de Instancia": lista as copias (instancias) de uma masmorra e quantos jogadores ha em cada. Aberta pelo servidor ao pisar ou usar uma porta de instancia (opcode 121).
+  sandboxed: true
+  scripts: [ instancias ]
+  @onLoad: init()
+  @onUnload: terminate()

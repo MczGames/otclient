@@ -1,0 +1,154 @@
+InstanciaLinha < UIWidget
+  height: 36
+  background-color: alpha
+  focusable: false
+  $hover:
+    background-color: #ffffff14
+  $on:
+    background-color: #1f5f9a
+
+  Label
+    id: nome
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 12
+    text-auto-resize: true
+    color: #ffffff
+    phantom: true
+
+  Label
+    id: estado
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 12
+    text-auto-resize: true
+    color: #9fa6b2
+    phantom: true
+
+MainWindow
+  id: instanciasWindow
+  !text: 'Entrada de Instancia'
+  size: 400 470
+  @onEscape: fechar()
+
+  UIWidget
+    id: cartao
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 92
+    background-color: #162338
+    border-width: 1
+    border-color: #272727
+
+    Creature
+      id: criatura
+      size: 64 64
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      margin-left: 12
+      image-source: ""
+      image-border: 0
+      phantom: true
+
+    Label
+      id: rotuloCriatura
+      !text: 'Criatura nesta area'
+      anchors.left: criatura.right
+      anchors.top: parent.top
+      margin-left: 14
+      margin-top: 10
+      text-auto-resize: true
+      color: #9fa6b2
+
+    Label
+      id: nomeCriatura
+      font: Verdana Bold-11px
+      anchors.left: criatura.right
+      anchors.top: rotuloCriatura.bottom
+      margin-left: 14
+      margin-top: 2
+      text-auto-resize: true
+      color: #ffffff
+
+    Label
+      id: nivelMinimo
+      anchors.left: criatura.right
+      anchors.top: nomeCriatura.bottom
+      margin-left: 14
+      margin-top: 4
+      text-auto-resize: true
+      color: #7fd0ff
+
+    Label
+      id: jogadoresArea
+      anchors.left: criatura.right
+      anchors.top: nivelMinimo.bottom
+      margin-left: 14
+      margin-top: 2
+      text-auto-resize: true
+      color: #9fa6b2
+
+  Label
+    id: tituloLista
+    !text: 'Instancias disponiveis'
+    anchors.top: cartao.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    text-auto-resize: true
+    color: #ffffff
+
+  Label
+    id: contagem
+    anchors.top: cartao.bottom
+    anchors.right: parent.right
+    margin-top: 10
+    text-auto-resize: true
+    color: #9fa6b2
+
+  TextList
+    id: lista
+    vertical-scrollbar: listaScroll
+    anchors.top: tituloLista.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: dica.top
+    margin-top: 6
+    margin-bottom: 8
+    padding: 1
+    focusable: false
+
+  VerticalScrollBar
+    id: listaScroll
+    anchors.top: lista.top
+    anchors.bottom: lista.bottom
+    anchors.right: lista.right
+    step: 36
+    pixels-scroll: true
+
+  Label
+    id: dica
+    !text: 'Selecione uma instancia e confirme para entrar.'
+    anchors.left: parent.left
+    anchors.bottom: botaoEntrar.top
+    margin-bottom: 8
+    text-auto-resize: true
+    color: #9fa6b2
+
+  Button
+    id: botaoFechar
+    !text: 'Fechar'
+    width: 80
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: fechar()
+
+  Button
+    id: botaoEntrar
+    !text: 'Entrar'
+    width: 100
+    anchors.right: botaoFechar.left
+    anchors.bottom: parent.bottom
+    margin-right: 8
+    enabled: false
+    @onClick: entrar()
