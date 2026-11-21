@@ -1,0 +1,153 @@
+DevFiltroBotao < Button
+  height: 22
+  margin-top: 2
+  $on:
+    color: green
+
+DevItemLinha < UIWidget
+  height: 38
+  background-color: alpha
+  focusable: false
+  $hover:
+    background-color: #ffffff18
+
+  Item
+    id: icone
+    virtual: true
+    size: 32 32
+    phantom: true
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 4
+
+  Label
+    id: nome
+    anchors.left: prev.right
+    anchors.top: parent.top
+    margin-left: 8
+    margin-top: 3
+    text-auto-resize: true
+    color: #ffffff
+
+  Label
+    id: detalhe
+    anchors.left: icone.right
+    anchors.top: nome.bottom
+    margin-left: 8
+    margin-top: 1
+    text-auto-resize: true
+    color: #9fa6b2
+
+  Button
+    id: pegar
+    !text: 'Pegar (0 gold)'
+    width: 110
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 6
+
+MainWindow
+  id: devItensWindow
+  !text: 'Itens (dev) - todos a 0 gold'
+  size: 860 560
+  @onEscape: fechar()
+
+  Panel
+    id: categorias
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    margin-bottom: 34
+    width: 130
+    layout:
+      type: verticalBox
+      spacing: 2
+
+  Panel
+    id: barra
+    anchors.top: parent.top
+    anchors.left: categorias.right
+    anchors.right: parent.right
+    margin-left: 8
+    height: 24
+    layout:
+      type: horizontalBox
+      spacing: 6
+
+    TextEdit
+      id: busca
+      width: 190
+      @onTextChange: aoMudarFiltro()
+
+    ComboBox
+      id: tipo
+      width: 130
+      @onOptionChange: aoMudarFiltro()
+
+    ComboBox
+      id: grau
+      width: 105
+      @onOptionChange: aoMudarFiltro()
+
+    ComboBox
+      id: classe
+      width: 115
+      @onOptionChange: aoMudarFiltro()
+
+    ComboBox
+      id: ordem
+      width: 105
+      @onOptionChange: aoMudarFiltro()
+
+  TextList
+    id: lista
+    vertical-scrollbar: listaScroll
+    anchors.top: barra.bottom
+    anchors.left: categorias.right
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-top: 6
+    margin-left: 8
+    margin-bottom: 34
+    padding: 1
+    focusable: false
+
+  VerticalScrollBar
+    id: listaScroll
+    anchors.top: lista.top
+    anchors.bottom: lista.bottom
+    anchors.right: lista.right
+    step: 38
+    pixels-scroll: true
+
+  Label
+    id: rotuloQtd
+    !text: 'Quantidade:'
+    anchors.left: categorias.right
+    anchors.bottom: parent.bottom
+    margin-left: 8
+    margin-bottom: 8
+
+  TextEdit
+    id: qtd
+    width: 50
+    text: 1
+    anchors.left: prev.right
+    anchors.verticalCenter: prev.verticalCenter
+    margin-left: 6
+
+  Label
+    id: contagem
+    anchors.left: prev.right
+    anchors.verticalCenter: prev.verticalCenter
+    margin-left: 14
+    text-auto-resize: true
+    color: #9fa6b2
+
+  Button
+    id: botaoFechar
+    !text: 'Fechar'
+    width: 70
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: fechar()

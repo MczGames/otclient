@@ -35,6 +35,7 @@ Module
     - game_ruleviolation
     - game_market
     - game_spelllist
+    - game_devitens
     - game_cooldown
     - game_modaldialog
     - game_shaders

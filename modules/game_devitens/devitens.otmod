@@ -1,0 +1,7 @@
+Module
+  name: game_devitens
+  description: Janela de desenvolvimento /itens (todos os itens do jogo a 0 gold, com filtros). Remover antes do lancamento.
+  sandboxed: true
+  scripts: [ devitens ]
+  @onLoad: init()
+  @onUnload: terminate()
