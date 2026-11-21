@@ -404,8 +404,16 @@ void Creature::internalDraw(Point dest, const Color& color)
 
         // outfit is a real creature
         if (m_outfit.isCreature()) {
+            // mmo-jjk: montaria com 2 camadas = camada 0 (fundo, atras do piloto) + camada 1 (frente, desenhada POR CIMA
+            // do piloto: flanco, peito, cabeca que cobrem as pernas). Ver docs/padrao-montarias.md.
+            ThingType* mountFrente = nullptr;
+            Point mountFrenteDest;
             if (const auto mountType = getMountThingType(); mountType) {
                 dest -= mountType->getDisplacement() * g_drawPool.getScaleFactor();
+                if (mountType->getLayers() > 1) {
+                    mountFrente = mountType;
+                    mountFrenteDest = dest;
+                }
 
                 if (!replaceColorShader && hasMountShader()) {
                     g_drawPool.setShaderProgram(g_shaders.getShaderById(m_mountShaderId), true/*, [this]()-> void {
@@ -460,6 +468,12 @@ void Creature::internalDraw(Point dest, const Color& color)
 
             for (const auto& paperdoll : m_paperdolls)
                 paperdoll->draw(dest, animationPhase, m_outfit.hasMount(), true, true, color);
+
+            if (mountFrente) {
+                if (!replaceColorShader && hasMountShader())
+                    g_drawPool.setShaderProgram(g_shaders.getShaderById(m_mountShaderId), true);
+                mountFrente->draw(mountFrenteDest, 1, m_numPatternX, 0, 0, getCurrentAnimationPhase(true), color);
+            }
 
             // outfit is a creature imitating an item or the invisible effect
         } else {
