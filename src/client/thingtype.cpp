@@ -862,7 +862,12 @@ void ThingType::loadTexture(const int animationPhase)
     // we don't need layers in common items, they will be pre-drawn
     int textureLayers = 1;
     int numLayers = m_layers;
-    if (m_category == ThingCategoryCreature && numLayers >= 2) {
+    // mmo-jjk: montaria (nome "montaria_...") com 2 camadas = fundo + frente (desenhada por cima do piloto em
+    // Creature::internalDraw); a camada 1 e uma imagem normal, NAO a mascara de cor dos outfits.
+    const bool montariaComFrente = m_category == ThingCategoryCreature && numLayers >= 2 && m_name.rfind("montaria", 0) == 0;
+    if (montariaComFrente) {
+        textureLayers = numLayers;
+    } else if (m_category == ThingCategoryCreature && numLayers >= 2) {
         // 5 layers: outfit base, red mask, green mask, blue mask, yellow mask
         textureLayers = 5;
         numLayers = 5;
@@ -881,7 +886,7 @@ void ThingType::loadTexture(const int animationPhase)
         for (int y = 0; y < m_numPatternY; ++y) {
             for (int x = 0; x < m_numPatternX; ++x) {
                 for (int l = 0; l < numLayers; ++l) {
-                    const bool spriteMask = m_category == ThingCategoryCreature && l > 0;
+                    const bool spriteMask = m_category == ThingCategoryCreature && l > 0 && !montariaComFrente;
                     const int frameIndex = getTextureIndex(l % textureLayers, x, y, z);
 
                     const auto& framePos = Point(frameIndex % (textureSize.width() / m_size.width()) * m_size.width(),
