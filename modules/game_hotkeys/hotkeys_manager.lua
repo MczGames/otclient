@@ -139,6 +139,8 @@ function terminate()
         onGameEnd = offline
     })
 
+    autoSave(true)
+
     Keybind.delete("Windows", "Show/hide Hotkeys")
 
     unload()
@@ -178,6 +180,7 @@ function online()
 end
 
 function offline()
+    autoSave(true)   -- Projeto: nao perder as hotkeys ao sair do jogo (no onGameEnd o jogo ja nao esta online)
     unload()
     hide()
 end
@@ -195,6 +198,7 @@ function show()
 end
 
 function hide()
+    autoSave()
     hotkeysWindow:hide()
     if hotkeysWindowButton then
         hotkeysWindowButton:setOn(false)
@@ -206,6 +210,20 @@ function toggle()
         show()
     else
         hide()
+    end
+end
+
+-- Salva as hotkeys se o jogo esta online e a lista ja foi carregada (evita sobrescrever com lista vazia).
+function autoSave(forcar)
+    if not hotkeysManagerLoaded or (not forcar and not g_game.isOnline()) or not currentHotkeys or currentHotkeys:isDestroyed() then
+        return
+    end
+    if currentHotkeys:getChildCount() == 0 then
+        return
+    end
+    local ok_, err = pcall(save)
+    if not ok_ then
+        g_logger.warning('[game_hotkeys] falha ao salvar: ' .. tostring(err))
     end
 end
 
@@ -232,7 +250,17 @@ function load(forceDefaults)
     if perServer and not table.empty(hotkeys) then
         if G.host ~= nil then
             serverHost = string.gsub(G.host, "^https?://", "")
-            hotkeys = hotkeys[serverHost]
+            local doServidor = hotkeys[serverHost]
+            if table.empty(doServidor) then
+                -- Projeto: o endereco do servidor muda (127.0.0.1, IP da Tailscale...): usa as hotkeys do personagem em outro endereco.
+                for _, porHost in pairs(hotkeys) do
+                    if type(porHost) == 'table' and porHost[g_game.getCharacterName()] then
+                        doServidor = porHost
+                        break
+                    end
+                end
+            end
+            hotkeys = doServidor
         end
     end
     if perCharacter and not table.empty(hotkeys) then

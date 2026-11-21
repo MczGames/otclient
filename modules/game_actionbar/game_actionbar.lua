@@ -404,6 +404,7 @@ function ActionBarController:onGameStart()
 end
 
 function ActionBarController:onGameEnd()
+    ApiJson.saveData()   -- Projeto: nao perder os atalhos da barra ao sair do jogo
     isLoaded = false
     cleanupMultiActionState()
     spellGroupCooldownCache = {}
