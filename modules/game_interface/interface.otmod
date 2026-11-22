@@ -36,6 +36,7 @@ Module
     - game_market
     - game_spelllist
     - game_devitens
+    - game_passivas
     - game_cooldown
     - game_modaldialog
     - game_shaders

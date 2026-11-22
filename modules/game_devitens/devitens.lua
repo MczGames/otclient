@@ -14,8 +14,8 @@ local GRAUS = {
     { 'g2', '2o grau' }, { 'g1', '1o grau' }, { 'gesp', 'Grau especial' }, { 'comum', 'Comum' }, { 'forte', 'Forte' },
 }
 local CLASSES = {
-    { '', 'Todas as classes' }, { 'lutador', 'Lutador' }, { 'ferramentas', 'Ferramentas' }, { 'invocador', 'Invocador' },
-    { 'barreira', 'Barreira' }, { 'curandeiro', 'Curandeiro' },
+    { '', 'Todas as classes' }, { 'lutador', 'Lutador' }, { 'combate', 'Mestre das Armas' }, { 'tecnica', 'Mestre das Tecnicas' },
+    { 'controlador', 'Controlador' }, { 'suporte', 'Suporte' }, { 'restringido', 'Restringido' },
 }
 local ORDENS = {
     { 'nome', 'Ordem: nome' }, { 'id', 'Ordem: id' }, { 'atk', 'Maior ataque' }, { 'df', 'Maior defesa' },

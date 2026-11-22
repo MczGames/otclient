@@ -1,0 +1,7 @@
+Module
+  name: game_passivas
+  description: Janela de passivas (15 passivas por nivel, 2 equipadas por personagem). Servidor: lib/core/passivas.lua (opcode 121).
+  sandboxed: true
+  scripts: [ passivas ]
+  @onLoad: init()
+  @onUnload: terminate()
