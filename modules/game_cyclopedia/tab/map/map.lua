@@ -30,36 +30,33 @@ local function irParaLugar(lugar)
     end
 end
 
--- Monstros de uma area de caca ou caverna: os bichos lado a lado num quadrinho escuro, com caveira (comum) ou caveira
--- vermelha (forte) e o nome e o nivel ao passar o mouse. Clique leva ate la, como nos nomes.
+-- Monstros de uma area de caca ou caverna: um icone so, com os bichos da area juntos (o principal na frente e o outro
+-- um pouco atras); o nome e o nivel aparecem ao passar o mouse. Clique leva ate la, como nos nomes.
 local TAM_MONSTRO = 32
+local DESLOCA = 12 -- quanto o bicho de tras fica para a direita e para cima
 local function criarMonstros(lugar)
     local n = #lugar.monstros
     local caixa = g_ui.createWidget('UIWidget')
-    caixa:resize(n * TAM_MONSTRO + 4, TAM_MONSTRO + 4)
-    caixa:setBackgroundColor('#000000a0')
+    caixa:resize(TAM_MONSTRO + (n - 1) * DESLOCA + 4, TAM_MONSTRO + (n - 1) * 4 + 4)
+    caixa:setBackgroundColor('#00000090')
     caixa:setBorderWidth(1)
     caixa:setBorderColor('#7a3cc8')
     caixa:setPhantom(false)
     local linhas = {}
-    for i, m in ipairs(lugar.monstros) do
+    -- desenha de tras para a frente: o ultimo criado fica por cima
+    for i = n, 1, -1 do
+        local m = lugar.monstros[i]
         local bicho = g_ui.createWidget('UICreature', caixa)
         bicho:setOutfit({ type = m.outfit })
         bicho:setCreatureSize(TAM_MONSTRO)
         bicho:setCenter(true)
         bicho:addAnchor(AnchorTop, 'parent', AnchorTop)
         bicho:addAnchor(AnchorLeft, 'parent', AnchorLeft)
-        bicho:setMarginTop(2)
-        bicho:setMarginLeft(2 + (i - 1) * TAM_MONSTRO)
+        bicho:setMarginTop(2 + (n - i) * 4)
+        bicho:setMarginLeft(2 + (i - 1) * DESLOCA)
         bicho:setPhantom(true)
-        local caveira = g_ui.createWidget('UIWidget', caixa)
-        caveira:setImageSource(m.forte and '/images/game/skulls/skull_red' or '/images/game/skulls/skull_white')
-        caveira:resize(11, 11)
-        caveira:addAnchor(AnchorBottom, 'parent', AnchorBottom)
-        caveira:addAnchor(AnchorLeft, 'parent', AnchorLeft)
-        caveira:setMarginLeft(2 + i * TAM_MONSTRO - 12)
-        caveira:setMarginBottom(1)
-        caveira:setPhantom(true)
+    end
+    for _, m in ipairs(lugar.monstros) do
         linhas[#linhas + 1] = m.nome .. (m.forte and ' (forte)' or '')
     end
     local nivel = lugar.niveis and string.format('\nNivel %d-%d', lugar.niveis[1], lugar.niveis[2]) or ''
