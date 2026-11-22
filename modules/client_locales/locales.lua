@@ -1,7 +1,10 @@
 dofile 'neededtranslations'
 
 -- private variables
-local defaultLocaleName = 'en'
+-- MMO JJK: portugues (pt-BR) e a lingua principal; ingles e a segunda. O idioma escolhido tambem vale para os textos do
+-- servidor (o cliente manda a lingua no opcode 1 ao entrar; o comando !idioma troca as duas).
+local defaultLocaleName = 'pt'
+local LINGUAS_DO_JOGO = { pt = true, en = true }
 local installedLocales
 local currentLocale
 
@@ -23,6 +26,7 @@ function createWindow()
 
     local count = 0
     for name, locale in pairs(installedLocales) do
+        if LINGUAS_DO_JOGO[name] then
         local widget = g_ui.createWidget('LocalesButton', localesPanel)
         widget:setImageSource('/images/flags/' .. name .. '')
         widget:setText(locale.languageName)
@@ -30,6 +34,7 @@ function createWindow()
             selectFirstLocale(name)
         end
         count = count + 1
+        end
     end
 
     count = math.max(1, math.min(count, 3))
