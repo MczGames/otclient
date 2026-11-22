@@ -499,7 +499,7 @@ UIWidget
       cross: true
       color: black
       zoom: 1
-      min-zoom: -1
+      min-zoom: -3
       max-zoom: 5
 
 

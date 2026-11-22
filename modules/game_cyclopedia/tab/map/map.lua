@@ -7,6 +7,88 @@ local loadedFloorSet = {} -- floors already indexed for loadedAssetsDir
 -- Forward declaration — defined later in the file.
 local refreshVirtualFloors
 
+-- FusionTsu: nomes do mapa-mundi (cidades, bairros, areas de caca, cavernas) e o marcador seguindo o personagem.
+-- Os nomes vem de /data/mundo_lugares.json (gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo).
+local LUGARES_ARQ = '/data/mundo_lugares.json'
+local DISTANCIA_ANDAR = 250 -- igual ao limite do UIMinimap para o "andar ate la"
+local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a' }
+local seguirEvento = nil
+local ultimaPos = nil
+
+-- Clique num nome: perto, o personagem anda ate la; longe, usa o comando de teste !mundo (teleporte, so desenvolvimento).
+local function irParaLugar(lugar)
+    local player = g_game.getLocalPlayer()
+    if not player then
+        return
+    end
+    local alvo = { x = lugar.x, y = lugar.y, z = lugar.z }
+    local pos = player:getPosition()
+    if pos and pos.z == alvo.z and Position.distance(pos, alvo) <= DISTANCIA_ANDAR then
+        player:autoWalk(alvo)
+    elseif lugar.ir then
+        g_game.talk('!mundo ' .. lugar.ir)
+    end
+end
+
+local function criarNomesDoMundo(minimapWidget)
+    if minimapWidget.nomesDoMundo or not g_resources.fileExists(LUGARES_ARQ) then
+        return
+    end
+    local ok, dados = pcall(function()
+        return json.decode(g_resources.readFileContents(LUGARES_ARQ))
+    end)
+    if not ok or type(dados) ~= 'table' or type(dados.lugares) ~= 'table' then
+        g_logger.warning('[cyclopedia] nao foi possivel ler ' .. LUGARES_ARQ)
+        return
+    end
+    minimapWidget.nomesDoMundo = true
+    for _, lugar in ipairs(dados.lugares) do
+        local rotulo = g_ui.createWidget('UILabel')
+        rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-bold-8px-antialiased')
+        rotulo:setText(lugar.nome)
+        rotulo:setColor(CORES_LUGAR[lugar.tipo] or '#ffffff')
+        rotulo:setBackgroundColor('#000000aa')
+        rotulo:setTextAutoResize(true)
+        rotulo:setPhantom(false)
+        rotulo:setTooltip(lugar.nome .. ' (clique para ir)')
+        rotulo.onMouseRelease = function(widget, mousePos, button)
+            if button == MouseLeftButton then
+                irParaLugar(lugar)
+                return true
+            end
+            return false
+        end
+        minimapWidget:addAlternativeWidget(rotulo, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+    end
+    minimapWidget:setAlternativeWidgetsVisible(true)
+    minimapWidget:onZoomChange(minimapWidget:getZoom())
+end
+
+-- O marcador do personagem acompanha o boneco: confere a posicao 4 vezes por segundo enquanto o mapa estiver aberto.
+local function seguirJogador()
+    if not UI or UI:isDestroyed() then
+        if seguirEvento then
+            removeEvent(seguirEvento)
+            seguirEvento = nil
+        end
+        return
+    end
+    local player = g_game.getLocalPlayer()
+    local pos = player and player:getPosition()
+    if not pos then
+        return
+    end
+    if ultimaPos and ultimaPos.x == pos.x and ultimaPos.y == pos.y and ultimaPos.z == pos.z then
+        return
+    end
+    ultimaPos = { x = pos.x, y = pos.y, z = pos.z }
+    local minimapWidget = UI.MapBase.minimap
+    if not minimapWidget:isDragging() then
+        minimapWidget:setCameraPosition({ x = pos.x, y = pos.y, z = pos.z })
+    end
+    minimapWidget:setCrossPosition({ x = pos.x, y = pos.y, z = pos.z })
+end
+
 -- Surface View is only available for floors 0-7 (surface and above).
 -- Underground floors (8-15) always use Map View.
 local SEA_FLOOR = 7
@@ -84,6 +166,13 @@ function showMap()
     }):execute()
 
     Cyclopedia.loadMap()
+
+    ultimaPos = nil
+    if seguirEvento then
+        removeEvent(seguirEvento)
+    end
+    seguirEvento = cycleEvent(seguirJogador, 250)
+    seguirJogador()
 
     controllerCyclopedia.ui.CharmsBase:setVisible(false)
     controllerCyclopedia.ui.GoldBase:setVisible(true)
@@ -199,6 +288,8 @@ function Cyclopedia.loadMap()
         local btn = markList:getChildById(tostring(flag.icon))
         flag:setVisible(btn ~= nil and btn:isChecked())
     end
+
+    criarNomesDoMundo(minimapWidget)
 
     refreshVirtualFloors()
 end
