@@ -167,19 +167,31 @@ local function formatGold(value)
     return tostring(value)
 end
 
+-- 1920 -> "1.920" (o valor inteiro, com ponto de milhar)
+local function goldCompleto(value)
+    local s = tostring(math.floor(value or 0))
+    local r = s:reverse():gsub('(%d%d%d)', '%1.'):reverse()
+    return (r:gsub('^%.', ''))
+end
+
 local function setGold(value)
-    local ui = getInventoryUi()
-    if not ui then
+    if not inventoryController.ui then
         return
     end
     local text = formatGold(value)
-    local tip = tostring(math.floor(value or 0)) .. ' ' .. tr('Gold')
-    if ui.soulPanel and ui.soulPanel.soul then
-        ui.soulPanel.soul:setText(text)
-        ui.soulPanel:setTooltip(tip)
-    end
-    if ui.soulAndCapacity and ui.soulAndCapacity.soul then
-        ui.soulAndCapacity.soul:setText(text)
+    local tip = goldCompleto(value) .. ' ' .. tr('Gold')
+    -- os dois paineis (aberto e minimizado), para o valor nao ficar velho ao trocar
+    for _, ui in ipairs({ inventoryController.ui.onPanel, inventoryController.ui.offPanel }) do
+        if ui.goldBar and ui.goldBar.gold then
+            ui.goldBar.gold:setText(goldCompleto(value))
+        end
+        if ui.soulPanel and ui.soulPanel.soul then
+            ui.soulPanel.soul:setText(text)
+            ui.soulPanel:setTooltip(tip)
+        end
+        if ui.soulAndCapacity and ui.soulAndCapacity.soul then
+            ui.soulAndCapacity.soul:setText(text)
+        end
     end
 end
 

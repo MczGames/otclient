@@ -70,6 +70,60 @@ local function setupUIButtons()
     end
 end
 
+-- Bonus (opcode estendido 122): o servidor manda o titulo e uma linha "nome<TAB>valor" por bonus (lib/core/bonus_janela.lua).
+-- A janela pede de novo a cada 3 s enquanto esta aberta.
+local OPCODE_BONUS = 122
+local bonusEvento = nil
+
+local function pedirBonus()
+    if not g_game.isOnline() or not skillsWindow or not skillsWindow:isVisible() then
+        return
+    end
+    local protocol = g_game.getProtocolGame()
+    if protocol then
+        protocol:sendExtendedOpcode(OPCODE_BONUS, 'pedir')
+    end
+end
+
+local function receberBonus(protocol, opcode, buffer)
+    if not skillsWindow then
+        return
+    end
+    local painel = skillsWindow:recursiveGetChildById('bonusPanel')
+    local titulo = skillsWindow:recursiveGetChildById('bonusTitulo')
+    local separador = skillsWindow:recursiveGetChildById('separadorBonus')
+    if not painel then
+        return
+    end
+    painel:destroyChildren()
+    local primeira = true
+    for linha in buffer:gmatch('[^\n]+') do
+        if primeira then
+            if titulo then
+                titulo:setText(linha)
+            end
+            primeira = false
+        else
+            local nome, valor = linha:match('^(.-)\t(.*)$')
+            if nome then
+                local w = g_ui.createWidget('BonusLinha', painel)
+                w:getChildById('nome'):setText(nome)
+                w:getChildById('valor'):setText(valor)
+                if valor:sub(1, 1) == '-' then
+                    w:getChildById('valor'):setColor('#ff5555')
+                end
+            end
+        end
+    end
+    local tem = painel:getChildCount() > 0
+    if titulo then
+        titulo:setVisible(tem)
+    end
+    if separador then
+        separador:setVisible(tem)
+    end
+end
+
 function skillController:onInit()
     skillController:registerEvents(LocalPlayer, {
         onExperienceChange = onExperienceChange,
@@ -122,9 +176,15 @@ function skillController:onInit()
 
     setupUIButtons()
     skillsWindow:setup()
+    ProtocolGame.registerExtendedOpcode(OPCODE_BONUS, receberBonus)
 end
 
 function skillController:onTerminate()
+    ProtocolGame.unregisterExtendedOpcode(OPCODE_BONUS)
+    if bonusEvento then
+        removeEvent(bonusEvento)
+        bonusEvento = nil
+    end
     Keybind.delete("Windows", "Show/hide skills windows")
     skillsWindow:destroy()
     skillsButton:destroy()
@@ -779,6 +839,11 @@ end
 function skillController:onGameStart()
     skillsWindow:setupOnStart()
     refresh()
+    if bonusEvento then
+        removeEvent(bonusEvento)
+    end
+    bonusEvento = cycleEvent(pedirBonus, 3000)
+    scheduleEvent(pedirBonus, 500)
 
     local newWindowButton = skillsWindow:recursiveGetChildById('newWindowButton')
     if g_game.getClientVersion() < 1310 and newWindowButton then
@@ -943,6 +1008,10 @@ local function resetTable(t)
 end
 
 function skillController:onGameEnd()
+    if bonusEvento then
+        removeEvent(bonusEvento)
+        bonusEvento = nil
+    end
     skillsWindow:setParent(nil, true)
     if expSpeedEvent then
         expSpeedEvent:cancel()

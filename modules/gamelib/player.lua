@@ -485,7 +485,7 @@ ConditionIcons = {
         visibleBar = true,
         tooltipBar = tr('You are hungry'),
         tooltip = tr(
-            "Characters who are hungry do not regenerate mana or health. To\nfill up your character's stomach, look for something edible, such as\nan apple, bread, or ham. There are plenty of things in RubinOT that\nyour character can eat. Check out stores, search bushes, bake your\nown bread or cake, or defeat creatures to find some delicacies."
+            "Com fome, o personagem n\227o regenera vida nem energia.\nComa algo: o Comerciante vende marmita, onigiri, lanche,\nch\225 gelado e bebida energ\233tica."
         )
     },
     -- Hidden entries for specific states not in top 35
