@@ -59,7 +59,15 @@ void Missile::draw(const Point& dest, const bool drawThings, LightView* lightVie
     if (drawThings && hasShader())
         g_drawPool.setShaderProgram(g_shaders.getShaderById(m_shaderId), true/*, shaderAction*/);
 
-    thingType->draw(dest + m_delta * fraction * g_drawPool.getScaleFactor(), 0, m_numPatternX, m_numPatternY, 0, 0, Color::white, drawThings, lightView);
+    // Projeto JJK: projeteis "efx:" com brilho aditivo e/ou sprite maior que o tile centralizado (ver ThingType::isEfeitoCentro)
+    if (drawThings && thingType->isEfeitoAditivo())
+        g_drawPool.setCompositionMode(CompositionMode::ADITIVO, true);
+    Point destino = dest + m_delta * fraction * g_drawPool.getScaleFactor();
+    if (thingType->isEfeitoCentro()) {
+        const int meio = g_gameConfig.getSpriteSize() / 2;
+        destino += Point((thingType->getWidth() - 1) * meio, (thingType->getHeight() - 1) * meio) * g_drawPool.getScaleFactor();
+    }
+    thingType->draw(destino, 0, m_numPatternX, m_numPatternY, 0, 0, Color::white, drawThings, lightView);
     g_drawPool.resetDrawOrder();
 }
 

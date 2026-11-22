@@ -688,7 +688,7 @@ function setupButtonTooltip(button, isEmpty)
         local specialAction = getActionBarSpecialAction(cache.specialAction)
         actionDesc = specialAction and specialAction.text or "Unknown action"
     elseif cache.actionType == UseTypes["passiveAbility"] then
-        actionDesc = "Gift of Life"
+        actionDesc = "Passivas"
     else
         actionDesc = UseTypesTip[cache.actionType]
         if actionDesc == nil then

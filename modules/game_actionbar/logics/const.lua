@@ -115,7 +115,7 @@ UseTypesTip = {
 
 PassiveAbilities = {
     [1] = {
-        name = "Gift of Life",
+        name = "Passivas", -- projeto JJK: atalho para a janela de passivas (Ctrl+Shift+P)
         exhaustion = 60 * 60 * 30 * 1000, --ms
         type = 'Passive',
         icon = '/images/game/spells/passiveability-icons-32x32'
