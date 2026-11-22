@@ -32,13 +32,6 @@ SpelllistSettings = {
 -- check "/docs/generate_spell_data.py"
 -- spells from canary
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
--- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 SpellInfo = {
     Default = {
         ["Arremesso Certeiro"] = {id = 9002, name = "Arremesso Certeiro", words = "tecn2", type = 'Instant', level = 1, mana = 25, soul = 0, maglevel = 0, icon = '', clientId = 55, group = {[1] = 3000}, needTarget = false, parameter = false, range = -1, exhaustion = 3000, premium = false, vocations = {2}, special = false, source = 0, description = "Técnica inata da classe."},
@@ -437,4 +430,70 @@ function Spells.getImageClipCooldown(indexClip, profile)
         profile = "Default"
     end
     return indexClip * SpelllistSettings[profile].iconSizeCooldown.width .. " 0 " .. SpelllistSettings[profile].iconSizeCooldown.width .. " " .. SpelllistSettings[profile].iconSizeCooldown.height
+end
+
+-- MMO JJK (gerado): buscas por classe. As classes repetem as palavras e o id das tecnicas (t1-t8);
+-- toda busca por palavra ou id prefere a magia da classe do jogador (senao, a primeira encontrada).
+local function vocacaoDoJogador()
+    local p = g_game and g_game.getLocalPlayer and g_game.getLocalPlayer()
+    return p and p:getVocation() or -1
+end
+
+local function buscarMagia(teste)
+    local voc = vocacaoDoJogador()
+    local achada, perfil, chave
+    for profile, data in pairs(SpellInfo) do
+        for k, spell in pairs(data) do
+            if teste(spell) then
+                if table.find(spell.vocations, voc) then
+                    return spell, profile, k
+                end
+                if not achada then
+                    achada, perfil, chave = spell, profile, k
+                end
+            end
+        end
+    end
+    return achada, perfil, chave
+end
+
+function Spells.getSpellByWords(words)
+    words = words:lower():trim()
+    return buscarMagia(function(s) return s.words == words end)
+end
+
+function Spells.getSpellDataByWords(words)
+    return (buscarMagia(function(s) return s.words == words end))
+end
+
+function Spells.getSpellProfileByWords(words)
+    local _, perfil = buscarMagia(function(s) return s.words == words end)
+    return perfil
+end
+
+function Spells.getSpellNameByWords(words)
+    local _, _, chave = buscarMagia(function(s) return s.words == words end)
+    return chave
+end
+
+function Spells.getSpellDataById(id)
+    return (buscarMagia(function(s) return s.id == id end))
+end
+
+function Spells.getSpellProfileById(id)
+    local _, perfil = buscarMagia(function(s) return s.id == id end)
+    return perfil
+end
+
+function Spells.getSpellByIcon(id)
+    return buscarMagia(function(s) return s.id == id end)
+end
+
+local porPalavrasOriginal = Spells.getSpellDataByParamWords
+function Spells.getSpellDataByParamWords(words)
+    local spell, param = porPalavrasOriginal(words)
+    if spell then
+        spell = buscarMagia(function(s) return s.words == spell.words end) or spell
+    end
+    return spell, param
 end
