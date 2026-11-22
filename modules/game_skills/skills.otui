@@ -259,7 +259,6 @@ MiniWindow
 
     SkillButton
       id: skillId4
-      visible: false
       SkillNameLabel
         !text: tr('Distance Fighting')
       SkillValueLabel
