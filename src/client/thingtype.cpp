@@ -57,6 +57,10 @@ void ThingType::unserializeAppearance(const uint16_t clientId, const ThingCatego
     m_id = clientId;
     m_category = category;
     m_name = appearance.name();
+    if (m_name.rfind("efx:", 0) == 0) {
+        m_efeitoAditivo = m_name.find("aditivo") != std::string::npos;
+        m_efeitoCentro = m_name.find("centro") != std::string::npos;
+    }
     m_description = appearance.description();
 
     applyAppearanceFlags(appearance.flags());
