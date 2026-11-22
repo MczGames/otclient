@@ -722,6 +722,30 @@
    "ir": "chichibu"
   },
   {
+   "x": 836,
+   "y": 1140,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "chichibu",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    },
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Alpes Japoneses (100-160)",
    "x": 893,
    "y": 1085,
@@ -729,6 +753,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "alpes"
+  },
+  {
+   "x": 884,
+   "y": 1076,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "alpes",
+   "niveis": [
+    100,
+    160
+   ],
+   "monstros": [
+    {
+     "nome": "Golem de Avalanche",
+     "outfit": 64,
+     "forte": false
+    },
+    {
+     "nome": "Aguia de Pedra",
+     "outfit": 65,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Monte Fuji (120-180)",
@@ -740,6 +788,30 @@
    "ir": "fuji"
   },
   {
+   "x": 900,
+   "y": 1180,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "fuji",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    },
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Miyajima (120-180)",
    "x": 373,
    "y": 1333,
@@ -747,6 +819,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "miyajima"
+  },
+  {
+   "x": 372,
+   "y": 1332,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "miyajima",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    },
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Ilha distante (250-300)",
@@ -758,6 +854,30 @@
    "ir": "ilha_distante"
   },
   {
+   "x": 1604,
+   "y": 964,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "ilha_distante",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    },
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Ilha vulcanica (250-300)",
    "x": 1537,
    "y": 1528,
@@ -765,6 +885,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "ilha_vulcanica"
+  },
+  {
+   "x": 1524,
+   "y": 1524,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "ilha_vulcanica",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Dragao de Cinzas",
+     "outfit": 86,
+     "forte": false
+    },
+    {
+     "nome": "Maldicao Primordial",
+     "outfit": 87,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Biwa e templos (55-100)",
@@ -776,6 +920,30 @@
    "ir": "biwa_templos"
   },
   {
+   "x": 764,
+   "y": 1204,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "biwa_templos",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Espirito de Lanterna",
+     "outfit": 60,
+     "forte": false
+    },
+    {
+     "nome": "Monge Sem Rosto",
+     "outfit": 61,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Kyushu (150-230)",
    "x": 192,
    "y": 1495,
@@ -783,6 +951,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "kyushu"
+  },
+  {
+   "x": 180,
+   "y": 1492,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "kyushu",
+   "niveis": [
+    150,
+    230
+   ],
+   "monstros": [
+    {
+     "nome": "Bambu Gigante",
+     "outfit": 76,
+     "forte": false
+    },
+    {
+     "nome": "Kappa Sombrio",
+     "outfit": 77,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Distrito industrial (30-60)",
@@ -794,6 +986,30 @@
    "ir": "distrito_industrial"
   },
   {
+   "x": 780,
+   "y": 1292,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "distrito_industrial",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    },
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Florestas de Nara (55-100)",
    "x": 762,
    "y": 1371,
@@ -801,6 +1017,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "florestas_nara"
+  },
+  {
+   "x": 780,
+   "y": 1380,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "florestas_nara",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Corrompido",
+     "outfit": 62,
+     "forte": false
+    },
+    {
+     "nome": "Fera de Musgo",
+     "outfit": 63,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Recifes de Okinawa (180-250)",
@@ -812,6 +1052,30 @@
    "ir": "recifes_okinawa"
   },
   {
+   "x": 196,
+   "y": 1628,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "recifes_okinawa",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    },
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Osaka urbano (40-80)",
    "x": 637,
    "y": 1268,
@@ -819,6 +1083,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "osaka_urbano"
+  },
+  {
+   "x": 628,
+   "y": 1268,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "osaka_urbano",
+   "niveis": [
+    40,
+    80
+   ],
+   "monstros": [
+    {
+     "nome": "Maquina de Venda Viva",
+     "outfit": 56,
+     "forte": false
+    },
+    {
+     "nome": "Letreiro de Neon Vivo",
+     "outfit": 57,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Neve de Sapporo (150-220)",
@@ -830,6 +1118,30 @@
    "ir": "neve_sapporo"
   },
   {
+   "x": 1252,
+   "y": 356,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "neve_sapporo",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    },
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Vulcoes de Hokkaido (180-240)",
    "x": 1171,
    "y": 199,
@@ -837,6 +1149,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "vulcoes_hokkaido"
+  },
+  {
+   "x": 1204,
+   "y": 196,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "vulcoes_hokkaido",
+   "niveis": [
+    180,
+    240
+   ],
+   "monstros": [
+    {
+     "nome": "Fumarola Viva",
+     "outfit": 82,
+     "forte": false
+    },
+    {
+     "nome": "Gigante de Lava",
+     "outfit": 83,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Arredores de Sendai (100-150)",
@@ -848,6 +1184,30 @@
    "ir": "sendai_caca"
   },
   {
+   "x": 1132,
+   "y": 780,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "sendai_caca",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    },
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Shikoku (100-160)",
    "x": 554,
    "y": 1478,
@@ -855,6 +1215,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "shikoku"
+  },
+  {
+   "x": 516,
+   "y": 1476,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "shikoku",
+   "niveis": [
+    100,
+    160
+   ],
+   "monstros": [
+    {
+     "nome": "Peregrino Perdido",
+     "outfit": 70,
+     "forte": false
+    },
+    {
+     "nome": "Tanuki Sombrio",
+     "outfit": 71,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Florestas de Tohoku (100-150)",
@@ -866,6 +1250,30 @@
    "ir": "florestas_tohoku"
   },
   {
+   "x": 1204,
+   "y": 644,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "florestas_tohoku",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    },
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Planicie de Kanto (1-30)",
    "x": 1099,
    "y": 894,
@@ -875,6 +1283,30 @@
    "ir": "planicie_kanto"
   },
   {
+   "x": 1124,
+   "y": 892,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "planicie_kanto",
+   "niveis": [
+    1,
+    30
+   ],
+   "monstros": [
+    {
+     "nome": "Espantalho Amaldicoado",
+     "outfit": 50,
+     "forte": false
+    },
+    {
+     "nome": "Rato do Campo Sombrio",
+     "outfit": 51,
+     "forte": true
+    }
+   ]
+  },
+  {
    "nome": "Baia de Yokohama (15-40)",
    "x": 1014,
    "y": 1321,
@@ -882,6 +1314,30 @@
    "tipo": "caca",
    "zoom": -1,
    "ir": "baia_yokohama"
+  },
+  {
+   "x": 996,
+   "y": 1348,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "baia_yokohama",
+   "niveis": [
+    15,
+    40
+   ],
+   "monstros": [
+    {
+     "nome": "Gaivota Sombria",
+     "outfit": 52,
+     "forte": false
+    },
+    {
+     "nome": "Caranguejo do Cais",
+     "outfit": 53,
+     "forte": true
+    }
+   ]
   },
   {
    "nome": "Estacao de trem Toquio",
@@ -1046,6 +1502,54 @@
    "ir": "caverna_chubu_1"
   },
   {
+   "x": 838,
+   "y": 1121,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_chubu_1",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    },
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 836,
+   "y": 1130,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_chubu_1",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    },
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Chubu e Monte Fuji)",
    "x": 852,
    "y": 1190,
@@ -1053,6 +1557,54 @@
    "tipo": "caverna",
    "zoom": 0,
    "ir": "caverna_chubu_2"
+  },
+  {
+   "x": 854,
+   "y": 1185,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_chubu_2",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 852,
+   "y": 1194,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_chubu_2",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
   },
   {
    "nome": "Caverna (Hiroshima)",
@@ -1064,6 +1616,54 @@
    "ir": "caverna_hiroshima_1"
   },
   {
+   "x": 373,
+   "y": 1437,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_hiroshima_1",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    },
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 372,
+   "y": 1450,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_hiroshima_1",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    },
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Ilhas distantes)",
    "x": 1572,
    "y": 950,
@@ -1071,6 +1671,54 @@
    "tipo": "caverna",
    "zoom": 0,
    "ir": "caverna_ilhas_distantes_1"
+  },
+  {
+   "x": 1570,
+   "y": 947,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_ilhas_distantes_1",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    },
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1572,
+   "y": 954,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_ilhas_distantes_1",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    },
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    }
+   ]
   },
   {
    "nome": "Caverna (Nara)",
@@ -1082,6 +1730,54 @@
    "ir": "caverna_nara_1"
   },
   {
+   "x": 781,
+   "y": 1313,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_nara_1",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 780,
+   "y": 1322,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_nara_1",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Okinawa)",
    "x": 196,
    "y": 1686,
@@ -1089,6 +1785,54 @@
    "tipo": "caverna",
    "zoom": 0,
    "ir": "caverna_okinawa_1"
+  },
+  {
+   "x": 186,
+   "y": 1679,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_okinawa_1",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 196,
+   "y": 1690,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_okinawa_1",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    }
+   ]
   },
   {
    "nome": "Caverna (Hokkaido)",
@@ -1100,6 +1844,54 @@
    "ir": "caverna_sapporo_1"
   },
   {
+   "x": 1281,
+   "y": 320,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_sapporo_1",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    },
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1284,
+   "y": 330,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_sapporo_1",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    },
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Sendai)",
    "x": 1204,
    "y": 806,
@@ -1109,6 +1901,54 @@
    "ir": "caverna_sendai_1"
   },
   {
+   "x": 1202,
+   "y": 802,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_sendai_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    },
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1204,
+   "y": 810,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_sendai_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    },
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Tohoku)",
    "x": 1204,
    "y": 566,
@@ -1116,6 +1956,54 @@
    "tipo": "caverna",
    "zoom": 0,
    "ir": "caverna_tohoku_1"
+  },
+  {
+   "x": 1199,
+   "y": 566,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_tohoku_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    },
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1204,
+   "y": 570,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_tohoku_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    },
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    }
+   ]
   }
  ]
 }

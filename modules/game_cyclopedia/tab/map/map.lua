@@ -30,6 +30,56 @@ local function irParaLugar(lugar)
     end
 end
 
+-- Monstros de uma area de caca ou caverna: os bichos lado a lado num quadrinho escuro, com caveira (comum) ou caveira
+-- vermelha (forte) e o nome e o nivel ao passar o mouse. Clique leva ate la, como nos nomes.
+local TAM_MONSTRO = 32
+local function criarMonstros(lugar)
+    local n = #lugar.monstros
+    local caixa = g_ui.createWidget('UIWidget')
+    caixa:resize(n * TAM_MONSTRO + 4, TAM_MONSTRO + 4)
+    caixa:setBackgroundColor('#000000a0')
+    caixa:setBorderWidth(1)
+    caixa:setBorderColor('#7a3cc8')
+    caixa:setPhantom(false)
+    local linhas = {}
+    for i, m in ipairs(lugar.monstros) do
+        local bicho = g_ui.createWidget('UICreature', caixa)
+        bicho:setOutfit({ type = m.outfit })
+        bicho:setCreatureSize(TAM_MONSTRO)
+        bicho:setCenter(true)
+        bicho:addAnchor(AnchorTop, 'parent', AnchorTop)
+        bicho:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+        bicho:setMarginTop(2)
+        bicho:setMarginLeft(2 + (i - 1) * TAM_MONSTRO)
+        bicho:setPhantom(true)
+        local caveira = g_ui.createWidget('UIWidget', caixa)
+        caveira:setImageSource(m.forte and '/images/game/skulls/skull_red' or '/images/game/skulls/skull_white')
+        caveira:resize(11, 11)
+        caveira:addAnchor(AnchorBottom, 'parent', AnchorBottom)
+        caveira:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+        caveira:setMarginLeft(2 + i * TAM_MONSTRO - 12)
+        caveira:setMarginBottom(1)
+        caveira:setPhantom(true)
+        linhas[#linhas + 1] = m.nome .. (m.forte and ' (forte)' or '')
+    end
+    local nivel = lugar.niveis and string.format('\nNivel %d-%d', lugar.niveis[1], lugar.niveis[2]) or ''
+    caixa:setTooltip(table.concat(linhas, '\n') .. nivel .. '\n(clique para ir)')
+    return caixa
+end
+
+-- Os monstros so aparecem no andar em que estao (os das cavernas no andar 8); os nomes valem para todos os andares.
+local function filtrarAndar(minimapWidget)
+    local cam = minimapWidget:getCameraPosition()
+    if not cam then
+        return
+    end
+    for _, w in pairs(minimapWidget.alternatives or {}) do
+        if w.andar and w.andar ~= cam.z then
+            w:hide()
+        end
+    end
+end
+
 local function criarNomesDoMundo(minimapWidget)
     if minimapWidget.nomesDoMundo or not g_resources.fileExists(LUGARES_ARQ) then
         return
@@ -43,6 +93,18 @@ local function criarNomesDoMundo(minimapWidget)
     end
     minimapWidget.nomesDoMundo = true
     for _, lugar in ipairs(dados.lugares) do
+        if lugar.tipo == 'monstros' and type(lugar.monstros) == 'table' then
+            local caixa = criarMonstros(lugar)
+            caixa.andar = lugar.z
+            caixa.onMouseRelease = function(widget, mousePos, button)
+                if button == MouseLeftButton then
+                    irParaLugar(lugar)
+                    return true
+                end
+                return false
+            end
+            minimapWidget:addAlternativeWidget(caixa, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+        else
         local rotulo = g_ui.createWidget('UILabel')
         rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-bold-8px-antialiased')
         rotulo:setText(lugar.nome)
@@ -59,6 +121,20 @@ local function criarNomesDoMundo(minimapWidget)
             return false
         end
         minimapWidget:addAlternativeWidget(rotulo, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+        end
+    end
+    -- depois do zoom e da troca de andar, esconde os monstros de outro andar
+    local zoomOriginal = minimapWidget.onZoomChange
+    minimapWidget.onZoomChange = function(self, ...)
+        zoomOriginal(self, ...)
+        filtrarAndar(self)
+    end
+    local cameraOriginal = minimapWidget.onCameraPositionChange
+    minimapWidget.onCameraPositionChange = function(self, ...)
+        if cameraOriginal then
+            cameraOriginal(self, ...)
+        end
+        self:onZoomChange(self:getZoom())
     end
     minimapWidget:setAlternativeWidgetsVisible(true)
     minimapWidget:onZoomChange(minimapWidget:getZoom())
