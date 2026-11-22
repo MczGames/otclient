@@ -38,6 +38,7 @@ SpelllistSettings = {
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 -- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
+-- GERADO por tools/assets/gerar_spells_cliente.py (nao editar a mao): magias do projeto, sem dados do Tibia.
 SpellInfo = {
     Default = {
         ["Arremesso Certeiro"] = {id = 9002, name = "Arremesso Certeiro", words = "tecn2", type = 'Instant', level = 1, mana = 25, soul = 0, maglevel = 0, icon = '', clientId = 55, group = {[1] = 3000}, needTarget = false, parameter = false, range = -1, exhaustion = 3000, premium = false, vocations = {2}, special = false, source = 0, description = "Técnica inata da classe."},
