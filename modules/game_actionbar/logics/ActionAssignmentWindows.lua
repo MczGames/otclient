@@ -43,7 +43,7 @@ function assignSpell(button, multiSlotIndex)
     local paramLabel = ActionBarController:findWidget("#paramLabel")
     local paramText = ActionBarController:findWidget("#paramText")
     ActionBarController:findWidget("#dev"):setVisible(dev)
-    local playerVocation = translateVocation(player:getVocation())
+    local playerVocation = vocacaoParaMagia(player:getVocation())
     local playerLevel = player:getLevel()
     local spells = modules.gamelib.SpellInfo['Default']
     local defaultIconsFolder = SpelllistSettings['Default'].iconFile

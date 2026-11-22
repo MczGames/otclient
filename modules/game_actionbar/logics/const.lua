@@ -60,6 +60,13 @@ HotkeyShortcuts = {
     ["MouseDown"] = "MDown"
 }
 
+-- FusionTsu: as classes (1 lutador .. 5 curandeiro) usam o mesmo id no servidor, no cliente e no
+-- modules/gamelib/spells.lua (gerado por tools/assets/gerar_spells_cliente.py). A conversao do Tibia
+-- (Knight -> Elite Knight = 8 ...) deixava toda magia "sem permissao" (icone escuro) e trocava as listas de magia.
+function vocacaoParaMagia(id)
+    return id or 0
+end
+
 function translateVocation(id)
     if id == VocationsClient.Knight or id == VocationsClient.EliteKnight then
         return VocationsServer.EliteKnight -- Elite Knight

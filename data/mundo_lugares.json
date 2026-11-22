@@ -1,0 +1,2009 @@
+{
+ "_aviso": "GERADO por tools/mundo/gerar_minimapa.py. Nao edite a mao.",
+ "lugares": [
+  {
+   "nome": "Toquio",
+   "x": 1064,
+   "y": 1064,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Parque do Santuario",
+   "x": 1095,
+   "y": 968,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Plantacoes",
+   "x": 977,
+   "y": 1060,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Bairro residencial",
+   "x": 1096,
+   "y": 1227,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Shibuya",
+   "x": 1230,
+   "y": 1030,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Porto da Baia",
+   "x": 1237,
+   "y": 1150,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Centro (bloco atual)",
+   "x": 1096,
+   "y": 1096,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao Norte",
+   "x": 1101,
+   "y": 987,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao Oeste",
+   "x": 963,
+   "y": 1121,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Niigata",
+   "x": 1015,
+   "y": 919,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Arrozais de Niigata",
+   "x": 1046,
+   "y": 877,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Porto de Niigata",
+   "x": 1008,
+   "y": 892,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Santuario Hakusan",
+   "x": 1015,
+   "y": 925,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Kanazawa",
+   "x": 887,
+   "y": 915,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Jardim Kenroku-en",
+   "x": 880,
+   "y": 870,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Castelo de Kanazawa",
+   "x": 918,
+   "y": 869,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Santuario Oyama",
+   "x": 887,
+   "y": 921,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Hiroshima",
+   "x": 305,
+   "y": 1465,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Parque da Paz e a Cupula",
+   "x": 279,
+   "y": 1408,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Castelo de Hiroshima",
+   "x": 343,
+   "y": 1409,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Santuario de Hiroshima",
+   "x": 305,
+   "y": 1471,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Porto de Ujina",
+   "x": 343,
+   "y": 1483,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Kyoto",
+   "x": 695,
+   "y": 1309,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Bambuzal de Arashiyama",
+   "x": 688,
+   "y": 1254,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Pavilhao Dourado",
+   "x": 726,
+   "y": 1254,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Gion e Santuario Yasaka",
+   "x": 695,
+   "y": 1315,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Fushimi Inari (caminho dos torii)",
+   "x": 726,
+   "y": 1327,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Fukuoka",
+   "x": 183,
+   "y": 1367,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Parque Ohori",
+   "x": 174,
+   "y": 1322,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Santuario Kushida",
+   "x": 183,
+   "y": 1373,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Porto de Hakata",
+   "x": 216,
+   "y": 1338,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Kagoshima",
+   "x": 83,
+   "y": 1591,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Mirante de Sakurajima",
+   "x": 125,
+   "y": 1601,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Jardim Sengan-en",
+   "x": 116,
+   "y": 1546,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Santuario Terukuni",
+   "x": 83,
+   "y": 1597,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Porto de Kagoshima",
+   "x": 74,
+   "y": 1562,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Nagoya",
+   "x": 829,
+   "y": 1248,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Castelo de Nagoya",
+   "x": 844,
+   "y": 1215,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Praca Sakae",
+   "x": 829,
+   "y": 1243,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Parque Hisaya",
+   "x": 859,
+   "y": 1242,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Rua Comercial Osu",
+   "x": 859,
+   "y": 1256,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Estacao de Nagoya",
+   "x": 829,
+   "y": 1276,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Fabricas",
+   "x": 859,
+   "y": 1276,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Nara",
+   "x": 693,
+   "y": 1393,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "nara"
+  },
+  {
+   "nome": "Parque de Nara",
+   "x": 688,
+   "y": 1358,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nara"
+  },
+  {
+   "nome": "Grande Templo (Todai-ji)",
+   "x": 722,
+   "y": 1357,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nara"
+  },
+  {
+   "nome": "Santuario Kasuga",
+   "x": 693,
+   "y": 1399,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "nara"
+  },
+  {
+   "nome": "Okinawa",
+   "x": 183,
+   "y": 1699,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "okinawa"
+  },
+  {
+   "nome": "Castelo Shuri e Santuario",
+   "x": 183,
+   "y": 1693,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "okinawa"
+  },
+  {
+   "nome": "Porto de Naha",
+   "x": 208,
+   "y": 1718,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "okinawa"
+  },
+  {
+   "nome": "Osaka",
+   "x": 629,
+   "y": 1369,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Estacao Umeda",
+   "x": 591,
+   "y": 1354,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Castelo de Osaka",
+   "x": 643,
+   "y": 1313,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Canal Dotonbori",
+   "x": 591,
+   "y": 1385,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Shinsekai e Santuario",
+   "x": 629,
+   "y": 1375,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Sapporo",
+   "x": 1303,
+   "y": 273,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "sapporo"
+  },
+  {
+   "nome": "Parque Odori",
+   "x": 1339,
+   "y": 270,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sapporo"
+  },
+  {
+   "nome": "Santuario de Hokkaido",
+   "x": 1303,
+   "y": 279,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sapporo"
+  },
+  {
+   "nome": "Porto de Sapporo",
+   "x": 1291,
+   "y": 251,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sapporo"
+  },
+  {
+   "nome": "Sendai",
+   "x": 1253,
+   "y": 785,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Ruinas do Castelo Aoba",
+   "x": 1227,
+   "y": 728,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Estacao de Sendai",
+   "x": 1291,
+   "y": 770,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Santuario Osaki",
+   "x": 1253,
+   "y": 791,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Porto de Sendai",
+   "x": 1291,
+   "y": 803,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Kochi",
+   "x": 603,
+   "y": 1483,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "kochi"
+  },
+  {
+   "nome": "Castelo de Kochi",
+   "x": 594,
+   "y": 1437,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kochi"
+  },
+  {
+   "nome": "Santuario de Kochi",
+   "x": 603,
+   "y": 1489,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kochi"
+  },
+  {
+   "nome": "Praia de Katsurahama",
+   "x": 636,
+   "y": 1496,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "kochi"
+  },
+  {
+   "nome": "Aomori",
+   "x": 1219,
+   "y": 503,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Porto de Aomori",
+   "x": 1252,
+   "y": 474,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Pomares de maca",
+   "x": 1210,
+   "y": 457,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Santuario de Aomori",
+   "x": 1219,
+   "y": 509,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Yokohama",
+   "x": 1087,
+   "y": 1286,
+   "z": 7,
+   "tipo": "cidade",
+   "zoom": -3,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Cais de Yokohama",
+   "x": 1086,
+   "y": 1320,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Bairro Chines",
+   "x": 1056,
+   "y": 1286,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Santuario do Porto",
+   "x": 1087,
+   "y": 1283,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Parque Yamashita",
+   "x": 1119,
+   "y": 1282,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Armazens de Tijolo",
+   "x": 1067,
+   "y": 1305,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Minato Mirai",
+   "x": 1120,
+   "y": 1304,
+   "z": 7,
+   "tipo": "bairro",
+   "zoom": 1,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Florestas de Chichibu (50-90)",
+   "x": 820,
+   "y": 1138,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "chichibu"
+  },
+  {
+   "x": 836,
+   "y": 1140,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "chichibu",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    },
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Alpes Japoneses (100-160)",
+   "x": 855,
+   "y": 1078,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "alpes"
+  },
+  {
+   "x": 884,
+   "y": 1076,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "alpes",
+   "niveis": [
+    100,
+    160
+   ],
+   "monstros": [
+    {
+     "nome": "Golem de Avalanche",
+     "outfit": 64,
+     "forte": false
+    },
+    {
+     "nome": "Aguia de Pedra",
+     "outfit": 65,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Monte Fuji (120-180)",
+   "x": 871,
+   "y": 1182,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "fuji"
+  },
+  {
+   "x": 900,
+   "y": 1180,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "fuji",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    },
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Miyajima (120-180)",
+   "x": 375,
+   "y": 1297,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "miyajima"
+  },
+  {
+   "x": 372,
+   "y": 1332,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "miyajima",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    },
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Ilha distante (250-300)",
+   "x": 1606,
+   "y": 922,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "ilha_distante"
+  },
+  {
+   "x": 1604,
+   "y": 964,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "ilha_distante",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    },
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Ilha vulcanica (250-300)",
+   "x": 1523,
+   "y": 1468,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "ilha_vulcanica"
+  },
+  {
+   "x": 1524,
+   "y": 1524,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "ilha_vulcanica",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Dragao de Cinzas",
+     "outfit": 86,
+     "forte": false
+    },
+    {
+     "nome": "Maldicao Primordial",
+     "outfit": 87,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Biwa e templos (55-100)",
+   "x": 767,
+   "y": 1169,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "biwa_templos"
+  },
+  {
+   "x": 764,
+   "y": 1204,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "biwa_templos",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Espirito de Lanterna",
+     "outfit": 60,
+     "forte": false
+    },
+    {
+     "nome": "Monge Sem Rosto",
+     "outfit": 61,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Kyushu (150-230)",
+   "x": 182,
+   "y": 1450,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "kyushu"
+  },
+  {
+   "x": 180,
+   "y": 1492,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "kyushu",
+   "niveis": [
+    150,
+    230
+   ],
+   "monstros": [
+    {
+     "nome": "Bambu Gigante",
+     "outfit": 76,
+     "forte": false
+    },
+    {
+     "nome": "Kappa Sombrio",
+     "outfit": 77,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Distrito industrial (30-60)",
+   "x": 764,
+   "y": 1290,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "distrito_industrial"
+  },
+  {
+   "x": 780,
+   "y": 1292,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "distrito_industrial",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    },
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Florestas de Nara (55-100)",
+   "x": 751,
+   "y": 1382,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "florestas_nara"
+  },
+  {
+   "x": 780,
+   "y": 1380,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "florestas_nara",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Corrompido",
+     "outfit": 62,
+     "forte": false
+    },
+    {
+     "nome": "Fera de Musgo",
+     "outfit": 63,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Recifes de Okinawa (180-250)",
+   "x": 199,
+   "y": 1589,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "recifes_okinawa"
+  },
+  {
+   "x": 196,
+   "y": 1628,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "recifes_okinawa",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    },
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Osaka urbano (40-80)",
+   "x": 599,
+   "y": 1270,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "osaka_urbano"
+  },
+  {
+   "x": 628,
+   "y": 1268,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "osaka_urbano",
+   "niveis": [
+    40,
+    80
+   ],
+   "monstros": [
+    {
+     "nome": "Maquina de Venda Viva",
+     "outfit": 56,
+     "forte": false
+    },
+    {
+     "nome": "Letreiro de Neon Vivo",
+     "outfit": 57,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Neve de Sapporo (150-220)",
+   "x": 1254,
+   "y": 314,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "neve_sapporo"
+  },
+  {
+   "x": 1252,
+   "y": 356,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "neve_sapporo",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    },
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Vulcoes de Hokkaido (180-240)",
+   "x": 1206,
+   "y": 154,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "vulcoes_hokkaido"
+  },
+  {
+   "x": 1204,
+   "y": 196,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "vulcoes_hokkaido",
+   "niveis": [
+    180,
+    240
+   ],
+   "monstros": [
+    {
+     "nome": "Fumarola Viva",
+     "outfit": 82,
+     "forte": false
+    },
+    {
+     "nome": "Gigante de Lava",
+     "outfit": 83,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Arredores de Sendai (100-150)",
+   "x": 1135,
+   "y": 741,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "sendai_caca"
+  },
+  {
+   "x": 1132,
+   "y": 780,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "sendai_caca",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    },
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Shikoku (100-160)",
+   "x": 527,
+   "y": 1437,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "shikoku"
+  },
+  {
+   "x": 516,
+   "y": 1476,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "shikoku",
+   "niveis": [
+    100,
+    160
+   ],
+   "monstros": [
+    {
+     "nome": "Peregrino Perdido",
+     "outfit": 70,
+     "forte": false
+    },
+    {
+     "nome": "Tanuki Sombrio",
+     "outfit": 71,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Florestas de Tohoku (100-150)",
+   "x": 1204,
+   "y": 582,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "florestas_tohoku"
+  },
+  {
+   "x": 1204,
+   "y": 644,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "florestas_tohoku",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    },
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Planicie de Kanto (1-30)",
+   "x": 1134,
+   "y": 857,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "planicie_kanto"
+  },
+  {
+   "x": 1124,
+   "y": 892,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "planicie_kanto",
+   "niveis": [
+    1,
+    30
+   ],
+   "monstros": [
+    {
+     "nome": "Espantalho Amaldicoado",
+     "outfit": 50,
+     "forte": false
+    },
+    {
+     "nome": "Rato do Campo Sombrio",
+     "outfit": 51,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Baia de Yokohama (15-40)",
+   "x": 971,
+   "y": 1350,
+   "z": 7,
+   "tipo": "caca",
+   "zoom": -1,
+   "ir": "baia_yokohama"
+  },
+  {
+   "x": 996,
+   "y": 1348,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 0,
+   "ir": "baia_yokohama",
+   "niveis": [
+    15,
+    40
+   ],
+   "monstros": [
+    {
+     "nome": "Gaivota Sombria",
+     "outfit": 52,
+     "forte": false
+    },
+    {
+     "nome": "Caranguejo do Cais",
+     "outfit": 53,
+     "forte": true
+    }
+   ]
+  },
+  {
+   "nome": "Estacao de trem Toquio",
+   "x": 1276,
+   "y": 1063,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao de trem Sendai",
+   "x": 1270,
+   "y": 828,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Estacao de trem Yokohama",
+   "x": 1035,
+   "y": 1291,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Estacao de trem Nagoya",
+   "x": 872,
+   "y": 1267,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Estacao de trem Nagoya",
+   "x": 814,
+   "y": 1267,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Estacao de trem Kyoto",
+   "x": 744,
+   "y": 1295,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Estacao de trem Kyoto",
+   "x": 671,
+   "y": 1296,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Estacao de trem Osaka",
+   "x": 616,
+   "y": 1307,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Estacao de trem Osaka",
+   "x": 566,
+   "y": 1356,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Estacao de trem Hiroshima",
+   "x": 368,
+   "y": 1451,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Estacao de trem Toquio",
+   "x": 948,
+   "y": 1137,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao de trem Sendai",
+   "x": 1270,
+   "y": 727,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Estacao de trem Aomori",
+   "x": 1236,
+   "y": 536,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Estacao de trem Niigata",
+   "x": 991,
+   "y": 906,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Estacao de trem Kanazawa",
+   "x": 936,
+   "y": 902,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Estacao de trem Fukuoka",
+   "x": 188,
+   "y": 1400,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Estacao de trem Kagoshima",
+   "x": 91,
+   "y": 1541,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kagoshima"
+  },
+  {
+   "nome": "Caverna (Chubu e Monte Fuji)",
+   "x": 836,
+   "y": 1126,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_chubu_1"
+  },
+  {
+   "x": 838,
+   "y": 1121,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_chubu_1",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    },
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 836,
+   "y": 1130,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_chubu_1",
+   "niveis": [
+    50,
+    90
+   ],
+   "monstros": [
+    {
+     "nome": "Raiz Rastejante",
+     "outfit": 59,
+     "forte": true
+    },
+    {
+     "nome": "Cogumelo Amaldicoado",
+     "outfit": 58,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Chubu e Monte Fuji)",
+   "x": 852,
+   "y": 1190,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_chubu_2"
+  },
+  {
+   "x": 854,
+   "y": 1185,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_chubu_2",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 852,
+   "y": 1194,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_chubu_2",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Hiroshima)",
+   "x": 372,
+   "y": 1446,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_hiroshima_1"
+  },
+  {
+   "x": 373,
+   "y": 1437,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_hiroshima_1",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    },
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 372,
+   "y": 1450,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_hiroshima_1",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Cervo Sagrado Corrompido",
+     "outfit": 75,
+     "forte": true
+    },
+    {
+     "nome": "Torii do Mar",
+     "outfit": 74,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Ilhas distantes)",
+   "x": 1572,
+   "y": 950,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_ilhas_distantes_1"
+  },
+  {
+   "x": 1570,
+   "y": 947,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_ilhas_distantes_1",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    },
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1572,
+   "y": 954,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_ilhas_distantes_1",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Serpente do Atol",
+     "outfit": 85,
+     "forte": true
+    },
+    {
+     "nome": "Guardiao das Ruinas",
+     "outfit": 84,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Nara)",
+   "x": 780,
+   "y": 1318,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_nara_1"
+  },
+  {
+   "x": 781,
+   "y": 1313,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_nara_1",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 780,
+   "y": 1322,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_nara_1",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Okinawa)",
+   "x": 196,
+   "y": 1686,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_okinawa_1"
+  },
+  {
+   "x": 186,
+   "y": 1679,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_okinawa_1",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 196,
+   "y": 1690,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_okinawa_1",
+   "niveis": [
+    180,
+    250
+   ],
+   "monstros": [
+    {
+     "nome": "Tubarao Sombrio",
+     "outfit": 81,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Coral",
+     "outfit": 80,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Hokkaido)",
+   "x": 1284,
+   "y": 326,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_sapporo_1"
+  },
+  {
+   "x": 1281,
+   "y": 320,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_sapporo_1",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    },
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1284,
+   "y": 330,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_sapporo_1",
+   "niveis": [
+    150,
+    220
+   ],
+   "monstros": [
+    {
+     "nome": "Raposa Branca",
+     "outfit": 79,
+     "forte": true
+    },
+    {
+     "nome": "Espirito da Nevasca",
+     "outfit": 78,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Sendai)",
+   "x": 1204,
+   "y": 806,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_sendai_1"
+  },
+  {
+   "x": 1202,
+   "y": 802,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_sendai_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    },
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1204,
+   "y": 810,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_sendai_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Lobo de Nevoa",
+     "outfit": 69,
+     "forte": true
+    },
+    {
+     "nome": "Samurai Caido",
+     "outfit": 68,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Tohoku)",
+   "x": 1204,
+   "y": 566,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_tohoku_1"
+  },
+  {
+   "x": 1199,
+   "y": 566,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_tohoku_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    },
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 1204,
+   "y": 570,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_tohoku_1",
+   "niveis": [
+    100,
+    150
+   ],
+   "monstros": [
+    {
+     "nome": "Corvo Gigante",
+     "outfit": 67,
+     "forte": true
+    },
+    {
+     "nome": "Urso Negro Amaldicoado",
+     "outfit": 66,
+     "forte": false
+    }
+   ]
+  }
+ ]
+}

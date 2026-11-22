@@ -130,6 +130,12 @@ function mapController:onGameStart()
         loadFnc(minimapFile)
     end
 
+    -- Mapa do mundo inteiro (data/minimap.otmm, gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo):
+    -- carregado por cima do arquivo do jogador, para cidades, estradas e costa aparecerem desde o primeiro login.
+    if otmm and g_resources.fileExists('/data/minimap.otmm') then
+        g_minimap.loadOtmm('/data/minimap.otmm')
+    end
+
     self.ui.minimapBorder.minimap:load()
 end
 
