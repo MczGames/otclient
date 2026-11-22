@@ -27,6 +27,22 @@ local MAX_LINHAS = 400
 
 local janela, lista, botoesCategoria = nil, nil, {}
 local itens = {}
+local NOME_CLASSE = {}
+for _, c in ipairs(CLASSES) do
+    if c[1] ~= '' then NOME_CLASSE[c[1]] = c[2] end
+end
+
+-- "tecnica,controlador" -> "Mestre das Tecnicas, Controlador"
+local function nomesClasses(lista)
+    local t = {}
+    for c in lista:gmatch('[^,]+') do t[#t + 1] = NOME_CLASSE[c] or c end
+    return table.concat(t, ', ')
+end
+
+local function temClasse(lista, classe)
+    return (',' .. lista .. ','):find(',' .. classe .. ',', 1, true) ~= nil
+end
+
 local filtro = { cat = 'todos', tipo = '', grau = '', classe = '', ordem = 'nome' }
 local carregando = false
 
@@ -68,7 +84,7 @@ local function detalhe(it)
     if it.peso > 0 then p[#p + 1] = string.format('%.1f oz', it.peso / 100) end
     p[#p + 1] = it.cat .. (it.tipo ~= '' and (' / ' .. it.tipo:gsub('_', ' ')) or '')
     if it.grau ~= '' then p[#p + 1] = it.grau end
-    if it.classe ~= '' then p[#p + 1] = it.classe end
+    if it.classe ~= '' then p[#p + 1] = nomesClasses(it.classe) end
     p[#p + 1] = 'id ' .. it.id
     return table.concat(p, '  |  ')
 end
@@ -89,9 +105,9 @@ local function passa(it, busca)
     if filtro.cat ~= 'todos' and it.cat ~= filtro.cat then return false end
     if filtro.tipo ~= '' and it.tipo ~= filtro.tipo then return false end
     if filtro.grau ~= '' and it.grau ~= filtro.grau then return false end
-    if filtro.classe ~= '' and it.classe ~= filtro.classe then return false end
+    if filtro.classe ~= '' and not temClasse(it.classe, filtro.classe) then return false end
     if busca ~= '' then
-        local alvo = (it.nome .. ' ' .. it.id .. ' ' .. it.tipo .. ' ' .. it.grau .. ' ' .. it.classe):lower()
+        local alvo = (it.nome .. ' ' .. it.id .. ' ' .. it.tipo .. ' ' .. it.grau .. ' ' .. it.classe .. ' ' .. nomesClasses(it.classe)):lower()
         for palavra in busca:gmatch('%S+') do
             if not alvo:find(palavra, 1, true) then return false end
         end
