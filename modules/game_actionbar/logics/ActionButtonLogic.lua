@@ -123,7 +123,7 @@ local function playerCanUseSpell(spellData)
         return false
     end
 
-    if spellData.vocations and (not table.contains(spellData.vocations, translateVocation(player:getVocation()))) then
+    if spellData.vocations and (not table.contains(spellData.vocations, vocacaoParaMagia(player:getVocation()))) then
         return false
     end
 
@@ -302,6 +302,32 @@ end
 -- =            button behavior             =
 -- =============================================*/
 --- Executes the action assigned to a button
+-- Acende o contorno do botao por `ms` (retorno visual ao usar e quando a recarga acaba).
+function brilharBotao(button, ms)
+    if not button or button:isDestroyed() then
+        return
+    end
+    local borda = button:recursiveGetChildById('activeSpell')
+    if not borda then
+        return
+    end
+    borda:setVisible(true)
+    if button.cache and button.cache.brilhoEvent then
+        removeEvent(button.cache.brilhoEvent)
+    end
+    local ev = scheduleEvent(function()
+        if not button:isDestroyed() then
+            borda:setVisible(false)
+        end
+        if button.cache then
+            button.cache.brilhoEvent = nil
+        end
+    end, ms or 200)
+    if button.cache then
+        button.cache.brilhoEvent = ev
+    end
+end
+
 function onExecuteAction(button, isPress)
     local cache = getButtonCache(button)
     if cache.lastClick > g_clock.millis() then
@@ -376,6 +402,7 @@ function onExecuteAction(button, isPress)
         if button.cache.isSpell then
             spellGroupPressed[tostring(button.cache.primaryGroup)] = true
             g_game.talk(button.cache.param)
+            brilharBotao(button, 180)
         else
             modules.game_console.sendMessage(button.cache.param)
         end
@@ -738,6 +765,10 @@ function removeCooldown(button)
     end
 
     button.cache.removeCooldownEvent = nil
+    if button.cache.emRecarga then
+        button.cache.emRecarga = false
+        brilharBotao(button, 350) -- pronto de novo
+    end
     if button.cooldown then
         button.cooldown:stop()
         button.cooldown:setPercent(100)
@@ -746,6 +777,9 @@ function removeCooldown(button)
 end
 
 function updateCooldown(button, timeMs)
+    if button.cache and timeMs and timeMs >= 1500 then
+        button.cache.emRecarga = true -- so recargas de verdade piscam ao acabar (nao a recarga de grupo curta)
+    end
     button.cooldown:showTime(modules.client_options.getOption("cooldownSecond"))
     button.cooldown:showProgress(modules.client_options.getOption("graphicalCooldown"))
     button.cooldown:setDuration(timeMs)
@@ -1071,7 +1105,7 @@ function updateButton(button)
         if spellData then
             button.cache.isRuneSpell = true
             button.cache.spellData = spellData
-            if spellData.vocations and not table.contains(spellData.vocations, translateVocation(player:getVocation())) then
+            if spellData.vocations and not table.contains(spellData.vocations, vocacaoParaMagia(player:getVocation())) then
                 button.item.gray:setVisible(true)
             end
         end
