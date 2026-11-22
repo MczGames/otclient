@@ -15,7 +15,8 @@ local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', 
 local seguirEvento = nil
 local ultimaPos = nil
 
--- Clique num nome: perto, o personagem anda ate la; longe, usa o comando de teste !mundo (teleporte, so desenvolvimento).
+-- Clique num nome ou nos monstros: o personagem vai ANDANDO ate la (nunca teleporta). Se o lugar fica em outro andar
+-- ou longe demais para o caminho automatico (limite de 250 tiles do cliente), so avisa: o jogador segue pela estrada.
 local function irParaLugar(lugar)
     local player = g_game.getLocalPlayer()
     if not player then
@@ -23,10 +24,15 @@ local function irParaLugar(lugar)
     end
     local alvo = { x = lugar.x, y = lugar.y, z = lugar.z }
     local pos = player:getPosition()
-    if pos and pos.z == alvo.z and Position.distance(pos, alvo) <= DISTANCIA_ANDAR then
+    if not pos then
+        return
+    end
+    if pos.z ~= alvo.z then
+        modules.game_textmessage.displayFailureMessage('Esse lugar fica em outro andar: va ate a entrada e desca.')
+    elseif Position.distance(pos, alvo) > DISTANCIA_ANDAR then
+        modules.game_textmessage.displayFailureMessage('Fica longe demais para ir direto: siga pela estrada e clique de novo mais perto.')
+    else
         player:autoWalk(alvo)
-    elseif lugar.ir then
-        g_game.talk('!mundo ' .. lugar.ir)
     end
 end
 
@@ -60,7 +66,7 @@ local function criarMonstros(lugar)
         linhas[#linhas + 1] = m.nome .. (m.forte and ' (forte)' or '')
     end
     local nivel = lugar.niveis and string.format('\nNivel %d-%d', lugar.niveis[1], lugar.niveis[2]) or ''
-    caixa:setTooltip(table.concat(linhas, '\n') .. nivel .. '\n(clique para ir)')
+    caixa:setTooltip(table.concat(linhas, '\n') .. nivel .. '\n(clique para ir andando)')
     return caixa
 end
 
@@ -109,7 +115,7 @@ local function criarNomesDoMundo(minimapWidget)
         rotulo:setBackgroundColor('#000000aa')
         rotulo:setTextAutoResize(true)
         rotulo:setPhantom(false)
-        rotulo:setTooltip(lugar.nome .. ' (clique para ir)')
+        rotulo:setTooltip(lugar.nome .. ' (clique para ir andando)')
         rotulo.onMouseRelease = function(widget, mousePos, button)
             if button == MouseLeftButton then
                 irParaLugar(lugar)
