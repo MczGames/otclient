@@ -11,7 +11,7 @@ local refreshVirtualFloors
 -- Os nomes vem de /data/mundo_lugares.json (gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo).
 local LUGARES_ARQ = '/data/mundo_lugares.json'
 local DISTANCIA_ANDAR = 250 -- igual ao limite do UIMinimap para o "andar ate la"
-local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a' }
+local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a', estacao = '#8fd3ff' }
 local seguirEvento = nil
 local ultimaPos = nil
 

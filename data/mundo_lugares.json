@@ -884,6 +884,159 @@
    "ir": "baia_yokohama"
   },
   {
+   "nome": "Estacao de trem Toquio",
+   "x": 1276,
+   "y": 1063,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao de trem Sendai",
+   "x": 1270,
+   "y": 828,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Estacao de trem Yokohama",
+   "x": 1035,
+   "y": 1291,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "yokohama"
+  },
+  {
+   "nome": "Estacao de trem Nagoya",
+   "x": 872,
+   "y": 1267,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Estacao de trem Nagoya",
+   "x": 814,
+   "y": 1267,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "nagoya"
+  },
+  {
+   "nome": "Estacao de trem Kyoto",
+   "x": 744,
+   "y": 1295,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Estacao de trem Kyoto",
+   "x": 671,
+   "y": 1296,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kyoto"
+  },
+  {
+   "nome": "Estacao de trem Osaka",
+   "x": 616,
+   "y": 1307,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Estacao de trem Osaka",
+   "x": 566,
+   "y": 1356,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "osaka"
+  },
+  {
+   "nome": "Estacao de trem Hiroshima",
+   "x": 368,
+   "y": 1451,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "hiroshima"
+  },
+  {
+   "nome": "Estacao de trem Toquio",
+   "x": 948,
+   "y": 1137,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "toquio"
+  },
+  {
+   "nome": "Estacao de trem Sendai",
+   "x": 1270,
+   "y": 727,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "sendai"
+  },
+  {
+   "nome": "Estacao de trem Aomori",
+   "x": 1236,
+   "y": 536,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "aomori"
+  },
+  {
+   "nome": "Estacao de trem Niigata",
+   "x": 991,
+   "y": 906,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "niigata"
+  },
+  {
+   "nome": "Estacao de trem Kanazawa",
+   "x": 936,
+   "y": 902,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kanazawa"
+  },
+  {
+   "nome": "Estacao de trem Fukuoka",
+   "x": 188,
+   "y": 1400,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "fukuoka"
+  },
+  {
+   "nome": "Estacao de trem Kagoshima",
+   "x": 91,
+   "y": 1541,
+   "z": 7,
+   "tipo": "estacao",
+   "zoom": 0,
+   "ir": "kagoshima"
+  },
+  {
    "nome": "Caverna (Chubu e Monte Fuji)",
    "x": 836,
    "y": 1126,
