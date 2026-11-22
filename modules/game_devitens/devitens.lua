@@ -11,7 +11,9 @@ local CATEGORIAS = {
 }
 local GRAUS = {
     { '', 'Todos os graus' }, { 'treino', 'Treino' }, { 'reforcado', 'Reforcado' }, { 'g4', '4o grau' }, { 'g3', '3o grau' },
-    { 'g2', '2o grau' }, { 'g1', '1o grau' }, { 'gesp', 'Grau especial' }, { 'comum', 'Comum' }, { 'forte', 'Forte' },
+    { 'g2', '2o grau' }, { 'g1', '1o grau' }, { 'gesp', 'Grau especial' }, { 'rel1', 'Reliquia I' }, { 'rel2', 'Reliquia II' },
+    { 'rel3', 'Reliquia III' }, { 'rel4', 'Reliquia IV' }, { 'rel5', 'Reliquia V' }, { 'lend', 'Lendaria' }, { 'comum', 'Comum' },
+    { 'forte', 'Forte' },
 }
 local CLASSES = {
     { '', 'Todas as classes' }, { 'lutador', 'Lutador' }, { 'combate', 'Mestre das Armas' }, { 'tecnica', 'Mestre das Tecnicas' },
