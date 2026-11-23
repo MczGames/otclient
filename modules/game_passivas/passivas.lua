@@ -1,6 +1,6 @@
--- Janela de passivas: o servidor (datapack lib/core/passivas.lua) envia a lista pelo opcode estendido 121 quando o jogador
+-- Janela de passivas: o servidor (datapack lib/core/passivas.lua) envia a lista pelo opcode estendido 123 quando o jogador
 -- digita !passivas ou clica no botao do menu (atalho Ctrl+Shift+P); equipar e remover usam o comando !passiva <espaco> <id> (0 remove).
-local OPCODE = 121
+local OPCODE = 123 -- 121 e da entrada de instancia (game_instancias)
 
 local janela, lista, botao = nil, nil, nil
 local dados = nil
