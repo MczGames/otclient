@@ -79,6 +79,9 @@ function startup()
 end
 
 function init()
+    -- MMO JJK: icone da janela (o do .exe vem de cmake/icon/otcicon.ico; gerados por tools/assets/gerar_icone_cliente.py)
+    g_window.setIcon('/images/clienticon')
+
     if g_app.hasUpdater() then
         connect(g_app, {
             onUpdateFinished = startup,
