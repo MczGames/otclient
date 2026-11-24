@@ -20,6 +20,16 @@ vocationBoxDruid = nil
 vocationBoxPaladin = nil
 vocationBoxKnight = nil
 vocationBoxMonk = nil
+vocationBoxExtra = nil
+
+-- MMO JJK: cada caixa de classe aponta para a vocacao do projeto (ids de vocations.xml; a 5, suporte_legado, nao aparece).
+-- Ordem: Lutador, Mestre das Armas, Mestre das Tecnicas, Controlador, Suporte, Restringido.
+local CAIXA_VOCACAO = {
+    vocationBoxSorcerer = 1, vocationBoxDruid = 2, vocationBoxPaladin = 6,
+    vocationBoxKnight = 3, vocationBoxMonk = 4, vocationBoxExtra = 7,
+}
+local GRUPO_PT = { Attack = 'Ataque', Healing = 'Cura', Support = 'Suporte' }
+local TIPO_PT = { Instant = 'Instantânea', Rune = 'Runa', Conjure = 'Conjuração' }
 
 groupBoxAny = nil
 groupBoxAttack = nil
@@ -124,12 +134,11 @@ function init()
     vocationBoxPaladin = spelllistWindow:getChildById('vocationBoxPaladin')
     vocationBoxKnight = spelllistWindow:getChildById('vocationBoxKnight')
     vocationBoxMonk = spelllistWindow:getChildById('vocationBoxMonk')
-    -- Os cinco botoes de vocacao mostram as classes do projeto (nomes da pele, gerados em spells.lua).
-    vocationBoxSorcerer:setText(VocationNames[1])
-    vocationBoxDruid:setText(VocationNames[2])
-    vocationBoxPaladin:setText(VocationNames[3])
-    vocationBoxKnight:setText(VocationNames[4])
-    vocationBoxMonk:setText(VocationNames[5])
+    vocationBoxExtra = spelllistWindow:getChildById('vocationBoxExtra')
+    -- As seis caixas mostram as classes do projeto (nomes da pele, gerados em spells.lua).
+    for id, voc in pairs(CAIXA_VOCACAO) do
+        spelllistWindow:getChildById(id):setText(VocationNames[voc] or '')
+    end
 
     groupBoxAny = spelllistWindow:getChildById('groupBoxAny')
     groupBoxAttack = spelllistWindow:getChildById('groupBoxAttack')
@@ -147,6 +156,7 @@ function init()
     vocationRadioGroup:addWidget(vocationBoxPaladin)
     vocationRadioGroup:addWidget(vocationBoxKnight)
     vocationRadioGroup:addWidget(vocationBoxMonk)
+    vocationRadioGroup:addWidget(vocationBoxExtra)
 
     groupRadioGroup = UIRadioGroup.create()
     groupRadioGroup:addWidget(groupBoxAny)
@@ -315,15 +325,15 @@ function updateSpellInformation(widget)
         cooldown = (info.exhaustion / 1000) .. 's'
         for groupId, groupName in ipairs(SpellGroups) do
             if info.group[groupId] then
-                group = group .. (group:len() == 0 and '' or ' / ') .. groupName
+                group = group .. (group:len() == 0 and '' or ' / ') .. (GRUPO_PT[groupName] or groupName)
                 cooldown = cooldown .. ' / ' .. (info.group[groupId] / 1000) .. 's'
             end
         end
 
-        type = info.type
+        type = TIPO_PT[info.type] or info.type
         level = info.level
-        mana = info.mana .. ' / ' .. info.soul
-        premium = (info.premium and 'yes' or 'no')
+        mana = (info.custo and info.custo ~= '') and info.custo or tostring(info.mana)
+        premium = (info.premium and 'sim' or 'não')
         description = info.description or '-'
     end
 
@@ -346,16 +356,10 @@ function selectDefaultVocation()
     end
     local vocation = player:getVocation()
     local widget = vocationBoxAny
-    if vocation == VocationsClient.Knight or vocation == VocationsClient.EliteKnight then
-        widget = vocationBoxKnight
-    elseif vocation == VocationsClient.Paladin or vocation == VocationsClient.RoyalPaladin then
-        widget = vocationBoxPaladin
-    elseif vocation == VocationsClient.Sorcerer or vocation == VocationsClient.MasterSorcerer then
-        widget= vocationBoxSorcerer
-    elseif vocation == VocationsClient.Druid or vocation == VocationsClient.ElderDruid then
-        widget = vocationBoxDruid
-    elseif vocation == VocationsClient.Monk or vocation == VocationsClient.ExaltedMonk then
-        widget = vocationBoxMonk
+    for id, voc in pairs(CAIXA_VOCACAO) do
+        if voc == vocation then
+            widget = spelllistWindow:getChildById(id)
+        end
     end
     vocationRadioGroup:selectWidget(widget)
 end
@@ -376,19 +380,7 @@ end
 function toggleFilter(widget, selectedWidget)
     if widget == vocationRadioGroup then
         local boxId = selectedWidget:getId()
-        if boxId == 'vocationBoxAny' then
-            filters.vocationId = FILTER_VOCATION_ANY
-        elseif boxId == 'vocationBoxSorcerer' then
-            filters.vocationId = FILTER_VOCATION_SORCERER
-        elseif boxId == 'vocationBoxDruid' then
-            filters.vocationId = FILTER_VOCATION_DRUID
-        elseif boxId == 'vocationBoxPaladin' then
-            filters.vocationId = FILTER_VOCATION_PALADIN
-        elseif boxId == 'vocationBoxKnight' then
-            filters.vocationId = FILTER_VOCATION_KNIGHT
-        elseif boxId == 'vocationBoxMonk' then
-            filters.vocationId = FILTER_VOCATION_MONK
-        end
+        filters.vocationId = CAIXA_VOCACAO[boxId] or FILTER_VOCATION_ANY
     elseif widget == groupRadioGroup then
         local boxId = selectedWidget:getId()
         if boxId == 'groupBoxAny' then
