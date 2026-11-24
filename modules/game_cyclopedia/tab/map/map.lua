@@ -109,7 +109,7 @@ local function criarNomesDoMundo(minimapWidget)
             minimapWidget:addAlternativeWidget(caixa, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
         else
         local rotulo = g_ui.createWidget('UILabel')
-        rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-bold-8px-antialiased')
+        rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-9px-bold')
         rotulo:setText(lugar.nome)
         rotulo:setColor(CORES_LUGAR[lugar.tipo] or '#ffffff')
         rotulo:setBackgroundColor('#000000aa')
