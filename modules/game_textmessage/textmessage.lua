@@ -234,6 +234,9 @@ local PERICIA_EN = {
 }
 
 local function traduzirProgressao(text)
+    if text == 'You are exhausted.' then
+        return 'Em recarga.'
+    end
     if type(text) ~= 'string' or not text:find('^You advanced') then
         return text
     end
