@@ -225,7 +225,36 @@ function calculateVisibleTime(text)
     return math.max(#text * 50, 4000)
 end
 
+-- MMO JJK: o servidor (C++ do Canary) manda as mensagens de progressao em ingles e com os nomes de pericia do Tibia;
+-- aqui elas viram portugues com os nomes do projeto (os mesmos da janela de Habilidades, via tr()).
+local PERICIA_EN = {
+    ['fist fighting'] = 'Fist Fighting', ['club fighting'] = 'Club Fighting', ['sword fighting'] = 'Sword Fighting',
+    ['axe fighting'] = 'Axe Fighting', ['distance fighting'] = 'Distance Fighting', ['shielding'] = 'Shielding',
+    ['fishing'] = 'Fishing', ['magic'] = 'Magic Level',
+}
+
+local function traduzirProgressao(text)
+    if type(text) ~= 'string' or not text:find('^You advanced') then
+        return text
+    end
+    local de, para = text:match('^You advanced from Level (%d+) to Level (%d+)%.$')
+    if de then
+        return string.format('Você subiu do nível %s para o nível %s.', de, para)
+    end
+    local nivel = text:match('^You advanced to magic level (%d+)%.$')
+    if nivel then
+        return string.format('Você avançou para %s nível %s.', tr('Magic Level'), nivel)
+    end
+    local pericia, n = text:match('^You advanced to (.-) level (%d+)%.$')
+    if pericia then
+        local chave = PERICIA_EN[pericia]
+        return string.format('Você avançou para %s nível %s.', chave and tr(chave) or pericia, n)
+    end
+    return text
+end
+
 function displayMessage(mode, text)
+    text = traduzirProgressao(text)
 
     if not g_game.isOnline() then
         return
