@@ -63,8 +63,8 @@ PhantomMiniWindow
   id: maininventorypanel
   draggable: true
   phantom: false
-  height: 180
-  &panelHeight: 180
+  height: 186
+  &panelHeight: 186
   on: true
 
   $!on:
@@ -422,12 +422,11 @@ PhantomMiniWindow
         anchors.bottom: parent.bottom
         color: #c0c0c0ff
 
-  UIWidget
-
     GoldBar
       id: goldBar
       anchors.right: backpack.right
 
+  UIWidget
     id: offPanel
     anchors.fill: parent
     phantom: true
