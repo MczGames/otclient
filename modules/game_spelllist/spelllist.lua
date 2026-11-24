@@ -416,8 +416,9 @@ function toggleFilter(widget, selectedWidget)
 end
 
 function resizeWindow()
-    spelllistWindow:setWidth(SpelllistSettings['Default'].spellWindowWidth +
-                                 SpelllistSettings[SpelllistProfile].iconSize.width - 32)
+    -- MMO JJK: a descricao tem 300 px de largura (varias linhas); a janela precisa de no minimo 670 px
+    spelllistWindow:setWidth(math.max(670, SpelllistSettings['Default'].spellWindowWidth +
+                                 SpelllistSettings[SpelllistProfile].iconSize.width - 32))
     spellList:setWidth(
         SpelllistSettings['Default'].spellListWidth + SpelllistSettings[SpelllistProfile].iconSize.width - 32)
 end
