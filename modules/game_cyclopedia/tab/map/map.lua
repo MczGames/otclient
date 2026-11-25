@@ -6,6 +6,7 @@ local loadedFloorSet = {} -- floors already indexed for loadedAssetsDir
 
 -- Forward declaration — defined later in the file.
 local refreshVirtualFloors
+local mostrarCoordenada -- definida mais abaixo (coordenada exata do mapa)
 
 -- FusionTsu: nomes do mapa-mundi (cidades, bairros, areas de caca, cavernas) e o marcador seguindo o personagem.
 -- Os nomes vem de /data/mundo_lugares.json (gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo).
@@ -96,7 +97,12 @@ local function criarNomesDoMundo(minimapWidget)
     end
     minimapWidget.nomesDoMundo = true
     for _, lugar in ipairs(dados.lugares) do
-        if lugar.tipo == 'monstros' and type(lugar.monstros) == 'table' then
+        if lugar.tipo == 'boss' then
+            -- so um pontinho amarelo, sem nome (como uma escada), no andar do boss
+            local ponto = modules.game_minimap.criarPontoBoss()
+            ponto.andar = lugar.z
+            minimapWidget:addAlternativeWidget(ponto, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+        elseif lugar.tipo == 'monstros' and type(lugar.monstros) == 'table' then
             local caixa = criarMonstros(lugar)
             caixa.andar = lugar.z
             caixa.onMouseRelease = function(widget, mousePos, button)
@@ -166,6 +172,9 @@ local function seguirJogador()
         minimapWidget:setCameraPosition({ x = pos.x, y = pos.y, z = pos.z })
     end
     minimapWidget:setCrossPosition({ x = pos.x, y = pos.y, z = pos.z })
+    if not minimapWidget:isHovered() then
+        mostrarCoordenada(pos)
+    end
 end
 
 -- Surface View is only available for floors 0-7 (surface and above).
@@ -259,6 +268,143 @@ function showMap()
     if g_game.getClientVersion() >= 1410 then
         controllerCyclopedia.ui.CharmsBase1410:setVisible(false)
     end
+end
+
+-- FusionTsu: coordenada exata e barra de botoes do mapa.
+-- A caixa embaixo mostra a posicao do quadradinho debaixo do mouse; com o mouse fora do mapa, mostra onde o jogador
+-- esta. Clicar nela copia a posicao do jogador ("x, y, z") para mandar a alguem; quem recebe cola na lupa e o mapa
+-- vai direto para o ponto, com um alfinete vermelho.
+local ALFINETE = '/images/game/mapa/alfinete'
+local alfinete = nil
+
+local function textoPos(pos)
+    return string.format('%d, %d, %d', pos.x, pos.y, pos.z)
+end
+
+mostrarCoordenada = function(pos)
+    if not UI or UI:isDestroyed() or not pos then
+        return
+    end
+    UI.MapBase.coordenada:setText(textoPos(pos))
+end
+
+local function posicaoDoJogador()
+    local player = g_game.getLocalPlayer()
+    return player and player:getPosition()
+end
+
+local function trocarAndar(z)
+    if z == virtualFloor then
+        return
+    end
+    virtualFloor = z
+    ensureViewFloorsLoaded()
+    refreshVirtualFloors()
+    updateViewMode()
+end
+
+function Cyclopedia.centralizarNoJogador()
+    local pos = posicaoDoJogador()
+    if not UI or not pos then
+        return
+    end
+    local minimapWidget = UI.MapBase.minimap
+    minimapWidget:setCameraPosition({ x = pos.x, y = pos.y, z = pos.z })
+    minimapWidget:setCrossPosition({ x = pos.x, y = pos.y, z = pos.z })
+    trocarAndar(pos.z)
+end
+
+-- aceita "1080, 2496, 7", "1080 2496 7", "(1080,2496,7)" ou so "x, y" (fica no andar que o mapa mostra)
+local function lerCoordenada(texto)
+    local n = {}
+    for numero in tostring(texto):gmatch('%d+') do
+        n[#n + 1] = tonumber(numero)
+    end
+    if #n < 2 then
+        return nil
+    end
+    local z = n[3] or virtualFloor
+    if z < 0 or z > 15 then
+        return nil
+    end
+    return { x = n[1], y = n[2], z = z }
+end
+
+local function irParaCoordenada(pos)
+    local minimapWidget = UI.MapBase.minimap
+    if alfinete and not alfinete:isDestroyed() then
+        alfinete:destroy()
+    end
+    alfinete = nil
+    minimapWidget:setCameraPosition(pos)
+    trocarAndar(pos.z)
+    minimapWidget:addFlag(pos, ALFINETE, 'Coordenada ' .. textoPos(pos), true)
+    alfinete = minimapWidget:getFlag(pos)
+    mostrarCoordenada(pos)
+end
+
+function Cyclopedia.abrirBuscaCoordenada()
+    if not UI then
+        return
+    end
+    local caixa = UI.MapBase.buscaCoordenada
+    if caixa:isVisible() then
+        caixa:hide()
+        return
+    end
+    caixa:show()
+    caixa:focus()
+    caixa:setText(g_window.getClipboardText() and lerCoordenada(g_window.getClipboardText()) and
+                      g_window.getClipboardText() or '')
+    caixa:setCursorPos(-1)
+end
+
+local function configurarFerramentas()
+    local minimapWidget = UI.MapBase.minimap
+    local coordenada = UI.MapBase.coordenada
+    local caixa = UI.MapBase.buscaCoordenada
+
+    minimapWidget.onMouseMove = function(self, mousePos, mouseMoved)
+        local pos = self:getTilePosition(mousePos)
+        if pos then
+            mostrarCoordenada(pos)
+        end
+        return false
+    end
+    minimapWidget.onHoverChange = function(self, hovered)
+        if not hovered then
+            mostrarCoordenada(posicaoDoJogador())
+        end
+    end
+
+    coordenada.onClick = function()
+        local pos = posicaoDoJogador()
+        if not pos then
+            return
+        end
+        g_window.setClipboardText(textoPos(pos))
+        modules.game_textmessage.displayStatusMessage('Sua posicao foi copiada: ' .. textoPos(pos) ..
+                                                          ' (cole no chat para mandar)')
+    end
+
+    caixa.onKeyPress = function(self, keyCode, keyboardModifiers)
+        if keyCode == KeyEnter or keyCode == KeyReturn then
+            local pos = lerCoordenada(self:getText())
+            if not pos then
+                modules.game_textmessage.displayFailureMessage('Digite a coordenada assim: 1080, 2496, 7')
+                return true
+            end
+            irParaCoordenada(pos)
+            self:hide()
+            return true
+        elseif keyCode == KeyEscape then
+            self:hide()
+            return true
+        end
+        return false
+    end
+
+    mostrarCoordenada(posicaoDoJogador())
 end
 
 function Cyclopedia.loadMap()
@@ -369,6 +515,7 @@ function Cyclopedia.loadMap()
     end
 
     criarNomesDoMundo(minimapWidget)
+    configurarFerramentas()
 
     refreshVirtualFloors()
 end

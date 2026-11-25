@@ -103,6 +103,59 @@ function mapController:onInit()
     self.ui.minimapBorder.minimap:getChildById('resetButton'):hide()
 end
 
+-- FusionTsu: pontinho amarelo, sem nome, onde tem boss (tipo "boss" em /data/mundo_lugares.json, gerado por
+-- tools/mundo/gerar_minimapa.py). So aparece no andar do boss. O mapa da Cyclopedia faz o mesmo (game_cyclopedia/tab/map).
+function criarPontoBoss()
+    local ponto = g_ui.createWidget('UIWidget')
+    ponto:resize(6, 6)
+    ponto:setBackgroundColor('#ffd800')
+    ponto:setBorderWidth(1)
+    ponto:setBorderColor('#3a2a00')
+    ponto:setPhantom(true)
+    return ponto
+end
+
+function pontosDeBoss(minimap)
+    if minimap.pontosBoss or not g_resources.fileExists('/data/mundo_lugares.json') then
+        return
+    end
+    local ok, dados = pcall(function()
+        return json.decode(g_resources.readFileContents('/data/mundo_lugares.json'))
+    end)
+    if not ok or type(dados) ~= 'table' or type(dados.lugares) ~= 'table' then
+        return
+    end
+    minimap.pontosBoss = {}
+    for _, lugar in ipairs(dados.lugares) do
+        if lugar.tipo == 'boss' then
+            local ponto = criarPontoBoss()
+            ponto.andar = lugar.z
+            minimap:addAlternativeWidget(ponto, { x = lugar.x, y = lugar.y, z = lugar.z }, -10)
+            table.insert(minimap.pontosBoss, ponto)
+        end
+    end
+    local function filtrar(self)
+        local cam = self:getCameraPosition()
+        for _, ponto in ipairs(self.pontosBoss or {}) do
+            ponto:setVisible(cam ~= nil and cam.z == ponto.andar)
+        end
+    end
+    local zoomOriginal = minimap.onZoomChange
+    minimap.onZoomChange = function(self, ...)
+        zoomOriginal(self, ...)
+        filtrar(self)
+    end
+    local cameraOriginal = minimap.onCameraPositionChange
+    minimap.onCameraPositionChange = function(self, ...)
+        if cameraOriginal then
+            cameraOriginal(self, ...)
+        end
+        filtrar(self)
+    end
+    minimap:setAlternativeWidgetsVisible(true)
+    filtrar(minimap)
+end
+
 function mapController:onGameStart()
     mapController:registerEvents(g_game, {
         onChangeWorldTime = onChangeWorldTime
@@ -137,6 +190,7 @@ function mapController:onGameStart()
     end
 
     self.ui.minimapBorder.minimap:load()
+    pontosDeBoss(self.ui.minimapBorder.minimap)
 end
 
 function mapController:onGameEnd()
