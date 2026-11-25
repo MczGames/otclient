@@ -28,7 +28,8 @@ return {
         end
     },
     classicControl                    = {
-        value = g_platform.isMobile() and true or false,
+        -- projeto: controles classicos sao o padrao (tambem no PC)
+        value = true,
         action = function(value, options, controller, panels, extraWidgets)
             -- Update the mouseControlMode based on this option
             -- 0 = Regular Controls, 1 = Classic Controls, 2 = Left Smart-Click
@@ -94,7 +95,7 @@ return {
         end
     },
     mouseControlMode                  = {
-        value = 0, -- Default to "Regular Controls"
+        value = 1, -- projeto: padrao "Classic Controls"
         action = function(value, options, controller, panels, extraWidgets)
             -- Update the underlying options values first
             -- 0 = Regular Controls, 1 = Classic Controls, 2 = Left Smart-Click
