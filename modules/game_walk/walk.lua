@@ -268,6 +268,7 @@ function WalkController:onGameStart()
         onAutoWalk = onAutoWalk
     })
 
+    AndarLonge.init() -- FusionTsu: clique longe no mapa
     modules.game_interface.getRootPanel().onFocusChange = stopSmartWalk
     modules.game_joystick.addOnJoystickMoveListener(function(dir) g_game.walk(dir) end)
 
@@ -281,6 +282,7 @@ end
 --- Cleans up resources when the game ends.
 function WalkController:onGameEnd()
     stopSmartWalk()
+    AndarLonge.terminate()
 end
 
 --- Utility functions for binding and unbinding keys.

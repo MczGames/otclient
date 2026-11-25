@@ -3,7 +3,7 @@ Module
   description: Control walk and turns
   author: OTClient team
   website: https://github.com/mehah/otclient
-  scripts: [ walk ]
+  scripts: [ walk, andar_longe ]
   dependencies: [ game_joystick, game_interface ]
   @onLoad: WalkController:init()
   @onUnload: WalkController:terminate()

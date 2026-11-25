@@ -1,0 +1,44 @@
+MenuCentralItem < UIButton
+  size: 104 104
+  focusable: false
+  background-color: #00000000
+  border-width: 0
+  $hover:
+    background-color: #ffffff18
+
+  UIWidget
+    id: icone
+    size: 64 64
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 6
+    phantom: true
+
+  Label
+    id: nome
+    anchors.top: icone.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    text-align: center
+    text-wrap: true
+    height: 28
+    color: #ffffff
+    font: verdana-11px-rounded
+    phantom: true
+
+MainWindow
+  id: menuCentralWindow
+  !text: tr('Mais')
+  size: 584 420
+  @onEscape: modules.game_menu_central.fechar()
+
+  Panel
+    id: grade
+    anchors.fill: parent
+    margin: 4
+    layout:
+      type: grid
+      cell-size: 104 104
+      cell-spacing: 8
+      flow: true
