@@ -1,0 +1,7 @@
+Module
+  name: game_menu_central
+  description: FusionTsu - menu "Mais" no centro da tela, com icones grandes para as janelas do jogo (Ctrl+Shift+N ou botao no topo)
+  sandboxed: true
+  scripts: [ game_menu_central ]
+  @onLoad: init()
+  @onUnload: terminate()
