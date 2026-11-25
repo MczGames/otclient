@@ -1,0 +1,7 @@
+Module
+  name: game_dialogonpc
+  description: Conversa com NPC por janela (texto do NPC e opcoes). Clicar no NPC manda o opcode estendido 124; o servidor responde com a tela (datapack lib/core/dialogo_npc.lua). Substitui o "hi"/"trade" no chat.
+  sandboxed: true
+  scripts: [ dialogonpc ]
+  @onLoad: init()
+  @onUnload: terminate()

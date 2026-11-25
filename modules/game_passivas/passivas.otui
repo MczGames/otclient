@@ -1,0 +1,130 @@
+PassivaLinha < UIWidget
+  height: 46
+  background-color: alpha
+  focusable: false
+  $hover:
+    background-color: #ffffff12
+
+  Label
+    id: nome
+    anchors.left: parent.left
+    anchors.top: parent.top
+    margin-left: 6
+    margin-top: 4
+    text-auto-resize: true
+    color: #ffffff
+
+  Label
+    id: nivel
+    anchors.left: prev.right
+    anchors.verticalCenter: prev.verticalCenter
+    margin-left: 8
+    text-auto-resize: true
+    color: #9fa6b2
+
+  Button
+    id: slot2
+    !text: tr('Espaco 2')
+    width: 76
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 6
+
+  Button
+    id: slot1
+    !text: tr('Espaco 1')
+    width: 76
+    anchors.right: slot2.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 4
+
+  Label
+    id: desc
+    anchors.left: parent.left
+    anchors.top: nome.bottom
+    anchors.right: slot1.left
+    margin-left: 6
+    margin-top: 3
+    margin-right: 6
+    height: 18
+    color: #c8ccd4
+
+PassivaEquipada < UIWidget
+  height: 26
+  background-color: #00000040
+
+  Label
+    id: texto
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 6
+    text-auto-resize: true
+    color: #ffd27a
+
+  Button
+    id: tirar
+    !text: tr('Remover')
+    width: 70
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 4
+
+MainWindow
+  id: passivasWindow
+  !text: tr('Passivas')
+  size: 600 560
+  @onEscape: fechar()
+
+  Label
+    id: titulo
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    text-auto-resize: true
+    !text: tr('Escolha ate 2 passivas. Elas liberam com o nivel e valem para todas as classes.')
+    color: #c8ccd4
+
+  PassivaEquipada
+    id: equipada1
+    anchors.top: titulo.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+
+  PassivaEquipada
+    id: equipada2
+    anchors.top: equipada1.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 3
+
+  Button
+    id: fecharBotao
+    !text: tr('Fechar')
+    width: 80
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: fechar()
+
+  VerticalScrollBar
+    id: barra
+    anchors.top: equipada2.bottom
+    anchors.bottom: fecharBotao.top
+    anchors.right: parent.right
+    margin-top: 8
+    margin-bottom: 6
+    step: 46
+    pixels-scroll: true
+
+  ScrollablePanel
+    id: lista
+    anchors.top: equipada2.bottom
+    anchors.left: parent.left
+    anchors.right: barra.left
+    anchors.bottom: fecharBotao.top
+    margin-top: 8
+    margin-bottom: 6
+    vertical-scrollbar: barra
+    layout:
+      type: verticalBox
+      spacing: 2

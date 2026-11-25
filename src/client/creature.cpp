@@ -423,7 +423,9 @@ void Creature::internalDraw(Point dest, const Color& color)
                 }
                 mountType->draw(dest, 0, m_numPatternX, 0, 0, getCurrentAnimationPhase(true), color);
 
-                dest += getDisplacement() * g_drawPool.getScaleFactor();
+                // mmo-jjk: o deslocamento da montaria vale SO para desenhar a montaria (padrao 4.2 de montarias); o piloto
+                // volta ao ponto original (antes: += getDisplacement(), que era o da montaria e tambem mexia no tile da caminhada)
+                dest += mountType->getDisplacement() * g_drawPool.getScaleFactor();
             }
 
             const auto& datType = getThingType();
@@ -1194,9 +1196,9 @@ int Creature::getDisplacementX() const
     if (m_outfit.isItem())
         return 0;
 
-    if (const auto mountType = getMountThingType(); mountType)
-        return mountType->getDisplacementX();
-
+    // mmo-jjk: o deslocamento da montaria nao entra na posicao da criatura (tile da caminhada, nome, quadrado de alvo); ele
+    // so desloca o desenho da montaria em internalDraw. Montarias do projeto usam deslocamento negativo (ver
+    // docs/padrao-montarias.md); usado aqui, ele escolhia o tile errado ao andar para a esquerda/cima e o piloto piscava.
     return Thing::getDisplacementX();
 }
 
@@ -1208,9 +1210,9 @@ int Creature::getDisplacementY() const
     if (m_outfit.isItem())
         return 0;
 
-    if (const auto mountType = getMountThingType(); mountType)
-        return mountType->getDisplacementY();
-
+    // mmo-jjk: o deslocamento da montaria nao entra na posicao da criatura (tile da caminhada, nome, quadrado de alvo); ele
+    // so desloca o desenho da montaria em internalDraw. Montarias do projeto usam deslocamento negativo (ver
+    // docs/padrao-montarias.md); usado aqui, ele escolhia o tile errado ao andar para a esquerda/cima e o piloto piscava.
     return Thing::getDisplacementY();
 }
 

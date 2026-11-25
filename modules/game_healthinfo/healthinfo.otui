@@ -67,7 +67,8 @@ PhantomMiniWindow
 
     UIWidget
       id: icon
-      image-source: /images/healthmana/mana_symbol
+      image-source: /images/healthmana/energia_symbol
+      !tooltip: tr('Energia amaldicoada')
       anchors.left: parent.left
       anchors.verticalCenter: parent.verticalCenter
       size: 12 11
@@ -96,7 +97,7 @@ PhantomMiniWindow
     UIWidget
       id: current
       anchors.left: total.left
-      image-source: /images/healthmana/mana_bar_filled
+      image-source: /images/healthmana/energia_bar_filled
       image-border-left: 5
       image-border-right: 7
       anchors.verticalCenter: total.verticalCenter

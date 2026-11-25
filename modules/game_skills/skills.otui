@@ -8,6 +8,26 @@ SkillButton < UIButton
 SmallSkillButton < SkillButton
   height: 14
 
+BonusLinha < UIWidget
+  height: 14
+  margin-bottom: 2
+
+  Label
+    id: nome
+    font: verdana-11px-monochrome
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    color: #C0C0C0
+
+  Label
+    id: valor
+    font: verdana-11px-monochrome
+    text-align: right
+    anchors.right: parent.right
+    anchors.left: nome.right
+    anchors.verticalCenter: parent.verticalCenter
+    color: #44ad25
+
 SkillNameLabel < GameLabel
   font: verdana-11px-monochrome
   anchors.left: parent.left
@@ -259,7 +279,6 @@ MiniWindow
 
     SkillButton
       id: skillId4
-      visible: false
       SkillNameLabel
         !text: tr('Distance Fighting')
       SkillValueLabel
@@ -290,6 +309,25 @@ MiniWindow
       SkillPercentPanel
       margin-bottom: 5
         
+    HorizontalSeparator
+      id: separadorBonus
+      margin-bottom: 3
+      visible: false
+
+    Label
+      id: bonusTitulo
+      font: verdana-11px-rounded
+      color: #b48cffff
+      height: 14
+      margin-bottom: 2
+      visible: false
+
+    Panel
+      id: bonusPanel
+      layout:
+        type: verticalBox
+        fit-children: true
+
     HorizontalSeparator
       id: separadorOnOffenceInfoChange
       margin-bottom: 5

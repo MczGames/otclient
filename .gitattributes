@@ -3,7 +3,9 @@
 *.lua eol=lf 
 *.md  text eol=lf
 *.txt eol=lf 
-*.ot* eol=lf 
+*.ot* eol=lf
+# minimapa (OTMM) e binario: sem conversao de fim de linha (a regra acima o estragava)
+*.otmm binary
 *.cpp eol=lf 
 *.h   eol=lf 
 

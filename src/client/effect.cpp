@@ -99,7 +99,17 @@ void Effect::draw(const Point& dest, const bool drawThings, LightView* lightView
     if (drawThings && hasShader())
         g_drawPool.setShaderProgram(g_shaders.getShaderById(m_shaderId), true/*, shaderAction*/);
 
-    thingType->draw(dest, 0, xPattern, yPattern, 0, animationPhase, Color::white, drawThings, lightView);
+    // Projeto JJK: brilho aditivo e sprite grande centralizado no tile (ver ThingType::isEfeitoCentro)
+    if (drawThings && thingType->isEfeitoAditivo())
+        g_drawPool.setCompositionMode(CompositionMode::ADITIVO, true);
+
+    Point destino = dest;
+    if (thingType->isEfeitoCentro()) {
+        const int meio = g_gameConfig.getSpriteSize() / 2;
+        destino += Point((thingType->getWidth() - 1) * meio, (thingType->getHeight() - 1) * meio) * g_drawPool.getScaleFactor();
+    }
+
+    thingType->draw(destino, 0, xPattern, yPattern, 0, animationPhase, Color::white, drawThings, lightView);
 }
 
 void Effect::onAppear()

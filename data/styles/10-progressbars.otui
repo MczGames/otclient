@@ -37,7 +37,7 @@ HealthBar < ProgressBar
 ManaBar < ProgressBar
   image-source: /images/ui/progressbarhpmana
   image-border: 4
-  background-color: #4444ff
+  background-color: #8a4cf0
 
 ProgressBarSD < UIProgressBarSD
   height: 22

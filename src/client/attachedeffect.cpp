@@ -146,6 +146,13 @@ void AttachedEffect::draw(const Point& dest, const bool isOnTop, LightView* ligh
                 g_drawPool.addTexturedRect(Rect(point, size), texture, rect, Color::white);
             }
         } else {
+            // Projeto JJK: mesmo tratamento de Effect::draw para efeitos "efx:" (aditivo/centro)
+            if (drawThing && thingType->isEfeitoAditivo())
+                g_drawPool.setCompositionMode(CompositionMode::ADITIVO, true);
+            if (thingType->isEfeitoCentro()) {
+                const int meio = g_gameConfig.getSpriteSize() / 2;
+                point += Point((thingType->getWidth() - 1) * meio, (thingType->getHeight() - 1) * meio) * g_drawPool.getScaleFactor();
+            }
             thingType->draw(point, 0, m_direction, 0, 0, animation, Color::white, drawThing, lightView);
         }
 

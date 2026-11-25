@@ -36,7 +36,8 @@ enum class CompositionMode
     ADD,
     REPLACE,
     DESTINATION_BLENDING,
-    LIGHT
+    LIGHT,
+    ADITIVO   // projeto JJK: soma a luz do efeito ao que esta embaixo (src_alpha, one)
 };
 
 enum class DrawMode

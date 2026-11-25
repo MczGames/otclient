@@ -829,7 +829,7 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
             if creatureThing:getPosition().z == localPosition.z then
                 if creatureThing:isNpc() then
                     menu:addOption(tr('Talk'), function()
-                        g_game.talk("hi")
+                        modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                     end)
                 end
 
@@ -1024,7 +1024,7 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
                 if playerPos.z == npcPos.z then
                     local dist = math.max(math.abs(playerPos.x - npcPos.x), math.abs(playerPos.y - npcPos.y))
                     if dist <= 3 then
-                        g_game.talk("hi")
+                        modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                         return true
                     end
                 end
@@ -1103,7 +1103,7 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
                 if playerPos.z == npcPos.z then
                     local dist = math.max(math.abs(playerPos.x - npcPos.x), math.abs(playerPos.y - npcPos.y))
                     if dist <= 3 then
-                        g_game.talk("hi")
+                        modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                         return true
                     end
                 end
@@ -1281,7 +1281,7 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
                     if playerPos.z == npcPos.z then
                         local dist = math.max(math.abs(playerPos.x - npcPos.x), math.abs(playerPos.y - npcPos.y))
                         if dist <= 3 then
-                            g_game.talk("hi")
+                            modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                             return true
                         end
                     end
@@ -1366,7 +1366,7 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
                     if playerPos.z == npcPos.z then
                         local dist = math.max(math.abs(playerPos.x - npcPos.x), math.abs(playerPos.y - npcPos.y))
                         if dist <= 3 then
-                            g_game.talk("hi")
+                            modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                             return true
                         end
                     end
@@ -1455,7 +1455,7 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
                     if playerPos.z == npcPos.z then
                         local dist = math.max(math.abs(playerPos.x - npcPos.x), math.abs(playerPos.y - npcPos.y))
                         if dist <= 3 then
-                            g_game.talk("hi")
+                            modules.game_dialogonpc.falar(creatureThing) -- conversa por janela (game_dialogonpc), sem "hi" no chat
                             return true
                         end
                     end

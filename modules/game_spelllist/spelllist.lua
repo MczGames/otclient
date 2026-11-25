@@ -20,6 +20,16 @@ vocationBoxDruid = nil
 vocationBoxPaladin = nil
 vocationBoxKnight = nil
 vocationBoxMonk = nil
+vocationBoxExtra = nil
+
+-- MMO JJK: cada caixa de classe aponta para a vocacao do projeto (ids de vocations.xml; a 5, suporte_legado, nao aparece).
+-- Ordem: Lutador, Mestre das Armas, Mestre das Tecnicas, Controlador, Suporte, Restringido.
+local CAIXA_VOCACAO = {
+    vocationBoxSorcerer = 1, vocationBoxDruid = 2, vocationBoxPaladin = 6,
+    vocationBoxKnight = 3, vocationBoxMonk = 4, vocationBoxExtra = 7,
+}
+local GRUPO_PT = { Attack = 'Ataque', Healing = 'Cura', Support = 'Suporte' }
+local TIPO_PT = { Instant = 'Instantânea', Rune = 'Runa', Conjure = 'Conjuração' }
 
 groupBoxAny = nil
 groupBoxAttack = nil
@@ -61,6 +71,161 @@ local filters = {
     groupId = FILTER_GROUP_ANY
 }
 
+-- MMO JJK: caixa "Evolucao da tecnica". O servidor (datapack lib/core/tecnicas_ativas.lua) manda o estado das tecnicas da classe
+-- pelo opcode estendido 125 (JSON): pontos livres, nivel de cada tecnica, o efeito atual, o ganho do proximo nivel e as variacoes.
+-- "Aumentar nivel" manda "subir N" e "Escolher A/B" manda "variacao N a|b"; o servidor responde com o estado novo. docs/protocolo.md.
+local OPCODE_TECNICAS = 125
+local dadosTecnicas = nil -- ultimo estado recebido
+local infoSelecionada = nil -- SpellInfo da tecnica selecionada
+
+local function pedirTecnicas(texto)
+    local protocolo = g_game.getProtocolGame()
+    if protocolo and g_game.isOnline() then
+        protocolo:sendExtendedOpcode(OPCODE_TECNICAS, texto or 'pedir')
+    end
+end
+
+local function caixa(id)
+    return spelllistWindow:recursiveGetChildById(id)
+end
+
+-- A tecnica do estado que corresponde a tecnica selecionada (mesma palavra tN e mesma classe ou mesmo nome).
+local function tecnicaSelecionada()
+    if not dadosTecnicas or not infoSelecionada or not dadosTecnicas.tecnicas then
+        return nil
+    end
+    local jogador = g_game.getLocalPlayer()
+    for _, t in ipairs(dadosTecnicas.tecnicas) do
+        if t.palavra == infoSelecionada.words then
+            local mesmaClasse = jogador and table.find(infoSelecionada.vocations, jogador:getVocation()) ~= nil
+            if mesmaClasse or t.nome == infoSelecionada.nome then
+                return t
+            end
+        end
+    end
+    return nil
+end
+
+local function mostrarVariacoes(t, visivel)
+    for _, id in ipairs({ 'tituloVariacao', 'botaoVariacaoA', 'textoVariacaoA', 'botaoVariacaoB', 'textoVariacaoB' }) do
+        caixa(id):setVisible(visivel)
+    end
+    if not visivel then
+        return
+    end
+    local noMaximo = t.nivel >= (dadosTecnicas.nivel_max or 5)
+    for _, v in ipairs({ 'a', 'b' }) do
+        local V = v:upper()
+        local botao = caixa('botaoVariacao' .. V)
+        local escolhida = t.variacao == v
+        botao:setText(escolhida and (V .. ' (atual)') or ('Escolher ' .. V))
+        botao:setEnabled(noMaximo and not escolhida)
+        local texto = caixa('textoVariacao' .. V)
+        texto:setText((t.variacoes and t.variacoes[v]) or '-')
+        texto:setColor(escolhida and '#ffd27a' or '#dddddd')
+    end
+    caixa('tituloVariacao'):setText(noMaximo and 'Varia\231\227o:' or ('Varia\231\227o (libera no n\237vel ' .. (dadosTecnicas.nivel_max or 5) .. ' da t\233cnica):'))
+end
+
+function atualizarCaixaTecnica()
+    if not spelllistWindow then
+        return
+    end
+    local d = dadosTecnicas
+    local pontos = caixa('pontosTecnica')
+    if d and d.classe and d.classe ~= 'nenhuma' then
+        local texto = 'Pontos: ' .. (d.pontos_livres or 0) .. ' livres de ' .. (d.pontos_totais or 0)
+        if d.proximo_ponto then
+            texto = texto .. '  (pr\243ximo no n\237vel ' .. d.proximo_ponto .. ')'
+        end
+        pontos:setText(texto)
+    else
+        pontos:setText('')
+    end
+
+    local t = tecnicaSelecionada()
+    local aviso = caixa('avisoTecnica')
+    local botaoSubir = caixa('botaoSubir')
+    local pips = caixa('pipsTecnica')
+    local mensagem = d and d.mensagem
+
+    local function vazio(texto)
+        caixa('nivelTecnica'):setText('')
+        pips:destroyChildren()
+        botaoSubir:setVisible(false)
+        caixa('atualTecnica'):setText(texto)
+        caixa('proximoTecnica'):setText('')
+        mostrarVariacoes(nil, false)
+    end
+
+    if not d then
+        vazio('Abra a lista conectado ao jogo para ver as suas t\233cnicas.')
+    elseif d.classe == 'nenhuma' then
+        vazio('Voc\234 ainda n\227o despertou: fale com o diretor no Col\233gio para escolher a classe.')
+    elseif not infoSelecionada or not infoSelecionada.words:match('^t%d$') then
+        vazio('Selecione uma t\233cnica da sua classe na lista.')
+    elseif not t then
+        vazio('Esta t\233cnica \233 de outra classe.')
+    else
+        local max = d.nivel_max or 5
+        caixa('nivelTecnica'):setText(t.liberada and ('N\237vel ' .. t.nivel .. ' de ' .. max) or 'Bloqueada')
+        pips:destroyChildren()
+        for i = 1, max do
+            local pip = g_ui.createWidget('NivelPip', pips)
+            pip:setOn(i <= t.nivel)
+        end
+        botaoSubir:setVisible(true)
+        botaoSubir:setEnabled(t.pode_subir == true)
+        if not t.liberada then
+            botaoSubir:setTooltip('Libera no n\237vel ' .. t.libera_no_nivel .. ' do personagem.')
+        elseif t.nivel >= max then
+            botaoSubir:setTooltip('A t\233cnica j\225 est\225 no n\237vel m\225ximo.')
+        elseif (d.pontos_livres or 0) < 1 then
+            botaoSubir:setTooltip('Sem pontos livres: voc\234 ganha 1 ponto a cada 2 n\237veis.')
+        else
+            botaoSubir:setTooltip('Gasta 1 ponto de t\233cnica.')
+        end
+        if t.liberada then
+            caixa('atualTecnica'):setText('Agora: ' .. (t.atual or '-'))
+            caixa('proximoTecnica'):setText((t.proximo and t.proximo ~= '') and ('Pr\243ximo n\237vel: ' .. t.proximo) or 'N\237vel m\225ximo alcan\231ado.')
+        else
+            caixa('atualTecnica'):setText('Libera no n\237vel ' .. t.libera_no_nivel .. ' do personagem. No n\237vel 1: ' .. (t.atual or '-'))
+            caixa('proximoTecnica'):setText('')
+        end
+        mostrarVariacoes(t, t.liberada)
+    end
+
+    if mensagem and mensagem ~= '' then
+        aviso:setText(mensagem)
+        aviso:setColor(d.ok == false and '#ff7a7a' or '#7fe39b')
+    else
+        aviso:setText('')
+    end
+end
+
+function subirTecnica()
+    local t = tecnicaSelecionada()
+    if t and t.pode_subir then
+        pedirTecnicas('subir ' .. t.slot)
+    end
+end
+
+function escolherVariacao(v)
+    local t = tecnicaSelecionada()
+    if t and t.liberada then
+        pedirTecnicas('variacao ' .. t.slot .. ' ' .. v)
+    end
+end
+
+local function aoReceberTecnicas(protocolo, opcode, d)
+    if type(d) ~= 'table' or d.acao ~= 'tecnicas' then
+        return
+    end
+    dadosTecnicas = d
+    atualizarCaixaTecnica()
+    dadosTecnicas.mensagem = nil -- a mensagem aparece uma vez; a proxima atualizacao limpa
+end
+
 function getSpelllistProfile()
     return SpelllistProfile
 end
@@ -95,6 +260,8 @@ function online()
 end
 
 function offline()
+    dadosTecnicas = nil
+    infoSelecionada = nil
     resetWindow()
 end
 
@@ -124,12 +291,11 @@ function init()
     vocationBoxPaladin = spelllistWindow:getChildById('vocationBoxPaladin')
     vocationBoxKnight = spelllistWindow:getChildById('vocationBoxKnight')
     vocationBoxMonk = spelllistWindow:getChildById('vocationBoxMonk')
-    -- Os cinco botoes de vocacao mostram as classes do projeto (nomes da pele, gerados em spells.lua).
-    vocationBoxSorcerer:setText(VocationNames[1])
-    vocationBoxDruid:setText(VocationNames[2])
-    vocationBoxPaladin:setText(VocationNames[3])
-    vocationBoxKnight:setText(VocationNames[4])
-    vocationBoxMonk:setText(VocationNames[5])
+    vocationBoxExtra = spelllistWindow:getChildById('vocationBoxExtra')
+    -- As seis caixas mostram as classes do projeto (nomes da pele, gerados em spells.lua).
+    for id, voc in pairs(CAIXA_VOCACAO) do
+        spelllistWindow:getChildById(id):setText(VocationNames[voc] or '')
+    end
 
     groupBoxAny = spelllistWindow:getChildById('groupBoxAny')
     groupBoxAttack = spelllistWindow:getChildById('groupBoxAttack')
@@ -147,6 +313,7 @@ function init()
     vocationRadioGroup:addWidget(vocationBoxPaladin)
     vocationRadioGroup:addWidget(vocationBoxKnight)
     vocationRadioGroup:addWidget(vocationBoxMonk)
+    vocationRadioGroup:addWidget(vocationBoxExtra)
 
     groupRadioGroup = UIRadioGroup.create()
     groupRadioGroup:addWidget(groupBoxAny)
@@ -168,6 +335,7 @@ function init()
     premiumRadioGroup.onSelectionChange = toggleFilter
 
     spellList = spelllistWindow:getChildById('spellList')
+    ProtocolGame.registerExtendedJSONOpcode(OPCODE_TECNICAS, aoReceberTecnicas)
 
     g_keyboard.bindKeyPress('Down', function()
         spellList:focusNextChild(KeyboardFocusReason)
@@ -197,6 +365,7 @@ function terminate()
         onGameEnd = offline
     })
 
+    ProtocolGame.unregisterExtendedJSONOpcode(OPCODE_TECNICAS)
     spelllistWindow:destroy()
     if spelllistButton then
         spelllistButton:destroy()
@@ -315,15 +484,15 @@ function updateSpellInformation(widget)
         cooldown = (info.exhaustion / 1000) .. 's'
         for groupId, groupName in ipairs(SpellGroups) do
             if info.group[groupId] then
-                group = group .. (group:len() == 0 and '' or ' / ') .. groupName
+                group = group .. (group:len() == 0 and '' or ' / ') .. (GRUPO_PT[groupName] or groupName)
                 cooldown = cooldown .. ' / ' .. (info.group[groupId] / 1000) .. 's'
             end
         end
 
-        type = info.type
+        type = TIPO_PT[info.type] or info.type
         level = info.level
-        mana = info.mana .. ' / ' .. info.soul
-        premium = (info.premium and 'yes' or 'no')
+        mana = (info.custo and info.custo ~= '') and info.custo or tostring(info.mana)
+        premium = (info.premium and 'sim' or 'não')
         description = info.description or '-'
     end
 
@@ -337,6 +506,12 @@ function updateSpellInformation(widget)
     manaValueLabel:setText(mana)
     premiumValueLabel:setText(premium)
     descriptionValueLabel:setText(description)
+
+    infoSelecionada = SpellInfo[SpelllistProfile][spell]
+    if infoSelecionada then
+        infoSelecionada.nome = spell
+    end
+    atualizarCaixaTecnica()
 end
 
 function selectDefaultVocation()
@@ -346,16 +521,10 @@ function selectDefaultVocation()
     end
     local vocation = player:getVocation()
     local widget = vocationBoxAny
-    if vocation == VocationsClient.Knight or vocation == VocationsClient.EliteKnight then
-        widget = vocationBoxKnight
-    elseif vocation == VocationsClient.Paladin or vocation == VocationsClient.RoyalPaladin then
-        widget = vocationBoxPaladin
-    elseif vocation == VocationsClient.Sorcerer or vocation == VocationsClient.MasterSorcerer then
-        widget= vocationBoxSorcerer
-    elseif vocation == VocationsClient.Druid or vocation == VocationsClient.ElderDruid then
-        widget = vocationBoxDruid
-    elseif vocation == VocationsClient.Monk or vocation == VocationsClient.ExaltedMonk then
-        widget = vocationBoxMonk
+    for id, voc in pairs(CAIXA_VOCACAO) do
+        if voc == vocation then
+            widget = spelllistWindow:getChildById(id)
+        end
     end
     vocationRadioGroup:selectWidget(widget)
 end
@@ -367,6 +536,8 @@ function toggle()
     else
         spelllistButton:setOn(true)
         selectDefaultVocation()
+        pedirTecnicas('pedir')
+        atualizarCaixaTecnica()
         spelllistWindow:show()
         spelllistWindow:raise()
         spelllistWindow:focus()
@@ -376,19 +547,7 @@ end
 function toggleFilter(widget, selectedWidget)
     if widget == vocationRadioGroup then
         local boxId = selectedWidget:getId()
-        if boxId == 'vocationBoxAny' then
-            filters.vocationId = FILTER_VOCATION_ANY
-        elseif boxId == 'vocationBoxSorcerer' then
-            filters.vocationId = FILTER_VOCATION_SORCERER
-        elseif boxId == 'vocationBoxDruid' then
-            filters.vocationId = FILTER_VOCATION_DRUID
-        elseif boxId == 'vocationBoxPaladin' then
-            filters.vocationId = FILTER_VOCATION_PALADIN
-        elseif boxId == 'vocationBoxKnight' then
-            filters.vocationId = FILTER_VOCATION_KNIGHT
-        elseif boxId == 'vocationBoxMonk' then
-            filters.vocationId = FILTER_VOCATION_MONK
-        end
+        filters.vocationId = CAIXA_VOCACAO[boxId] or FILTER_VOCATION_ANY
     elseif widget == groupRadioGroup then
         local boxId = selectedWidget:getId()
         if boxId == 'groupBoxAny' then
@@ -424,8 +583,9 @@ function toggleFilter(widget, selectedWidget)
 end
 
 function resizeWindow()
-    spelllistWindow:setWidth(SpelllistSettings['Default'].spellWindowWidth +
-                                 SpelllistSettings[SpelllistProfile].iconSize.width - 32)
+    -- MMO JJK: a descricao tem 300 px de largura (varias linhas); a janela precisa de no minimo 670 px
+    spelllistWindow:setWidth(math.max(670, SpelllistSettings['Default'].spellWindowWidth +
+                                 SpelllistSettings[SpelllistProfile].iconSize.width - 32))
     spellList:setWidth(
         SpelllistSettings['Default'].spellListWidth + SpelllistSettings[SpelllistProfile].iconSize.width - 32)
 end

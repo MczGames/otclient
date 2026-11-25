@@ -174,6 +174,10 @@ public:
 
     bool isItem() const { return m_category == ThingCategoryItem; }
     bool isEffect() const { return m_category == ThingCategoryEffect; }
+    // Projeto JJK: efeitos marcados pelo nome no appearances (gerar_assets.py). "efx:" seguido de
+    // "aditivo" (mistura aditiva, brilho) e/ou "centro" (sprite maior que o tile desenhado centralizado no tile).
+    bool isEfeitoAditivo() const { return m_efeitoAditivo; }
+    bool isEfeitoCentro() const { return m_efeitoCentro; }
     bool isMissile() const { return m_category == ThingCategoryMissile; }
     bool isCreature() const { return m_category == ThingCategoryCreature; }
 
@@ -235,6 +239,8 @@ private:
 
     uint8_t m_animationPhases{ 0 };
     uint8_t m_realSize{ 0 };
+    bool m_efeitoAditivo{ false };
+    bool m_efeitoCentro{ false };
     uint8_t m_numPatternX{ 0 };
     uint8_t m_numPatternY{ 0 };
     uint8_t m_numPatternZ{ 0 };

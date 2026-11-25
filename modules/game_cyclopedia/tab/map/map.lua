@@ -7,6 +7,167 @@ local loadedFloorSet = {} -- floors already indexed for loadedAssetsDir
 -- Forward declaration — defined later in the file.
 local refreshVirtualFloors
 
+-- FusionTsu: nomes do mapa-mundi (cidades, bairros, areas de caca, cavernas) e o marcador seguindo o personagem.
+-- Os nomes vem de /data/mundo_lugares.json (gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo).
+local LUGARES_ARQ = '/data/mundo_lugares.json'
+local DISTANCIA_ANDAR = 250 -- igual ao limite do UIMinimap para o "andar ate la"
+local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a', estacao = '#8fd3ff' }
+local seguirEvento = nil
+local ultimaPos = nil
+
+-- Clique num nome ou nos monstros: o personagem vai ANDANDO ate la (nunca teleporta). Se o lugar fica em outro andar
+-- ou longe demais para o caminho automatico (limite de 250 tiles do cliente), so avisa: o jogador segue pela estrada.
+local function irParaLugar(lugar)
+    local player = g_game.getLocalPlayer()
+    if not player then
+        return
+    end
+    local alvo = { x = lugar.x, y = lugar.y, z = lugar.z }
+    local pos = player:getPosition()
+    if not pos then
+        return
+    end
+    if pos.z ~= alvo.z then
+        modules.game_textmessage.displayFailureMessage('Esse lugar fica em outro andar: va ate a entrada e desca.')
+    elseif Position.distance(pos, alvo) > DISTANCIA_ANDAR then
+        modules.game_textmessage.displayFailureMessage('Fica longe demais para ir direto: siga pela estrada e clique de novo mais perto.')
+    else
+        player:autoWalk(alvo)
+    end
+end
+
+-- Monstros de uma area de caca ou caverna: um icone so, com os bichos da area juntos (o principal na frente e o outro
+-- um pouco atras); o nome e o nivel aparecem ao passar o mouse. Clique leva ate la, como nos nomes.
+local TAM_MONSTRO = 32
+local DESLOCA = 12 -- quanto o bicho de tras fica para a direita e para cima
+local function criarMonstros(lugar)
+    local n = #lugar.monstros
+    local caixa = g_ui.createWidget('UIWidget')
+    caixa:resize(TAM_MONSTRO + (n - 1) * DESLOCA + 4, TAM_MONSTRO + (n - 1) * 4 + 4)
+    caixa:setBackgroundColor('#00000090')
+    caixa:setBorderWidth(1)
+    caixa:setBorderColor('#7a3cc8')
+    caixa:setPhantom(false)
+    local linhas = {}
+    -- desenha de tras para a frente: o ultimo criado fica por cima
+    for i = n, 1, -1 do
+        local m = lugar.monstros[i]
+        local bicho = g_ui.createWidget('UICreature', caixa)
+        bicho:setOutfit({ type = m.outfit })
+        bicho:setCreatureSize(TAM_MONSTRO)
+        bicho:setCenter(true)
+        bicho:addAnchor(AnchorTop, 'parent', AnchorTop)
+        bicho:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+        bicho:setMarginTop(2 + (n - i) * 4)
+        bicho:setMarginLeft(2 + (i - 1) * DESLOCA)
+        bicho:setPhantom(true)
+    end
+    for _, m in ipairs(lugar.monstros) do
+        linhas[#linhas + 1] = m.nome .. (m.forte and ' (forte)' or '')
+    end
+    local nivel = lugar.niveis and string.format('\nNivel %d-%d', lugar.niveis[1], lugar.niveis[2]) or ''
+    caixa:setTooltip(table.concat(linhas, '\n') .. nivel .. '\n(clique para ir andando)')
+    return caixa
+end
+
+-- Os monstros so aparecem no andar em que estao (os das cavernas no andar 8); os nomes valem para todos os andares.
+local function filtrarAndar(minimapWidget)
+    local cam = minimapWidget:getCameraPosition()
+    if not cam then
+        return
+    end
+    for _, w in pairs(minimapWidget.alternatives or {}) do
+        if w.andar and w.andar ~= cam.z then
+            w:hide()
+        end
+    end
+end
+
+local function criarNomesDoMundo(minimapWidget)
+    if minimapWidget.nomesDoMundo or not g_resources.fileExists(LUGARES_ARQ) then
+        return
+    end
+    local ok, dados = pcall(function()
+        return json.decode(g_resources.readFileContents(LUGARES_ARQ))
+    end)
+    if not ok or type(dados) ~= 'table' or type(dados.lugares) ~= 'table' then
+        g_logger.warning('[cyclopedia] nao foi possivel ler ' .. LUGARES_ARQ)
+        return
+    end
+    minimapWidget.nomesDoMundo = true
+    for _, lugar in ipairs(dados.lugares) do
+        if lugar.tipo == 'monstros' and type(lugar.monstros) == 'table' then
+            local caixa = criarMonstros(lugar)
+            caixa.andar = lugar.z
+            caixa.onMouseRelease = function(widget, mousePos, button)
+                if button == MouseLeftButton then
+                    irParaLugar(lugar)
+                    return true
+                end
+                return false
+            end
+            minimapWidget:addAlternativeWidget(caixa, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+        else
+        local rotulo = g_ui.createWidget('UILabel')
+        rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-9px-bold')
+        rotulo:setText(lugar.nome)
+        rotulo:setColor(CORES_LUGAR[lugar.tipo] or '#ffffff')
+        rotulo:setBackgroundColor('#000000aa')
+        rotulo:setTextAutoResize(true)
+        rotulo:setPhantom(false)
+        rotulo:setTooltip(lugar.nome .. ' (clique para ir andando)')
+        rotulo.onMouseRelease = function(widget, mousePos, button)
+            if button == MouseLeftButton then
+                irParaLugar(lugar)
+                return true
+            end
+            return false
+        end
+        minimapWidget:addAlternativeWidget(rotulo, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
+        end
+    end
+    -- depois do zoom e da troca de andar, esconde os monstros de outro andar
+    local zoomOriginal = minimapWidget.onZoomChange
+    minimapWidget.onZoomChange = function(self, ...)
+        zoomOriginal(self, ...)
+        filtrarAndar(self)
+    end
+    local cameraOriginal = minimapWidget.onCameraPositionChange
+    minimapWidget.onCameraPositionChange = function(self, ...)
+        if cameraOriginal then
+            cameraOriginal(self, ...)
+        end
+        self:onZoomChange(self:getZoom())
+    end
+    minimapWidget:setAlternativeWidgetsVisible(true)
+    minimapWidget:onZoomChange(minimapWidget:getZoom())
+end
+
+-- O marcador do personagem acompanha o boneco: confere a posicao 4 vezes por segundo enquanto o mapa estiver aberto.
+local function seguirJogador()
+    if not UI or UI:isDestroyed() then
+        if seguirEvento then
+            removeEvent(seguirEvento)
+            seguirEvento = nil
+        end
+        return
+    end
+    local player = g_game.getLocalPlayer()
+    local pos = player and player:getPosition()
+    if not pos then
+        return
+    end
+    if ultimaPos and ultimaPos.x == pos.x and ultimaPos.y == pos.y and ultimaPos.z == pos.z then
+        return
+    end
+    ultimaPos = { x = pos.x, y = pos.y, z = pos.z }
+    local minimapWidget = UI.MapBase.minimap
+    if not minimapWidget:isDragging() then
+        minimapWidget:setCameraPosition({ x = pos.x, y = pos.y, z = pos.z })
+    end
+    minimapWidget:setCrossPosition({ x = pos.x, y = pos.y, z = pos.z })
+end
+
 -- Surface View is only available for floors 0-7 (surface and above).
 -- Underground floors (8-15) always use Map View.
 local SEA_FLOOR = 7
@@ -84,6 +245,13 @@ function showMap()
     }):execute()
 
     Cyclopedia.loadMap()
+
+    ultimaPos = nil
+    if seguirEvento then
+        removeEvent(seguirEvento)
+    end
+    seguirEvento = cycleEvent(seguirJogador, 250)
+    seguirJogador()
 
     controllerCyclopedia.ui.CharmsBase:setVisible(false)
     controllerCyclopedia.ui.GoldBase:setVisible(true)
@@ -199,6 +367,8 @@ function Cyclopedia.loadMap()
         local btn = markList:getChildById(tostring(flag.icon))
         flag:setVisible(btn ~= nil and btn:isChecked())
     end
+
+    criarNomesDoMundo(minimapWidget)
 
     refreshVirtualFloors()
 end

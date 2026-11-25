@@ -74,14 +74,14 @@ ActionButton < UIButton
 
   UIProgressRect
     id: cooldown
-    background: #101010aa
+    background: #1c1c22b4
     percent: 100
     focusable: false
     phantom: true
     anchors.fill: parent
     font: verdana-11px-rounded
-    color: white
-    border-color: #9fa0a0
+    color: #ffd83a
+    border-color: #8a8a96
   
   Panel
     id: activeSpell

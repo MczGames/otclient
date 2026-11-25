@@ -736,6 +736,12 @@ function EnterGame.loginSuccess(requestId, jsonSession, jsonWorlds, jsonCharacte
         }
     end
 
+    -- MMO JJK: o login-server (opentibiabr, Go) manda o nome fixo do Tibia pelo id da vocacao; aqui vira a classe do projeto.
+    local CLASSE_DO_LOGIN = {
+        ['None'] = 'Sem classe', ['Sorcerer'] = 'Lutador', ['Druid'] = 'Mestre das Armas', ['Paladin'] = 'Controlador',
+        ['Knight'] = 'Suporte', ['Master Sorcerer'] = 'Suporte', ['Elder Druid'] = 'Mestre das Tecnicas',
+        ['Royal Paladin'] = 'Restringido',
+    }
     local characters = {}
     for index, character in ipairs(json.decode(jsonCharacters)) do
         local world = worlds[character.worldid]
@@ -745,7 +751,7 @@ function EnterGame.loginSuccess(requestId, jsonSession, jsonWorlds, jsonCharacte
             main = character.ismaincharacter,
             dailyreward = character.dailyrewardstate,
             hidden = character.ishidden,
-            vocation = character.vocation,
+            vocation = CLASSE_DO_LOGIN[character.vocation] or character.vocation,
             outfitid = character.outfitid,
             headcolor = character.headcolor,
             torsocolor = character.torsocolor,

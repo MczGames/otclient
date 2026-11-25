@@ -29,17 +29,47 @@ ConditionWidget < UIWidget
   $!first:
     margin-left: 2
 
+GoldBar < UIWidget
+  image-source: /images/inventory/containerslot
+  image-border: 3
+  phantom: false
+  height: 16
+  anchors.left: changeSize.left
+  anchors.bottom: parent.bottom
+  margin-bottom: 2
+  !tooltip: tr('Gold')
+
+  Label
+    id: goldLabel
+    !text: tr('Gold')
+    font: verdana-11px-rounded
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 6
+    color: #e8c766ff
+
+  Label
+    id: gold
+    !text: '0'
+    font: verdana-11px-rounded
+    text-align: right
+    anchors.right: parent.right
+    anchors.left: goldLabel.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 6
+    color: #f4e2a0ff
+
 PhantomMiniWindow
   id: maininventorypanel
   draggable: true
   phantom: false
-  height: 162
-  &panelHeight: 162
+  height: 186
+  &panelHeight: 186
   on: true
 
   $!on:
-    &panelHeight: 62
-    height: 62
+    &panelHeight: 80
+    height: 80
 
   UIWidget
     id: onPanel
@@ -240,7 +270,8 @@ PhantomMiniWindow
       !text: tr('Stop')
       anchors.left: defense.left
       anchors.right: standPosture.right
-      anchors.bottom: parent.bottom
+      anchors.bottom: goldBar.top
+      margin-bottom: 2
       font: cipsoftFont
       color: #ffffffff
       size: 44 13
@@ -257,7 +288,7 @@ PhantomMiniWindow
       image-border: 3
       anchors.left: changeSize.left
       anchors.right: backpack.right
-      anchors.bottom: parent.bottom
+      anchors.bottom: stop.bottom
       anchors.top: stop.top
       layout:
         type: horizontalBox
@@ -334,6 +365,7 @@ PhantomMiniWindow
 
     UIWidget
       id: soulPanel
+      visible: false
       image-source: /images/inventory/containerslot
       image-border: 3
       phantom: false
@@ -389,6 +421,10 @@ PhantomMiniWindow
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         color: #c0c0c0ff
+
+    GoldBar
+      id: goldBar
+      anchors.right: backpack.right
 
   UIWidget
     id: offPanel
@@ -584,7 +620,8 @@ PhantomMiniWindow
       id: icons
       anchors.left: soulAndCapacity.left
       anchors.right: pvp.right
-      anchors.bottom: parent.bottom
+      anchors.bottom: goldBar.top
+      margin-bottom: 2
       anchors.top: blessings.top
       phantom: false
       image-source: /images/ui/containerslot
@@ -604,3 +641,8 @@ PhantomMiniWindow
       @onClick: |
         g_game.stop()
         g_game.getLocalPlayer():stopAutoWalk()
+
+    GoldBar
+      id: goldBar
+      anchors.right: parent.right
+      margin-right: 7

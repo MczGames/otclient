@@ -84,6 +84,14 @@ local OUTFIT_SHADERS = { {
     name = 'Outfit - ForgeFailed',
     useFramebuffer = true,
     frag = 'shaders/fragment/forge_failed.frag'
+}, {
+    -- Projeto JJK: flash do alvo atingido por tecnica (servidor: TecnicasAtivas.flash)
+    name = 'JJK - Flash',
+    frag = 'shaders/fragment/jjk_flash.frag'
+}, {
+    name = 'JJK - Kokusen',
+    useFramebuffer = true,
+    frag = 'shaders/fragment/jjk_kokusen.frag'
 }, }
 
 local MOUNT_SHADERS = { {
