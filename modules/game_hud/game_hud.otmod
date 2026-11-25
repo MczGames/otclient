@@ -1,0 +1,8 @@
+Module
+  name: game_hud
+  description: HUD em tela cheia (projeto MMO): mapa sem bordas, menu de icones centralizado no topo, barras de vida, energia e XP embaixo, barra de habilidades redonda e chat transparente a esquerda. Ativo na visao estendida (data/setup.otml: extended-view-ui).
+  author: MczGames
+  sandboxed: true
+  scripts: [ game_hud ]
+  @onLoad: init()
+  @onUnload: terminate()
