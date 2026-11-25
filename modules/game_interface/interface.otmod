@@ -38,6 +38,7 @@ Module
     - game_devitens
     - game_passivas
     - game_instancias
+    - game_dialogonpc
     - game_cooldown
     - game_modaldialog
     - game_shaders
