@@ -100,7 +100,7 @@ end
 local function onFlagMouseRelease(widget, pos, button)
     if button == MouseLeftButton then
         local player = g_game.getLocalPlayer()
-        if Position.distance(player:getPosition(), widget.pos) > 250 then
+        if Position.distance(player:getPosition(), widget.pos) > 3000 then
             modules.game_textmessage.displayStatusMessage(tr('Destination is out of range.'))
             return false
         end
@@ -285,7 +285,7 @@ function UIMinimap:onMouseRelease(pos, button)
         if g_game.getClientVersion() > 1288 and g_keyboard.isCtrlPressed() and g_keyboard.isShiftPressed() then
             return g_game.sendGmTeleport(mapPos)
         end
-        if Position.distance(player:getPosition(), mapPos) > 250 then
+        if Position.distance(player:getPosition(), mapPos) > 3000 then
             modules.game_textmessage.displayStatusMessage(tr('Destination is out of range.'))
             return false
         end

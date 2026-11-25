@@ -37,6 +37,7 @@ Module
     - game_spelllist
     - game_devitens
     - game_passivas
+    - game_menu_central
     - game_instancias
     - game_dialogonpc
     - game_cooldown
