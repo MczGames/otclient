@@ -499,9 +499,91 @@ UIWidget
       cross: true
       color: black
       zoom: 1
-      min-zoom: -3
+      min-zoom: -5
       max-zoom: 5
 
+    // FusionTsu: barra de botoes (andar, centralizar, buscar coordenada, zoom) e a coordenada exata embaixo
+    UIWidget
+      id: ferramentas
+      anchors.top: parent.top
+      anchors.right: parent.right
+      margin-top: 8
+      margin-right: 8
+      size: 166 30
+      padding: 3
+      background-color: #1c1a4ae6
+      border-width: 1
+      border-color: #5c55b0
+      layout:
+        type: horizontalBox
+        spacing: 1
+      MapaFerramenta
+        id: subir
+        icon: /images/game/mapa/subir
+        !tooltip: 'Subir um andar'
+        @onClick: Cyclopedia.upLayer()
+      MapaFerramenta
+        id: descer
+        icon: /images/game/mapa/descer
+        !tooltip: 'Descer um andar'
+        @onClick: Cyclopedia.downLayer()
+      MapaFerramenta
+        id: centro
+        icon: /images/game/mapa/centro
+        !tooltip: 'Voltar para onde voce esta'
+        @onClick: Cyclopedia.centralizarNoJogador()
+      MapaFerramenta
+        id: buscar
+        icon: /images/game/mapa/buscar
+        !tooltip: 'Ir para uma coordenada (cole a posicao que alguem te mandou)'
+        @onClick: Cyclopedia.abrirBuscaCoordenada()
+      MapaFerramenta
+        id: mais
+        icon: /images/game/mapa/mais
+        !tooltip: 'Aproximar'
+        @onClick: Cyclopedia.setZoom(true)
+      MapaFerramenta
+        id: menos
+        icon: /images/game/mapa/menos
+        !tooltip: 'Afastar'
+        @onClick: Cyclopedia.setZoom(false)
+
+    TextEdit
+      id: buscaCoordenada
+      anchors.top: ferramentas.bottom
+      anchors.right: ferramentas.right
+      margin-top: 4
+      size: 166 22
+      !placeholder: 'x, y, z  e aperte Enter'
+      visible: false
+
+    UILabel
+      id: coordenada
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-bottom: 8
+      margin-right: 8
+      font: verdana-11px-rounded
+      color: #ffffff
+      text-align: center
+      text-auto-resize: true
+      padding: 5 10 5 10
+      background-color: #1c1a4ae6
+      border-width: 1
+      border-color: #5c55b0
+      phantom: false
+      !tooltip: 'Clique para copiar a sua posicao e mandar para alguem'
+
+
+MapaFerramenta < UIButton
+  size: 26 24
+  icon-size: 16 16
+  icon-align: center
+  background-color: #00000000
+  $hover:
+    background-color: #ffffff30
+  $pressed:
+    background-color: #ffffff60
 
 MapLayerSelector < UIWidget
   UIWidget
