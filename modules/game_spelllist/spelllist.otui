@@ -36,10 +36,28 @@ FilterButton < Button
   $on:
     color: green
 
+NivelPip < UIWidget
+  size: 16 8
+  margin-left: 3
+  border-width: 1
+  border-color: #000000
+  background-color: #2a3345
+  $on:
+    background-color: #ffd27a
+
+TecnicaTexto < Label
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-left: 8
+  margin-right: 8
+  text-wrap: true
+  text-auto-resize: true
+  text-align: topLeft
+
 MainWindow
   id: spelllistWindow
   !text: tr('Spell List')
-  size: 660 500
+  size: 660 735
   @onEscape: toggle()
 
   TextList
@@ -199,9 +217,128 @@ MainWindow
     text-wrap: true
     text-align: topLeft
 
+  UIWidget
+    id: caixaTecnica
+    anchors.top: labelDescriptionValue.bottom
+    anchors.left: spellList.right
+    anchors.right: parent.right
+    margin-top: 8
+    margin-left: 10
+    height: 225
+    background-color: #162338
+    border-width: 1
+    border-color: #272727
+
+    Label
+      id: tituloTecnica
+      !text: 'Evolução da técnica'
+      font: verdana-11px-monochrome
+      color: #ffd27a
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 8
+      margin-top: 6
+      text-auto-resize: true
+
+    Label
+      id: pontosTecnica
+      anchors.left: parent.left
+      anchors.top: tituloTecnica.bottom
+      margin-left: 8
+      margin-top: 4
+      text-auto-resize: true
+      color: #7fd0ff
+
+    Label
+      id: nivelTecnica
+      anchors.left: parent.left
+      anchors.top: pontosTecnica.bottom
+      margin-left: 8
+      margin-top: 10
+      text-auto-resize: true
+      color: #ffffff
+
+    UIWidget
+      id: pipsTecnica
+      anchors.left: nivelTecnica.right
+      anchors.verticalCenter: nivelTecnica.verticalCenter
+      margin-left: 8
+      size: 100 8
+      layout:
+        type: horizontalBox
+
+    Button
+      id: botaoSubir
+      !text: 'Aumentar nível (1 ponto)'
+      width: 150
+      anchors.right: parent.right
+      anchors.verticalCenter: nivelTecnica.verticalCenter
+      margin-right: 8
+      @onClick: modules.game_spelllist.subirTecnica()
+
+    TecnicaTexto
+      id: atualTecnica
+      anchors.top: nivelTecnica.bottom
+      margin-top: 12
+      color: #dddddd
+
+    TecnicaTexto
+      id: proximoTecnica
+      anchors.top: atualTecnica.bottom
+      margin-top: 6
+      color: #7fe39b
+
+    Label
+      id: tituloVariacao
+      !text: 'Variação (nível máximo):'
+      anchors.left: parent.left
+      anchors.top: proximoTecnica.bottom
+      margin-left: 8
+      margin-top: 10
+      text-auto-resize: true
+      color: #9fa6b2
+
+    Button
+      id: botaoVariacaoA
+      !text: 'Escolher A'
+      width: 80
+      anchors.left: parent.left
+      anchors.top: tituloVariacao.bottom
+      margin-left: 8
+      margin-top: 4
+      @onClick: modules.game_spelllist.escolherVariacao('a')
+
+    TecnicaTexto
+      id: textoVariacaoA
+      anchors.left: botaoVariacaoA.right
+      anchors.verticalCenter: botaoVariacaoA.verticalCenter
+      margin-left: 8
+
+    Button
+      id: botaoVariacaoB
+      !text: 'Escolher B'
+      width: 80
+      anchors.left: parent.left
+      anchors.top: botaoVariacaoA.bottom
+      margin-left: 8
+      margin-top: 4
+      @onClick: modules.game_spelllist.escolherVariacao('b')
+
+    TecnicaTexto
+      id: textoVariacaoB
+      anchors.left: botaoVariacaoB.right
+      anchors.verticalCenter: botaoVariacaoB.verticalCenter
+      margin-left: 8
+
+    TecnicaTexto
+      id: avisoTecnica
+      anchors.bottom: parent.bottom
+      margin-bottom: 6
+      color: #ffb070
+
   Label
     id: labelVocationFilter
-    anchors.top: labelDescriptionValue.bottom
+    anchors.top: caixaTecnica.bottom
     anchors.left: spellList.right
     width: 135
     font: verdana-11px-monochrome
@@ -268,7 +405,7 @@ MainWindow
 
   Label
     id: labelGroupFilter
-    anchors.top: labelDescriptionValue.bottom
+    anchors.top: caixaTecnica.bottom
     anchors.left: labelVocationFilter.right
     width: 80
     font: verdana-11px-monochrome
@@ -311,7 +448,7 @@ MainWindow
 
   Label
     id: labelPremiumFilter
-    anchors.top: labelDescriptionValue.bottom
+    anchors.top: caixaTecnica.bottom
     anchors.left: labelGroupFilter.right
     width: 70
     font: verdana-11px-monochrome
