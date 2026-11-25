@@ -2021,6 +2021,10 @@ function applyExtendedViewLayout(extendedView)
         modules.game_inventory.extendedView(extendedView)
         modules.client_topmenu.extendedView(extendedView)
         modules.game_mainpanel.toggleExtendedViewButtons(extendedView)
+        -- projeto: HUD em tela cheia (menu de icones, barras no rodape, chat transparente)
+        if modules.game_hud and modules.game_hud.aplicarLayout then
+            modules.game_hud.aplicarLayout(extendedView)
+        end
     end)
 end
 

@@ -1,0 +1,65 @@
+HudBarra < UIWidget
+  height: 16
+  image-source: /modules/game_hud/images/barra_fundo
+  image-border: 6
+  phantom: true
+
+  UIWidget
+    id: preenchimento
+    anchors.left: parent.left
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    image-border: 6
+    width: 0
+    phantom: true
+
+  Label
+    id: texto
+    anchors.fill: parent
+    text-align: center
+    font: verdana-11px-rounded
+    color: #ffffff
+    phantom: true
+
+HudBotaoTopo < UIButton
+  size: 30 30
+  image-source: /modules/game_hud/images/botao_topo
+  image-clip: 0 0 30 30
+  icon-offset: 0 0
+
+  $hover !disabled:
+    image-clip: 30 0 30 30
+
+  $on:
+    image-clip: 60 0 30 30
+
+  $pressed:
+    image-clip: 60 0 30 30
+    icon-offset: 1 1
+
+HudPainel < UIWidget
+  height: 33
+  phantom: true
+  focusable: false
+
+  HudBarra
+    id: vida
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.horizontalCenter
+    margin-right: 2
+
+  HudBarra
+    id: energia
+    anchors.top: parent.top
+    anchors.left: parent.horizontalCenter
+    anchors.right: parent.right
+    margin-left: 2
+
+  HudBarra
+    id: xp
+    anchors.top: vida.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 3
+    height: 14

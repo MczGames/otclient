@@ -64,6 +64,7 @@ Module
     - game_taskboard
     - game_wheel
     - game_proficiency
+    - game_hud
 
   @onLoad: init()
   @onUnload: terminate()
