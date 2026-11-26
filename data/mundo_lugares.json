@@ -1325,6 +1325,177 @@
    ]
   },
   {
+   "nome": "Caverna (Zona Amarela Leste)",
+   "x": 2790,
+   "y": 2516,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_a_5"
+  },
+  {
+   "x": 2785,
+   "y": 2515,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_a_5",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 2790,
+   "y": 2520,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_a_5",
+   "niveis": [
+    120,
+    180
+   ],
+   "monstros": [
+    {
+     "nome": "Salamandra de Cinzas",
+     "outfit": 73,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao de Magma",
+     "outfit": 72,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Zona Amarela Leste)",
+   "x": 2934,
+   "y": 2000,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_a_6"
+  },
+  {
+   "x": 2934,
+   "y": 1995,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_a_6",
+   "niveis": [
+    150,
+    230
+   ],
+   "monstros": [
+    {
+     "nome": "Kappa Sombrio",
+     "outfit": 77,
+     "forte": true
+    },
+    {
+     "nome": "Bambu Gigante",
+     "outfit": 76,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 2934,
+   "y": 2004,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_a_6",
+   "niveis": [
+    150,
+    230
+   ],
+   "monstros": [
+    {
+     "nome": "Kappa Sombrio",
+     "outfit": 77,
+     "forte": true
+    },
+    {
+     "nome": "Bambu Gigante",
+     "outfit": 76,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Zona Amarela Leste)",
+   "x": 3030,
+   "y": 2288,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_a_7"
+  },
+  {
+   "x": 3028,
+   "y": 2283,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_a_7",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao Primordial",
+     "outfit": 87,
+     "forte": true
+    },
+    {
+     "nome": "Dragao de Cinzas",
+     "outfit": 86,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 3030,
+   "y": 2292,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_a_7",
+   "niveis": [
+    250,
+    300
+   ],
+   "monstros": [
+    {
+     "nome": "Maldicao Primordial",
+     "outfit": 87,
+     "forte": true
+    },
+    {
+     "nome": "Dragao de Cinzas",
+     "outfit": 86,
+     "forte": false
+    }
+   ]
+  },
+  {
    "nome": "Caverna (Zona Amarela Oeste)",
    "x": 798,
    "y": 2024,
@@ -1605,6 +1776,177 @@
     {
      "nome": "Urso Negro Amaldicoado",
      "outfit": 66,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Zona Amarela Oeste)",
+   "x": 294,
+   "y": 2216,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_b_6"
+  },
+  {
+   "x": 283,
+   "y": 2209,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_b_6",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 294,
+   "y": 2220,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_b_6",
+   "niveis": [
+    30,
+    60
+   ],
+   "monstros": [
+    {
+     "nome": "Fumaca de Chamine",
+     "outfit": 55,
+     "forte": true
+    },
+    {
+     "nome": "Maldicao Engrenagem",
+     "outfit": 54,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Zona Amarela Oeste)",
+   "x": 426,
+   "y": 2432,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_b_7"
+  },
+  {
+   "x": 426,
+   "y": 2423,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_b_7",
+   "niveis": [
+    40,
+    80
+   ],
+   "monstros": [
+    {
+     "nome": "Letreiro de Neon Vivo",
+     "outfit": 57,
+     "forte": true
+    },
+    {
+     "nome": "Maquina de Venda Viva",
+     "outfit": 56,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 426,
+   "y": 2436,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_b_7",
+   "niveis": [
+    40,
+    80
+   ],
+   "monstros": [
+    {
+     "nome": "Letreiro de Neon Vivo",
+     "outfit": 57,
+     "forte": true
+    },
+    {
+     "nome": "Maquina de Venda Viva",
+     "outfit": 56,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "nome": "Caverna (Zona Amarela Oeste)",
+   "x": 678,
+   "y": 2552,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_amarela_b_8"
+  },
+  {
+   "x": 681,
+   "y": 2546,
+   "z": 8,
+   "tipo": "monstros",
+   "zoom": -1,
+   "ir": "caverna_amarela_b_8",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Monge Sem Rosto",
+     "outfit": 61,
+     "forte": true
+    },
+    {
+     "nome": "Espirito de Lanterna",
+     "outfit": 60,
+     "forte": false
+    }
+   ]
+  },
+  {
+   "x": 678,
+   "y": 2556,
+   "z": 7,
+   "tipo": "monstros",
+   "zoom": 1,
+   "ir": "caverna_amarela_b_8",
+   "niveis": [
+    55,
+    100
+   ],
+   "monstros": [
+    {
+     "nome": "Monge Sem Rosto",
+     "outfit": 61,
+     "forte": true
+    },
+    {
+     "nome": "Espirito de Lanterna",
+     "outfit": 60,
      "forte": false
     }
    ]
