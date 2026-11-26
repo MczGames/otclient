@@ -4,7 +4,7 @@ game
   typing-icon: /images/game/console/typing
   
   map
-    viewport: 12 7
+    viewport: 19 10
     extended-view-ui: true
     max-z: 15
     sea-floor: 7
@@ -41,5 +41,5 @@ font
   widget: verdana-11px-antialised
   static-text: verdana-11px-rounded
   animated-text: verdana-11px-rounded
-  creature-text: verdana-11px-rounded
+  creature-text: Verdana Bold-11px-outline
   item-count: verdana-10px-rounded

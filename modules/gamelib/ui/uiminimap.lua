@@ -300,6 +300,12 @@ function UIMinimap:onMouseRelease(pos, button)
         menu:addOption(tr('Create mark'), function()
             self:createFlagWindow(mapPos)
         end)
+        -- FusionTsu: copia a coordenada exata do ponto clicado para mandar a alguem
+        menu:addOption('Copiar coordenada', function()
+            local texto = string.format('%d, %d, %d', mapPos.x, mapPos.y, mapPos.z)
+            g_window.setClipboardText(texto)
+            modules.game_textmessage.displayStatusMessage('Coordenada copiada: ' .. texto)
+        end)
         menu:display(pos)
         return true
     end
