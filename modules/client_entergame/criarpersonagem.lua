@@ -79,7 +79,9 @@ local function urlServico()
     if Services and Services.criarPersonagem then
         return Services.criarPersonagem
     end
+    -- Com login HTTP o G.host e uma URL inteira (ex.: http://127.0.0.1:8088/login): fica so o nome da maquina.
     local host = (G and G.host and G.host ~= '') and G.host or '127.0.0.1'
+    host = host:gsub('^%a+://', ''):match('^([^/:]+)') or '127.0.0.1'
     return string.format('http://%s:%d/criar-personagem', host, PORTA_PADRAO)
 end
 
