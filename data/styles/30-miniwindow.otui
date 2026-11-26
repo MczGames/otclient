@@ -1,5 +1,6 @@
 MiniWindow < UIMiniWindow
   font: verdana-11px-antialised
+  color: #e6e0ff
   width: 192
   height: 200
   image-source: /images/ui/miniwindow_body
@@ -40,7 +41,7 @@ MiniWindow < UIMiniWindow
       anchors.left: parent.left
       anchors.right: parent.right
       height: 1
-      background-color: #66666640
+      background-color: #00000000
       phantom: true
 
     UIWidget
@@ -49,7 +50,7 @@ MiniWindow < UIMiniWindow
       anchors.left: parent.left
       anchors.right: parent.right
       height: 1
-      background-color: #31313160
+      background-color: #00000000
       phantom: true
 
   UIWidget
@@ -60,7 +61,7 @@ MiniWindow < UIMiniWindow
     height: 1
     margin-left: 3
     margin-right: 3
-    background-color: #2a2a2a
+    background-color: #00000000
     phantom: true
 
   UIWidget

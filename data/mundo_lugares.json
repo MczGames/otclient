@@ -2245,6 +2245,38 @@
    "z": 8,
    "tipo": "boss",
    "zoom": -5
+  },
+  {
+   "nome": "Templo Esquecido (quest, 60+)",
+   "x": 1146,
+   "y": 1806,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "biwa_templos"
+  },
+  {
+   "x": 1146,
+   "y": 1796,
+   "z": 8,
+   "tipo": "boss",
+   "zoom": -5
+  },
+  {
+   "nome": "Forja das Maldicoes (raid, 100+)",
+   "x": 1278,
+   "y": 1781,
+   "z": 7,
+   "tipo": "caverna",
+   "zoom": 0,
+   "ir": "caverna_chubu_2"
+  },
+  {
+   "x": 1278,
+   "y": 1783,
+   "z": 8,
+   "tipo": "boss",
+   "zoom": -5
   }
  ]
 }

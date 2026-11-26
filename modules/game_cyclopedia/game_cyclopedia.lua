@@ -54,7 +54,7 @@ function controllerCyclopedia:onGameStart()
         end, 100, "unloadModule")
         return
     else
-        CyclopediaButton = modules.game_mainpanel.addToggleButton('CyclopediaButton', tr('Cyclopedia'),
+        CyclopediaButton = modules.game_mainpanel.addToggleButton('CyclopediaButton', tr('Arquivo da Escola'),
             '/images/options/cooldowns', function() toggle("items") end, false, 7)
         ButtonBossSlot = modules.game_mainpanel.addToggleButton("bossSlot", tr("Open Boss Slots dialog"),
             "/images/options/ButtonBossSlot", function() toggle("bossSlot") end, false, 20)
