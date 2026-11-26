@@ -12,7 +12,10 @@ local mostrarCoordenada -- definida mais abaixo (coordenada exata do mapa)
 -- Os nomes vem de /data/mundo_lugares.json (gerado por tools/mundo/gerar_minimapa.py no repositorio do jogo).
 local LUGARES_ARQ = '/data/mundo_lugares.json'
 local DISTANCIA_ANDAR = 250 -- igual ao limite do UIMinimap para o "andar ate la"
-local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a', estacao = '#8fd3ff' }
+local CORES_LUGAR = { cidade = '#ffffff', bairro = '#d6d6e6', caca = '#ffd85a', caverna = '#e6b47a', estacao = '#8fd3ff',
+    -- mapa do Cisma dos Clas: nome de cada regiao na cor da zona (verde, amarela e vermelha) ou branco (cidades e santuarios)
+    regiao = '#ffffff', zona_verde = '#6fe27f', zona_amarela = '#ffd23c', zona_vermelha = '#ff6a5a' }
+local FONTE_GRANDE = { cidade = true, regiao = true, zona_verde = true, zona_amarela = true, zona_vermelha = true }
 local seguirEvento = nil
 local ultimaPos = nil
 
@@ -115,7 +118,7 @@ local function criarNomesDoMundo(minimapWidget)
             minimapWidget:addAlternativeWidget(caixa, { x = lugar.x, y = lugar.y, z = lugar.z }, lugar.zoom)
         else
         local rotulo = g_ui.createWidget('UILabel')
-        rotulo:setFont(lugar.tipo == 'cidade' and 'verdana-11px-rounded' or 'verdana-9px-bold')
+        rotulo:setFont(FONTE_GRANDE[lugar.tipo] and 'verdana-11px-rounded' or 'verdana-9px-bold')
         rotulo:setText(lugar.nome)
         rotulo:setColor(CORES_LUGAR[lugar.tipo] or '#ffffff')
         rotulo:setBackgroundColor('#000000aa')
