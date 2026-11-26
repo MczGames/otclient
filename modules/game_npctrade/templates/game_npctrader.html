@@ -34,7 +34,7 @@
        MAIN WINDOW & STRUCTURE
        ============================================================================================== */
     .modal-message { width: 400px; height: 400px; display: block; --image-source: /images/ui/window_new; --image-border: 6; --image-border-top: 27; }
-    .leftPanel {width: 395px; height: 400px; float: left;}
+    .leftPanel {width: 200px; height: 400px; float: left;}
     .rightPanel { width: 195px; height: 368px; margin-top: 27px; margin-left: 10px; float: left;}
     .verticalSep { height: 340px; margin-top: 25px; float: left;  margin-left: -10px;}
     .dragHandle { height: 27px; background-color: alpha; }
@@ -54,13 +54,9 @@
     .podium { width: 65px; height: 67px; margin-left: 10px; }
     .creature-display { width: 64px; height: 64px; margin-left: 10px; margin-top: 10px; }
 
-    /* Chat & Console */
-    .panelConsole { margin-top: 80px; --image-border: 4; padding: 1; padding-right: 12; padding-left: 4; padding-top: 4; padding-bottom: 4; height: 238px; --image-source: /images/ui/3pixel_frame_borderimage; }
-    .inputConsole { margin-bottom: 10px; display: inline-block; width: 288px; margin-left: 15px; margin-top: 5px; --placeholder: "Type here to chat"; --placeholder-color: #6E706F}
-    .bottonChat { display: inline; margin-left: 308px; margin-bottom: 10px; font: cipsoftFont; }
-    
+    /* Chat removido (projeto JJK): a conversa com o NPC fica so na aba NPCs do console. */
     /* Buttons Panel */
-    .panelBotons {height: 35px;  margin-bottom: 39px; --focusable: false; width: 100%; margin-left: 15px;}
+    .panelBotons {height: 35px;  margin-bottom: 15px; --focusable: false; width: 175px; margin-left: 15px;}
     .npc-button { width: 19px; height: 19px; --icon-source: /game_npctrade/assets/images/icons-npcdialog; margin-right: 2px; }
 
     /* ==============================================================================================
@@ -120,13 +116,10 @@
 
 <html>
 <uiwindow id="windowTrader" placement="center" *width="self.widthConsole" class="modal-message"
-    src="images/ui/miniwindow" onescape="self:onCloseNpcTrade()" onkeydown="self:onConsoleKeyPress(event)">
+    src="images/ui/miniwindow" onescape="self:onCloseNpcTrade()">
 
     <!-- Left Panel -->
     <div class="leftPanel" >
-        <scrollablepanel id="consoleBuffer" inverted-scroll="true" always-scroll-maximum="true" class="panelConsole panelBase" style="overflow: scroll; padding: 4px;" layout="type: verticalBox; align-bottom: true" placement="top-left">
-        </scrollablepanel>
-
         <img class="img" src="assets/images/blue-golden-flag-banner" placement="top-left" />
         <label class="title" placement="top-left">{{self.creatureName}}</label>
         <img class="podium" src="assets/images/backdrop-npcdialog-podestal" placement="top-left" />
@@ -139,8 +132,6 @@
 
             </button>
         </div>
-        <input id="chatInput" class="inputConsole" placement="bottom-left" />
-        <button id="chatModeButton" class="bottonChat" placement="bottom-left" onclick="self:toggleChatMode()">{{self.chatMode}}</button>
     </div>
 
     <div class="verticalSep VerticalSeparator" *visible="self.isTradeOpen"></div>

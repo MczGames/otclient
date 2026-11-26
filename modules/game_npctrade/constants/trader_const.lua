@@ -9,8 +9,8 @@ controllerNpcTrader.SELL = 2
 -- ==============================================================================================
 -- UI LAYOUT CONSTANTS
 -- ==============================================================================================
-controllerNpcTrader.DEFAULT_CONSOLE_WIDTH = 395
-controllerNpcTrader.TRADE_CONSOLE_WIDTH = 600
+controllerNpcTrader.DEFAULT_CONSOLE_WIDTH = 200 -- sem o chat (projeto JJK); antes 395
+controllerNpcTrader.TRADE_CONSOLE_WIDTH = 405 -- 200 + 10 + 195; antes 600
 
 -- ==============================================================================================
 -- VIRTUAL SCROLLING CONSTANTS
