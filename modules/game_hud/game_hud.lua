@@ -5,7 +5,8 @@
 --   * menu do topo: so os botoes do jogo, icones proprios, numa barra centralizada;
 --     o icone Personagem abre um submenu com Feiticos, Habilidades, Passivas e Mostrar vida;
 --   * barras de vida, energia (EA) e XP no rodape, centralizadas;
---   * barra de habilidades (acoes) logo acima delas, com slots redondos e sem fundo;
+--   * barra de habilidades (acoes) logo acima delas, com slots redondos e sem fundo,
+--     e botoes + / - ao lado para ligar ate 3 barras;
 --   * chat no canto inferior esquerdo, com fundo transparente.
 -- Fora do modo 2 (Ctrl+. troca o modo) tudo volta ao layout original do OTClient.
 -- Arte gerada por tools/assets/gerar_hud_cliente.py (repositorio mmo-jjk).
@@ -379,6 +380,90 @@ end
 
 -- ------------------------------------------------------------------ barra de habilidades
 
+-- botoes + e - ao lado da barra: ligam/desligam as barras de baixo 2 e 3
+-- (as mesmas opcoes de Opcoes > Barras de acao)
+local BARRAS_BAIXO = { 'actionBarShowBottom1', 'actionBarShowBottom2', 'actionBarShowBottom3' }
+local botaoMais, botaoMenos = nil, nil
+
+local function barrasLigadas()
+    local n = 0
+    for _, chave in ipairs(BARRAS_BAIXO) do
+        if modules.client_options.getOption(chave) then
+            n = n + 1
+        end
+    end
+    return n
+end
+
+local function atualizarBotoesBarra()
+    if not botaoMais then
+        return
+    end
+    local n = barrasLigadas()
+    botaoMais:setVisible(ativo and n < #BARRAS_BAIXO)
+    botaoMenos:setVisible(ativo and n > 1)
+end
+
+local function mudarBarras(ligar)
+    local opcoes = modules.client_options
+    if ligar then
+        if not opcoes.getOption('allActionBar13') then
+            opcoes.setOption('allActionBar13', true)
+        end
+        for _, chave in ipairs(BARRAS_BAIXO) do
+            if not opcoes.getOption(chave) then
+                opcoes.setOption(chave, true)
+                break
+            end
+        end
+    else
+        -- tira a ultima ligada, mas sempre deixa a primeira
+        for i = #BARRAS_BAIXO, 2, -1 do
+            if opcoes.getOption(BARRAS_BAIXO[i]) then
+                opcoes.setOption(BARRAS_BAIXO[i], false)
+                break
+            end
+        end
+    end
+    addEvent(atualizarBotoesBarra)
+end
+
+local function criarBotoesBarra()
+    if botaoMais then
+        return
+    end
+    local root = modules.game_interface.getRootPanel()
+    botaoMais = g_ui.createWidget('HudBotaoBarra', root)
+    botaoMais:setId('hudBarraMais')
+    botaoMais:setText('+')
+    botaoMais:setTooltip('Adicionar barra')
+    botaoMais:addAnchor(AnchorLeft, 'lockPanel', AnchorRight)
+    botaoMais:addAnchor(AnchorBottom, 'gameBottomActionPanel', AnchorBottom)
+    botaoMais:setMarginLeft(3)
+    botaoMais:setMarginBottom(8)
+    botaoMais.onClick = function() mudarBarras(true) end
+
+    botaoMenos = g_ui.createWidget('HudBotaoBarra', root)
+    botaoMenos:setId('hudBarraMenos')
+    botaoMenos:setText('-')
+    botaoMenos:setTooltip('Remover barra')
+    botaoMenos:addAnchor(AnchorLeft, 'hudBarraMais', AnchorLeft)
+    botaoMenos:addAnchor(AnchorBottom, 'hudBarraMais', AnchorTop)
+    botaoMenos:setMarginBottom(2)
+    botaoMenos.onClick = function() mudarBarras(false) end
+end
+
+local function destruirBotoesBarra()
+    if botaoMenos then
+        botaoMenos:destroy()
+        botaoMenos = nil
+    end
+    if botaoMais then
+        botaoMais:destroy()
+        botaoMais = nil
+    end
+end
+
 local function barrasDeAcao()
     local painel = modules.game_interface.getBottomActionPanel()
     return painel and painel:getChildren() or {}
@@ -433,6 +518,10 @@ local function layoutAcoes(estendido)
     if modules.game_actionbar and modules.game_actionbar.updateVisibleWidgets then
         addEvent(modules.game_actionbar.updateVisibleWidgets)
     end
+    if estendido then
+        criarBotoesBarra()
+    end
+    atualizarBotoesBarra()
 end
 
 -- ------------------------------------------------------------------ chat
@@ -665,6 +754,7 @@ function terminate()
     })
     disconnect(g_game, { onGameStart = aoIniciarJogo, onGameEnd = fecharSubmenu })
     removerPersonagem()
+    destruirBotoesBarra()
     local tabBar = barraDeAbas()
     if tabBar then
         disconnect(tabBar, { onTabChange = aoMudarAba })
