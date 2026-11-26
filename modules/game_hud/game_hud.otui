@@ -63,3 +63,14 @@ HudPainel < UIWidget
     anchors.right: parent.right
     margin-top: 3
     height: 14
+
+HudSubmenu < UIWidget
+  height: 40
+  image-source: /modules/game_hud/images/barra_topo
+  image-border: 14
+  padding: 5
+  focusable: false
+  visible: false
+  layout:
+    type: horizontalBox
+    spacing: 4

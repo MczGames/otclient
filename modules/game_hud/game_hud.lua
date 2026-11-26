@@ -3,6 +3,7 @@
 -- O game_interface ja poe o mapa ocupando a janela inteira no modo 2; este modulo
 -- arruma o resto da tela no estilo do jogo:
 --   * menu do topo: so os botoes do jogo, icones proprios, numa barra centralizada;
+--     o icone Personagem abre um submenu com Feiticos, Habilidades, Passivas e Mostrar vida;
 --   * barras de vida, energia (EA) e XP no rodape, centralizadas;
 --   * barra de habilidades (acoes) logo acima delas, com slots redondos e sem fundo;
 --   * chat no canto inferior esquerdo, com fundo transparente.
@@ -15,10 +16,8 @@ local IMG = '/modules/game_hud/images/'
 -- Qualquer outro botao (recursos do Tibia: prey, forja, roda, imbuements...) fica
 -- escondido na barra do topo enquanto o HUD esta ativo.
 local BOTOES = {
+    { id = 'hudPersonagem',       icone = 'personagem' },
     { id = 'inventory',           icone = 'inventario' },
-    { id = 'skillsButton',        icone = 'habilidades' },
-    { id = 'spelllistButton',     icone = 'tecnicas' },
-    { id = 'passivasButton',      icone = 'passivas' },
     { id = 'battleButton',        icone = 'batalha' },
     { id = 'vipListButton',       icone = 'amigos' },
     { id = 'questLogButton',      icone = 'missoes' },
@@ -27,7 +26,6 @@ local BOTOES = {
     { id = 'highscore',           icone = 'ranking' },
     { id = 'CyclopediaButton',    icone = 'enciclopedia' },
     { id = 'miniMap',             icone = 'minimapa' },
-    { id = 'healthMana',          icone = 'vida' },
     { id = 'hotkeysWindowButton', icone = 'atalhos' },
     { id = 'optionsButton',       icone = 'opcoes' },
     { id = 'audioButton',         icone = 'som' },
@@ -37,6 +35,24 @@ local ICONE_POR_ID = {}
 for _, b in ipairs(BOTOES) do
     ICONE_POR_ID[b.id] = b.icone
 end
+
+-- Botoes que saem do topo e vao para o submenu do icone Personagem. 'abrir' chama a
+-- mesma funcao do botao original (que fica escondido no topo).
+local SUB_PERSONAGEM = {
+    { id = 'spelllistButton', icone = 'tecnicas',    dica = 'Feiticos',
+      abrir = function() modules.game_spelllist.toggle() end },
+    { id = 'skillsButton',    icone = 'habilidades', dica = 'Habilidades (Alt+S)',
+      abrir = function() modules.game_skills.toggle() end },
+    { id = 'passivasButton',  icone = 'passivas',    dica = 'Passivas (Ctrl+Shift+P)',
+      abrir = function() modules.game_passivas.alternar() end },
+    { id = 'healthMana',      icone = 'vida',        dica = 'Mostrar vida',
+      abrir = function() modules.game_healthinfo.toggle() end },
+}
+local ICONE_SUB = {}
+for _, b in ipairs(SUB_PERSONAGEM) do
+    ICONE_SUB[b.id] = b.icone
+end
+local submenu = nil
 
 local SLOTS_BARRA = 12          -- slots visiveis da barra de habilidades
 local LARGURA_SLOT = 36         -- ActionButton (34) + margem (2)
@@ -88,15 +104,124 @@ local function botoesDoTopo()
     return modules.client_topmenu.getRightGameButtonsPanel()
 end
 
+-- ------------------------------------------------------------------ menu Personagem
+
+-- botao original (escondido) de um item do submenu, para copiar o estado ligado
+local function botaoOriginal(id)
+    local painel = botoesDoTopo()
+    if not painel then
+        return nil
+    end
+    for _, botao in ipairs(painel:getChildren()) do
+        if botao:getId() == id then
+            return botao
+        end
+    end
+    return nil
+end
+
+local function atualizarSubmenu()
+    if not submenu then
+        return
+    end
+    for _, b in ipairs(SUB_PERSONAGEM) do
+        local w = submenu:getChildById('sub_' .. b.id)
+        local orig = botaoOriginal(b.id)
+        if w then
+            w:setVisible(orig ~= nil)
+            w:setOn(orig ~= nil and orig:isOn())
+        end
+    end
+end
+
+local function fecharSubmenu()
+    if submenu then
+        submenu:hide()
+    end
+    local painel = botoesDoTopo()
+    local botao = painel and painel:getChildById('hudPersonagem')
+    if botao then
+        botao:setOn(false)
+    end
+end
+
+local function abrirSubmenu(botao)
+    if not submenu then
+        submenu = g_ui.createWidget('HudSubmenu', rootWidget)
+        submenu:setId('hudSubPersonagem')
+        for _, b in ipairs(SUB_PERSONAGEM) do
+            local w = g_ui.createWidget('HudBotaoTopo', submenu)
+            w:setId('sub_' .. b.id)
+            w:setIcon(IMG .. 'icones/' .. b.icone)
+            w:setTooltip(b.dica)
+            w.onClick = function()
+                b.abrir()
+                -- o modulo liga/desliga o botao original no mesmo quadro ou no proximo
+                addEvent(atualizarSubmenu)
+            end
+        end
+    end
+    atualizarSubmenu()
+    local n = 0
+    for _, w in ipairs(submenu:getChildren()) do
+        if w:isExplicitlyVisible() then
+            n = n + 1
+        end
+    end
+    local largura = n * 30 + math.max(0, n - 1) * 4 + 10
+    submenu:setWidth(largura)
+    local topMenu = modules.client_topmenu.getTopMenu()
+    local x = botao:getX() + math.floor(botao:getWidth() / 2) - math.floor(largura / 2)
+    x = math.max(4, x)
+    submenu:setPosition({ x = x, y = topMenu:getY() + topMenu:getHeight() + 2 })
+    submenu:show()
+    submenu:raise()
+    botao:setOn(true)
+end
+
+local function alternarSubmenu(botao)
+    if submenu and submenu:isVisible() then
+        fecharSubmenu()
+    else
+        abrirSubmenu(botao)
+    end
+end
+
+local function garantirBotaoPersonagem(painel)
+    if painel:getChildById('hudPersonagem') then
+        return
+    end
+    local botao = g_ui.createWidget('HudBotaoTopo', painel)
+    botao:setId('hudPersonagem')
+    botao:setTooltip('Personagem')
+    botao:setIcon(IMG .. 'icones/personagem')
+    botao.onClick = alternarSubmenu
+end
+
+local function removerPersonagem()
+    if submenu then
+        submenu:destroy()
+        submenu = nil
+    end
+    local painel = botoesDoTopo()
+    local botao = painel and painel:getChildById('hudPersonagem')
+    if botao then
+        botao:destroy()
+    end
+end
+
 local function aplicarIcones()
     local painel = botoesDoTopo()
     if not painel then
         return
     end
+    if ativo then
+        garantirBotaoPersonagem(painel)
+    end
     local vistos = {}
     for _, botao in ipairs(painel:getChildren()) do
         local id = botao:getId()
-        local icone = ICONE_POR_ID[id]
+        local icone = ICONE_POR_ID[id] or ICONE_SUB[id]
         if icone then
             botao:setIcon(IMG .. 'icones/' .. icone)
         end
@@ -105,7 +230,7 @@ local function aplicarIcones()
                 botao.hudEstiloOriginal = botao:getStyleName()
             end
             -- o botao de sair aparece duas vezes (topo e painel principal): mostra um so
-            local mostrar = icone ~= nil and not vistos[id]
+            local mostrar = ICONE_POR_ID[id] ~= nil and not vistos[id]
             vistos[id] = true
             if botao.hudVisivelOriginal == nil then
                 botao.hudVisivelOriginal = botao:isVisible()
@@ -147,12 +272,13 @@ local function restaurarBotoes()
     if not painel then
         return
     end
+    removerPersonagem()
     for _, botao in ipairs(painel:getChildren()) do
         if botao.hudEstiloOriginal then
             botao:setStyle(botao.hudEstiloOriginal)
             botao.hudEstiloOriginal = nil
         end
-        local icone = ICONE_POR_ID[botao:getId()]
+        local icone = ICONE_POR_ID[botao:getId()] or ICONE_SUB[botao:getId()]
         if icone then
             botao:setIcon(IMG .. 'icones/' .. icone)
         end
@@ -519,7 +645,7 @@ function init()
         onLevelChange = atualizarBarras,
         onExperienceChange = atualizarBarras
     })
-    connect(g_game, { onGameStart = aoIniciarJogo })
+    connect(g_game, { onGameStart = aoIniciarJogo, onGameEnd = fecharSubmenu })
     local tabBar = barraDeAbas()
     if tabBar then
         connect(tabBar, { onTabChange = aoMudarAba })
@@ -537,7 +663,8 @@ function terminate()
         onLevelChange = atualizarBarras,
         onExperienceChange = atualizarBarras
     })
-    disconnect(g_game, { onGameStart = aoIniciarJogo })
+    disconnect(g_game, { onGameStart = aoIniciarJogo, onGameEnd = fecharSubmenu })
+    removerPersonagem()
     local tabBar = barraDeAbas()
     if tabBar then
         disconnect(tabBar, { onTabChange = aoMudarAba })

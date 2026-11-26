@@ -2,7 +2,7 @@ Window < UIWindow
   font: verdana-11px-antialised
   size: 200 200
   opacity: 1
-  color: #dfdfdf
+  color: #f2c14e
   text-offset: 0 6
   text-align: top
   image-source: /images/ui/window
@@ -15,7 +15,7 @@ Window < UIWindow
   display-sound: 2785
 
   $disabled:
-    color: #dfdfdf88
+    color: #f2c14e88
 
   $dragging:
     opacity: 0.8
@@ -52,7 +52,7 @@ UpdaterMainWindow < StaticWindow
 NewWindow < UIWindow
   font: Verdana Bold-11px
   size: 200 200
-  color: #909090
+  color: #e6e0ff
   text-offset: -2 1
   image-source: /images/ui/popupwindow
   image-border: 4
@@ -80,7 +80,7 @@ NewStaticMainWindow < NewStaticWindow
 WindowCyclopedia < UIWindow
   font: Verdana Bold-11px
   size: 200 200
-  color: #909090
+  color: #e6e0ff
   text-offset: -2 1
   image-source: /images/ui/popupwindow
   image-border: 4
@@ -93,7 +93,7 @@ WindowCyclopedia < UIWindow
 WindowPodium < UIWindow
   font: Verdana Bold-11px
   size: 200 200
-  color: #909090
+  color: #e6e0ff
   text-offset: -2 1
   image-source: /images/ui/popupwindow
   image-border: 4

@@ -1,7 +1,7 @@
 
 MainWindow
-  size: 700 560
-  !text: tr('Cyclopedia')
+  size: 910 728
+  !text: tr('Arquivo da Escola')
   visible: false
   @onEscape: toggle()
 
@@ -9,23 +9,23 @@ MainWindow
     id: buttonSelection
     anchors.top: parent.top
     anchors.left: parent.left
-    size: 668 36
-    background-color: #404040
+    size: 878 36
+    background-color: #1a1e38
     border-width-top: 1
     border-color-top: black
     border-width-left: 1
     border-color-left: black
     border-width-bottom: 1
-    border-color-bottom: #747474
+    border-color-bottom: #6a5cff
     border-width-right: 1
-    border-color-right: #747474
+    border-color-right: #6a5cff
 
     UIButton
       id: items
       anchors.top: parent.top
       anchors.left: parent.left
       margin-left: 1
-      size: 668 36
+      size: 878 36
       @onClick: SelectWindow("items")
 
       $on:
