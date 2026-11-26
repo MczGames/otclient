@@ -712,6 +712,15 @@ MainWindow
       image-color: green
 
   Button
+    id: botaoCriarPersonagem
+    !text: tr('Criar personagem')
+    width: 120
+    anchors.left: autoReconnect.right
+    anchors.bottom: parent.bottom
+    margin-left: 10
+    @onClick: CriarPersonagem.abrir()
+
+  Button
     id: buttonOk
     !text: tr('Ok')
     width: 64
