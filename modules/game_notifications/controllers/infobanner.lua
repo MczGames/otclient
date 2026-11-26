@@ -86,22 +86,22 @@ local SkillId = {
 }
 
 local skillNames = {
-    [SkillId.Magic]     = { name = "Magic Level",        icon = "magic" },
-    [SkillId.Sword]     = { name = "Sword Fighting",     icon = "sword" },
-    [SkillId.Club]      = { name = "Club Fighting",      icon = "club" },
-    [SkillId.Axe]       = { name = "Axe Fighting",       icon = "axe" },
-    [SkillId.Fist]      = { name = "Fist Fighting",      icon = "fist" },
-    [SkillId.Distance]  = { name = "Distance Fighting",  icon = "distance" },
-    [SkillId.Shielding] = { name = "Shielding",          icon = "shielding" },
-    [SkillId.Fishing]   = { name = "Fishing",            icon = "fishing" }
+    [SkillId.Magic]     = { name = "Controle de Energia", icon = "magic" },
+    [SkillId.Sword]     = { name = "Armas",              icon = "sword" },
+    [SkillId.Club]      = { name = "Barreira",           icon = "club" },
+    [SkillId.Axe]       = { name = "Cura",               icon = "axe" },
+    [SkillId.Fist]      = { name = "Luta",               icon = "fist" },
+    [SkillId.Distance]  = { name = "Pontaria",           icon = "distance" },
+    [SkillId.Shielding] = { name = "Defesa",             icon = "shielding" },
+    [SkillId.Fishing]   = { name = "Pesca",              icon = "fishing" }
 }
 
 local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_COSMETIC] = {
         --type(int), lookType(int), skinName(string), skinType(int)
         {
-            title = "Outfit Unlocked",
-            description = "You have unlocked '%s'", --skinName
+            title = "Visual liberado",
+            description = "Você liberou '%s'.", --skinName
             hasCreatureId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -109,8 +109,8 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_BOSSTIARY] = {
         --type(int), raceId(int), progressLevel(int)
         {
-            title = "Bosstiary Progress",
-            description = "You have progressed '%s'",--progressLevel
+            title = "Arquivo de Chefes",
+            description = "Seu registro avançou para o estágio %s.",--progressLevel
             hasRaceId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -118,8 +118,8 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_BESTIARY] = {
         --type(int), raceId(int), progressLevel(int)
         {
-            title = "Bestiary Progress",
-            description = "You have progressed '%s'", --progressLevel
+            title = "Arquivo de Maldições",
+            description = "Seu registro avançou para o estágio %s.", --progressLevel
             hasRaceId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -127,24 +127,24 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_ACHIEVEMENT] = {
         -- type(int), name(string)
         {
-            title = "New Achievement",
-            description = "You have earned '%s'", --name
+            title = "Nova conquista",
+            description = "Você conquistou '%s'.", --name
             img = "/game_notifications/assets/images/nodo/icon-infobanner-achievements"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_TITLE] = {
         -- type(int), name(string)
         {
-            title = "Title Gained",
-            description = "You have earned '%s'", --name
+            title = "Novo título",
+            description = "Você recebeu o título '%s'.", --name
             img = "/game_notifications/assets/images/nodo/icon-infobanner-title"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_PROFICIENCY] = {
         -- type(int), itemId(int), message(string)
         {
-            title = "Weapon Proficiency",
-            description = "you have improved '%s'", -- message
+            title = "Maestria de arma",
+            description = "Você aprimorou '%s'.", -- message
             hasItemId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -152,20 +152,20 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_QUEST] = {
         -- type(int), questName(string), isCompleted(bool)
         [true] = { -- isCompleted(bool)
-            title = "Quest completed",
-            description = "you have finished '%s'",
+            title = "Missão concluída",
+            description = "Você concluiu '%s'.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         },
         [false] = { -- isCompleted(bool)
-            title = "Quest started",
-            description = "you have begun '%s'",
+            title = "Missão iniciada",
+            description = "Você começou '%s'.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_LEVEL] = {
         {
-            title = "Level %d!",
-            description = "You gained hit points, mana, and capacity.",
+            title = "Nível %d!",
+            description = "Sua vida, energia amaldiçoada e capacidade aumentaram.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-levelup"
         }
     },
@@ -173,35 +173,35 @@ local infoPopUp = {
         -- type(int), skillId(int), level(int)
         {
             title = "%s",
-            description = "your skill has advanced to level %d",
+            description = "Sua habilidade subiu para o nível %d.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-skill-%s"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_SIMPLE] = {
         -- type(int), eventType(int)  
         [eventType.CLIENT_EVENT_CAPACITYLIMIT] = {
-            title = "Capacity Limit",
-            description = "Remove items before adding new ones.",
+            title = "Carga no limite",
+            description = "Tire alguns itens antes de pegar outros.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         },
         [eventType.CLIENT_EVENT_OUTOFAMMO] = {
-            title = "Out of Ammunition",
-            description = "You have no arrow or bolt equipped.",
+            title = "Sem munição",
+            description = "Você não tem munição equipada.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_TARGETTOOCLOSE] = {
-            title = "Target Too Close",
-            description = "You are using a ranged auto-attack at melee distance.",
+            title = "Alvo perto demais",
+            description = "Seu ataque à distância está colado no alvo.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_OUTOFSOULPOINTS] = {
-            title = "Out of Soul Points",
-            description = "You don't have enough soul points to cast this spell.",
+            title = "Energia insuficiente",
+            description = "Falta energia amaldiçoada para usar esta técnica.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_TUTORIALCOMPLETE] = {
-            title = "Off to New Shores",
-            description = "Leave the village and set sail to start your real adventure.",
+            title = "Hora de partir",
+            description = "Deixe o treino para trás e comece sua jornada de verdade.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-offtonewshores"
         }
     }
@@ -265,7 +265,7 @@ function notificationsController:onClientEvent(eventCat, ...)
         local skillId = args[1]
         local level = args[2]
         local data = skillNames[skillId] or {
-            name = "Skill",
+            name = "Habilidade",
             icon = "fist"
         }
         title = type(title) == 'string' and title:format(data.name) or title
@@ -277,9 +277,9 @@ function notificationsController:onClientEvent(eventCat, ...)
         local skinName = args[2]
         local skinType = tonumber(args[3])
         if skinType == 1 then
-            skinName = skinName .. " (Addon 1)"
+            skinName = skinName .. " (adereço 1)"
         elseif skinType == 2 then
-            skinName = skinName .. " (Addon 2)"
+            skinName = skinName .. " (adereço 2)"
         end
         description = type(description) == 'string' and description:format(skinName) or description
         if popupTemplate.hasCreatureId then
