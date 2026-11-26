@@ -13,9 +13,12 @@ Module
     dofile 'entergame'
     dofile 'characterlist'
     dofile 'createAccount'
+    dofile 'criarpersonagem'
+    g_ui.importStyle('criarpersonagem')
     EnterGame.init()
     CharacterList.init()
 
   @onUnload: |
     EnterGame.terminate()
     CharacterList.terminate()
+    CriarPersonagem.terminar()
