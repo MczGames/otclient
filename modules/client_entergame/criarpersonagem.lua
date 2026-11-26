@@ -14,38 +14,39 @@ CriarPersonagem = {}
 local PORTA_PADRAO = 8089
 
 -- Classes escolhidas na criação (docs/classes-v2.md). Cada uma tem a sua outfit inicial exclusiva
--- (looktype): a arte da janela mostra essa outfit e o personagem nasce com ela.
+-- (looktype = versão masculina, looktypeF = feminina): a arte da janela mostra a do sexo escolhido e o
+-- personagem nasce com ela.
 -- Arte: data/images/criar_personagem/<looktype>_<direcao>_<quadro>.png (tools/assets/gerar_arte_criacao.py). O Restringido não aparece aqui
 -- (decisão do Robson em 26/11/2026). vocacao = id em datapack/xml/vocations.xml.
 -- Textos neutros (valem nas duas peles).
 local CLASSES = {
     {
-        id = 'lutador', vocacao = 1, nome = 'Lutador', looktype = 136, outfit = 'Lutador',
+        id = 'lutador', vocacao = 1, nome = 'Lutador', looktype = 136, looktypeF = 151, outfit = 'Lutador',
         descricao = 'Linha de frente. Luta com os punhos envoltos em energia, aguenta muito castigo e '
             .. 'encadeia combos até acertar o golpe crítico no tempo certo.',
         atributos = 'Vida: muito alta  |  Energia: média  |  Alcance: curto'
     },
     {
-        id = 'combate', vocacao = 2, nome = 'Mestre das Armas', looktype = 141, outfit = 'Mestre das Armas',
+        id = 'combate', vocacao = 2, nome = 'Mestre das Armas', looktype = 141, looktypeF = 152, outfit = 'Mestre das Armas',
         descricao = 'O atirador moderno. Usa armas de fogo de curta, média e longa distância com munição '
             .. 'amaldiçoada, e armas de haste que alcançam 2 quadros.',
         atributos = 'Vida: alta  |  Energia: média  |  Alcance: longo'
     },
     {
-        id = 'tecnica', vocacao = 6, nome = 'Mestre das Técnicas', looktype = 128,
+        id = 'tecnica', vocacao = 6, nome = 'Mestre das Técnicas', looktype = 128, looktypeF = 153,
         outfit = 'Mestre das Técnicas',
         descricao = 'Conjurador. Tem a maior reserva de energia e o maior dano de técnica do jogo, '
             .. 'mas pouca vida: precisa manter o inimigo longe.',
         atributos = 'Vida: baixa  |  Energia: muito alta  |  Alcance: longo'
     },
     {
-        id = 'controlador', vocacao = 3, nome = 'Controlador', looktype = 140, outfit = 'Controlador',
+        id = 'controlador', vocacao = 3, nome = 'Controlador', looktype = 140, looktypeF = 154, outfit = 'Controlador',
         descricao = 'Invocador. Cria e comanda entidades que lutam por ele e domina o campo de batalha '
             .. 'enquanto fica na retaguarda.',
         atributos = 'Vida: baixa  |  Energia: alta  |  Alcance: médio'
     },
     {
-        id = 'suporte', vocacao = 4, nome = 'Suporte', looktype = 145, outfit = 'Suporte',
+        id = 'suporte', vocacao = 4, nome = 'Suporte', looktype = 145, looktypeF = 155, outfit = 'Suporte',
         descricao = 'O pilar do grupo. Cura os aliados, ergue barreiras, fortalece o time e enfraquece '
             .. 'as maldições inimigas.',
         atributos = 'Vida: baixa  |  Energia: alta  |  Alcance: médio'
@@ -88,15 +89,19 @@ local function sexoEscolhido()
     return 1
 end
 
+local function lookEscolhido()
+    local c = CLASSES[indiceClasse]
+    return sexoEscolhido() == 0 and c.looktypeF or c.looktype
+end
+
 local LETRAS_DIRECAO = { [0] = 'n', [1] = 'l', [2] = 's', [3] = 'o' }
 
 local function desenharQuadro()
     if not janela then
         return
     end
-    local v = CLASSES[indiceClasse]
     janela.painelArte.arte:setImageSource(string.format('/images/criar_personagem/%d_%s_%d',
-        v.looktype, LETRAS_DIRECAO[direcao], quadro))
+        lookEscolhido(), LETRAS_DIRECAO[direcao], quadro))
 end
 
 local function atualizarClasse()
@@ -186,6 +191,9 @@ function CriarPersonagem.abrir()
     grupoSexo:addWidget(janela.sexoMasculino)
     grupoSexo:addWidget(janela.sexoFeminino)
     grupoSexo:selectWidget(janela.sexoMasculino)
+    grupoSexo.onSelectionChange = function()
+        desenharQuadro()                               -- a arte mostra a versão do sexo escolhido
+    end
 
     grupoClasse = UIRadioGroup.create()
     for i, c in ipairs(CLASSES) do
@@ -214,15 +222,12 @@ function CriarPersonagem.abrir()
     atualizarArte()
     mostrarMensagem('')
 
-    -- O boneco anda no lugar e vira sozinho a cada 2,5 s, para mostrar todos os lados da arte.
+    -- O boneco anda no lugar; para ver os outros lados, o botão "Girar" (sem rotação automática, pedido de 26/11/2026).
     quadro = 1
     eventoPasso = cycleEvent(function()
         quadro = (quadro % 4) + 1
         desenharQuadro()
     end, 180)
-    eventoGiro = cycleEvent(function()
-        CriarPersonagem.girar()
-    end, 2500)
 
     janela:show()
     janela:raise()
@@ -287,7 +292,7 @@ function CriarPersonagem.confirmar()
         senha = G.password,
         nome = nome,
         sexo = sexoEscolhido(),
-        looktype = CLASSES[indiceClasse].looktype,
+        looktype = lookEscolhido(),
         vocacao = CLASSES[indiceClasse].vocacao
     }, aoResponder)
 end
