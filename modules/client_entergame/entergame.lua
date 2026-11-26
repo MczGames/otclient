@@ -584,6 +584,18 @@ function EnterGame.setHttpLogin(httpLogin)
     end
 end
 
+-- Refaz o login com a conta da sessao atual (G.account/G.password), sem mexer nas opcoes de
+-- lembrar a conta. Usado depois de criar um personagem, para a lista trazer o novo.
+function EnterGame.relogar()
+    if not G.account or G.account == '' then
+        EnterGame.show()
+        return
+    end
+    enterGame:getChildById('accountNameTextEdit'):setText(G.account)
+    enterGame:getChildById('accountPasswordTextEdit'):setText(G.password or '')
+    EnterGame.doLogin()
+end
+
 function EnterGame.clearAccountFields()
     enterGame:getChildById('accountNameTextEdit'):clearText()
     enterGame:getChildById('accountPasswordTextEdit'):clearText()

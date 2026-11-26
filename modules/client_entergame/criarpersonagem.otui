@@ -1,0 +1,188 @@
+CriarPersonagemWindow < MainWindow
+  id: criarPersonagemWindow
+  !text: tr('Criar personagem')
+  size: 580 450
+  @onEnter: CriarPersonagem.confirmar()
+  @onEscape: CriarPersonagem.fechar()
+
+  // Lado esquerdo: arte da outfit inicial da classe escolhida (anda e gira sozinha)
+  // Imagens: data/images/criar_personagem/ (tools/assets/gerar_arte_criacao.py)
+  Panel
+    id: painelArte
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: botaoCriar.top
+    width: 210
+    margin-bottom: 10
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    border-width: 1
+    border-color: #00000077
+
+    UIWidget
+      id: arte
+      size: 160 160
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 14
+      image-fixed-ratio: true
+      image-smooth: false
+      phantom: true
+
+    Label
+      id: rotuloOutfit
+      !text: tr('Outfit inicial')
+      anchors.top: arte.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 12
+      text-align: center
+      color: #a0a0a0
+      font: verdana-11px-rounded
+
+    Label
+      id: nomeVisual
+      anchors.top: rotuloOutfit.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      text-align: center
+      color: #e8d8a0
+
+    Button
+      id: girar
+      !text: tr('Girar')
+      width: 70
+      anchors.top: nomeVisual.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
+      @onClick: CriarPersonagem.girar()
+
+  // Lado direito: nome, sexo e descricao
+  Label
+    !text: tr('Nome do personagem') .. ':'
+    id: rotuloNome
+    anchors.top: parent.top
+    anchors.left: painelArte.right
+    margin-left: 14
+    text-auto-resize: true
+
+  TextEdit
+    id: campoNome
+    anchors.top: rotuloNome.bottom
+    anchors.left: rotuloNome.left
+    anchors.right: parent.right
+    margin-top: 4
+    max-length: 20
+
+  Label
+    id: rotuloSexo
+    !text: tr('Sexo') .. ':'
+    anchors.top: campoNome.bottom
+    anchors.left: rotuloNome.left
+    margin-top: 10
+    text-auto-resize: true
+
+  CheckBoxCircle
+    id: sexoMasculino
+    !text: tr('Masculino')
+    anchors.top: rotuloSexo.bottom
+    anchors.left: rotuloNome.left
+    margin-top: 6
+    width: 100
+
+  CheckBoxCircle
+    id: sexoFeminino
+    !text: tr('Feminino')
+    anchors.top: sexoMasculino.top
+    anchors.left: sexoMasculino.right
+    margin-left: 10
+    width: 100
+
+  Label
+    id: rotuloClasse
+    !text: tr('Classe') .. ':'
+    anchors.top: sexoMasculino.bottom
+    anchors.left: rotuloNome.left
+    margin-top: 12
+    text-auto-resize: true
+
+  // Botoes das 5 classes (criados no Lua, 2 por linha)
+  Panel
+    id: botoesClasse
+    anchors.top: rotuloClasse.bottom
+    anchors.left: rotuloNome.left
+    anchors.right: parent.right
+    margin-top: 4
+    height: 74
+    layout:
+      type: grid
+      cell-size: 160 22
+      cell-spacing: 4
+      flow: true
+
+  Panel
+    id: painelDescricao
+    anchors.top: botoesClasse.bottom
+    anchors.left: rotuloNome.left
+    anchors.right: parent.right
+    anchors.bottom: botaoCriar.top
+    margin-top: 6
+    margin-bottom: 10
+    padding: 8
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    border-width: 1
+    border-color: #00000077
+
+    Label
+      id: tituloClasse
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      color: #e8d8a0
+
+    Label
+      id: descricao
+      anchors.top: tituloClasse.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      text-wrap: true
+      text-auto-resize: true
+      color: #dcdcdc
+
+    Label
+      id: atributos
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      text-wrap: true
+      text-auto-resize: true
+      color: #9fb7d8
+
+  Label
+    id: mensagem
+    anchors.left: parent.left
+    anchors.right: botaoCriar.left
+    anchors.verticalCenter: botaoCriar.verticalCenter
+    margin-right: 10
+    color: #ff7070
+    text-wrap: true
+
+  Button
+    id: botaoCriar
+    !text: tr('Criar')
+    width: 80
+    anchors.right: botaoCancelar.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
+    @onClick: CriarPersonagem.confirmar()
+
+  Button
+    id: botaoCancelar
+    !text: tr('Cancelar')
+    width: 80
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: CriarPersonagem.fechar()
