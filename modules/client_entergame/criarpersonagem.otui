@@ -1,7 +1,7 @@
 CriarPersonagemWindow < MainWindow
   id: criarPersonagemWindow
   !text: tr('Criar personagem')
-  size: 560 380
+  size: 580 450
   @onEnter: CriarPersonagem.confirmar()
   @onEscape: CriarPersonagem.fechar()
 
@@ -118,20 +118,34 @@ CriarPersonagemWindow < MainWindow
     width: 100
 
   Label
-    id: rotuloDescricao
-    !text: tr('Sobre este personagem') .. ':'
+    id: rotuloClasse
+    !text: tr('Classe') .. ':'
     anchors.top: sexoMasculino.bottom
     anchors.left: rotuloNome.left
-    margin-top: 14
+    margin-top: 12
     text-auto-resize: true
+
+  // Botoes das 6 classes (criados no Lua, 2 por linha)
+  Panel
+    id: botoesClasse
+    anchors.top: rotuloClasse.bottom
+    anchors.left: rotuloNome.left
+    anchors.right: parent.right
+    margin-top: 4
+    height: 74
+    layout:
+      type: grid
+      cell-size: 160 22
+      cell-spacing: 4
+      flow: true
 
   Panel
     id: painelDescricao
-    anchors.top: rotuloDescricao.bottom
+    anchors.top: botoesClasse.bottom
     anchors.left: rotuloNome.left
     anchors.right: parent.right
     anchors.bottom: botaoCriar.top
-    margin-top: 4
+    margin-top: 6
     margin-bottom: 10
     padding: 8
     image-source: /images/ui/panel_flat
@@ -140,23 +154,30 @@ CriarPersonagemWindow < MainWindow
     border-color: #00000077
 
     Label
-      id: descricao
+      id: tituloClasse
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.right: parent.right
+      color: #e8d8a0
+
+    Label
+      id: descricao
+      anchors.top: tituloClasse.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
       text-wrap: true
       text-auto-resize: true
       color: #dcdcdc
 
     Label
-      id: aviso
+      id: atributos
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.bottom: parent.bottom
       text-wrap: true
       text-auto-resize: true
       color: #9fb7d8
-      font: verdana-11px-rounded
 
   Label
     id: mensagem

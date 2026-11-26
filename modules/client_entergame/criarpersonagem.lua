@@ -1,12 +1,11 @@
 -- Arquivo em Latin-1: a fonte do cliente desenha Latin-1 (UTF-8 sai embaralhado).
 -- Janela "Criar personagem", aberta pela lista de personagens.
 --
--- O jogador escolhe o visual (arte animada + descrição), o sexo e o nome. A classe e a técnica
--- inata NÃO são escolhidas aqui: o personagem nasce sem classe e desperta no Colégio no nível 8
--- (documento de design v1.04).
+-- O jogador escolhe a classe (com a descrição do papel dela), o visual (arte animada), o sexo e o nome.
+-- Decisão do Robson em 26/11/2026: a classe é escolhida na criação (antes era no despertar, nível 8).
 --
 -- O pedido vai por HTTP ao serviço de contas (ver docs/protocolo.md, "Criar personagem"):
---   POST <url>  {"conta": "...", "senha": "...", "nome": "...", "sexo": 0|1, "looktype": N}
+--   POST <url>  {"conta": "...", "senha": "...", "nome": "...", "sexo": 0|1, "looktype": N, "vocacao": N}
 --   resposta    {"ok": true}  ou  {"ok": false, "erro": "texto para o jogador"}
 -- URL: Services.criarPersonagem, ou http://<host do login>:8089/criar-personagem.
 
@@ -19,27 +18,61 @@ local PORTA_PADRAO = 8089
 local VISUAIS = {
     {
         looktype = 142,
-        nome = 'Lutador de Rua',
-        descricao = 'Cresceu nas ruas de Sendai resolvendo as coisas no braço. Não teme briga, '
-            .. 'protege os amigos e aprende rápido apanhando. Dizem que já viu coisas estranhas '
-            .. 'nos becos à noite, e que foi isso que o trouxe até o Colégio.',
+        nome = 'Jaqueta de Rua',
         cores = { head = 78, body = 94, legs = 114, feet = 76 }
     },
     {
         looktype = 143,
         nome = 'Estudante do Oculto',
-        descricao = 'Passou a infância lendo sobre maldições e lendas antigas. Calmo e observador, '
-            .. 'prefere entender o inimigo antes de agir. Sente a energia amaldiçoada desde '
-            .. 'pequeno e agora quer aprender a controlá-la.',
         cores = { head = 0, body = 114, legs = 57, feet = 95 }
     }
 }
 
-local AVISO = 'A classe e a técnica inata são escolhidas mais tarde, no despertar com o diretor '
-    .. 'do Colégio (nível 8). Antes disso, o tutorial deixa você provar cada estilo de luta.'
+-- As 6 classes (docs/classes-v2.md). vocacao = id em datapack/xml/vocations.xml.
+-- Textos neutros (valem nas duas peles).
+local CLASSES = {
+    {
+        id = 'lutador', vocacao = 1, nome = 'Lutador',
+        descricao = 'Linha de frente. Luta com os punhos envoltos em energia, aguenta muito castigo e '
+            .. 'encadeia combos até acertar o golpe crítico no tempo certo.',
+        atributos = 'Vida: muito alta  |  Energia: média  |  Alcance: curto'
+    },
+    {
+        id = 'combate', vocacao = 2, nome = 'Mestre das Armas',
+        descricao = 'O atirador moderno. Usa armas de fogo de curta, média e longa distância com munição '
+            .. 'amaldiçoada, e armas de haste que alcançam 2 quadros.',
+        atributos = 'Vida: alta  |  Energia: média  |  Alcance: longo'
+    },
+    {
+        id = 'tecnica', vocacao = 6, nome = 'Mestre das Técnicas',
+        descricao = 'Conjurador. Tem a maior reserva de energia e o maior dano de técnica do jogo, '
+            .. 'mas pouca vida: precisa manter o inimigo longe.',
+        atributos = 'Vida: baixa  |  Energia: muito alta  |  Alcance: longo'
+    },
+    {
+        id = 'controlador', vocacao = 3, nome = 'Controlador',
+        descricao = 'Invocador. Cria e comanda entidades que lutam por ele e domina o campo de batalha '
+            .. 'enquanto fica na retaguarda.',
+        atributos = 'Vida: baixa  |  Energia: alta  |  Alcance: médio'
+    },
+    {
+        id = 'suporte', vocacao = 4, nome = 'Suporte',
+        descricao = 'O pilar do grupo. Cura os aliados, ergue barreiras, fortalece o time e enfraquece '
+            .. 'as maldições inimigas.',
+        atributos = 'Vida: baixa  |  Energia: alta  |  Alcance: médio'
+    },
+    {
+        id = 'restringido', vocacao = 7, nome = 'Restringido',
+        descricao = 'Nasceu sem energia amaldiçoada, mas com um corpo sobre-humano: força, velocidade e '
+            .. 'sentidos extremos e domínio total das armas. Não usa técnicas de energia.',
+        atributos = 'Vida: muito alta  |  Energia: nenhuma  |  Velocidade: máxima'
+    }
+}
 
 local janela = nil
 local grupoSexo = nil
+local grupoClasse = nil
+local indiceClasse = 1
 local indiceVisual = 1
 local direcao = 2 -- sul
 local eventoGiro = nil
@@ -82,6 +115,16 @@ local function desenharQuadro()
         v.looktype, LETRAS_DIRECAO[direcao], quadro))
 end
 
+local function atualizarClasse()
+    if not janela then
+        return
+    end
+    local c = CLASSES[indiceClasse]
+    janela.painelDescricao.tituloClasse:setText(c.nome)
+    janela.painelDescricao.descricao:setText(c.descricao)
+    janela.painelDescricao.atributos:setText(c.atributos)
+end
+
 local function atualizarArte()
     if not janela then
         return
@@ -90,7 +133,6 @@ local function atualizarArte()
     desenharQuadro()
     janela.painelArte.nomeVisual:setText(v.nome)
     janela.painelArte.contadorVisual:setText(string.format('%d de %d', indiceVisual, #VISUAIS))
-    janela.painelDescricao.descricao:setText(v.descricao)
 end
 
 -- Validação local (o servidor valida de novo): 3 a 20 letras, espaços simples entre palavras,
@@ -157,12 +199,33 @@ function CriarPersonagem.abrir()
         return
     end
     janela = g_ui.createWidget('CriarPersonagemWindow', rootWidget)
-    janela:recursiveGetChildById('aviso'):setText(AVISO)
 
     grupoSexo = UIRadioGroup.create()
     grupoSexo:addWidget(janela.sexoMasculino)
     grupoSexo:addWidget(janela.sexoFeminino)
     grupoSexo:selectWidget(janela.sexoMasculino)
+
+    grupoClasse = UIRadioGroup.create()
+    for i, c in ipairs(CLASSES) do
+        local botao = g_ui.createWidget('Button', janela.botoesClasse)
+        botao:setText(c.nome)
+        botao:setFont('verdana-11px-rounded')
+        botao.indiceClasse = i
+        grupoClasse:addWidget(botao)
+    end
+    grupoClasse.onSelectionChange = function(_, selecionado)
+        if selecionado then
+            indiceClasse = selecionado.indiceClasse
+            atualizarClasse()
+        end
+        -- destaque da classe escolhida (o estado "checked" do botao quase nao aparece)
+        for _, botao in ipairs(janela.botoesClasse:getChildren()) do
+            botao:setColor(botao == selecionado and '#ffd75e' or '#dfdfdf')
+        end
+    end
+    indiceClasse = 1
+    grupoClasse:selectWidget(janela.botoesClasse:getChildByIndex(1))
+    atualizarClasse()
 
     indiceVisual = 1
     direcao = 2
@@ -197,6 +260,10 @@ function CriarPersonagem.fechar()
     if grupoSexo then
         grupoSexo:destroy()
         grupoSexo = nil
+    end
+    if grupoClasse then
+        grupoClasse:destroy()
+        grupoClasse = nil
     end
     if janela then
         janela:destroy()
@@ -243,7 +310,8 @@ function CriarPersonagem.confirmar()
         senha = G.password,
         nome = nome,
         sexo = sexoEscolhido(),
-        looktype = VISUAIS[indiceVisual].looktype
+        looktype = VISUAIS[indiceVisual].looktype,
+        vocacao = CLASSES[indiceClasse].vocacao
     }, aoResponder)
 end
 
