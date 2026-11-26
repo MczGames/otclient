@@ -5,7 +5,7 @@ CriarPersonagemWindow < MainWindow
   @onEnter: CriarPersonagem.confirmar()
   @onEscape: CriarPersonagem.fechar()
 
-  // Lado esquerdo: arte do personagem (anda e gira sozinha) e troca de visual
+  // Lado esquerdo: arte da outfit inicial da classe escolhida (anda e gira sozinha)
   // Imagens: data/images/criar_personagem/ (tools/assets/gerar_arte_criacao.py)
   Panel
     id: painelArte
@@ -29,49 +29,31 @@ CriarPersonagemWindow < MainWindow
       image-smooth: false
       phantom: true
 
-    Button
-      id: visualAnterior
-      text: <
-      size: 24 22
-      anchors.left: parent.left
-      anchors.top: arte.bottom
-      margin-left: 8
-      margin-top: 12
-      @onClick: CriarPersonagem.trocarVisual(-1)
-
-    Button
-      id: visualProximo
-      text: >
-      size: 24 22
-      anchors.right: parent.right
-      anchors.top: arte.bottom
-      margin-right: 8
-      margin-top: 12
-      @onClick: CriarPersonagem.trocarVisual(1)
-
     Label
-      id: nomeVisual
-      anchors.left: visualAnterior.right
-      anchors.right: visualProximo.left
-      anchors.verticalCenter: visualAnterior.verticalCenter
-      text-align: center
-      color: #e8d8a0
-
-    Label
-      id: contadorVisual
-      anchors.top: visualAnterior.bottom
+      id: rotuloOutfit
+      !text: tr('Outfit inicial')
+      anchors.top: arte.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 6
+      margin-top: 12
       text-align: center
       color: #a0a0a0
       font: verdana-11px-rounded
+
+    Label
+      id: nomeVisual
+      anchors.top: rotuloOutfit.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      text-align: center
+      color: #e8d8a0
 
     Button
       id: girar
       !text: tr('Girar')
       width: 70
-      anchors.top: contadorVisual.bottom
+      anchors.top: nomeVisual.bottom
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 8
       @onClick: CriarPersonagem.girar()
