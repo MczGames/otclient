@@ -63,3 +63,31 @@ HudPainel < UIWidget
     anchors.right: parent.right
     margin-top: 3
     height: 14
+
+HudSubmenu < UIWidget
+  height: 40
+  image-source: /modules/game_hud/images/barra_topo
+  image-border: 14
+  padding: 5
+  focusable: false
+  visible: false
+  layout:
+    type: horizontalBox
+    spacing: 4
+
+HudBotaoBarra < UIButton
+  size: 20 20
+  image-source: /modules/game_hud/images/botao_topo
+  image-clip: 0 0 30 30
+  font: verdana-11px-rounded
+  color: #c9b3ff
+  text-offset: 0 -1
+  visible: false
+
+  $hover !disabled:
+    image-clip: 30 0 30 30
+    color: #ffffff
+
+  $pressed:
+    image-clip: 60 0 30 30
+    color: #f2c14e
