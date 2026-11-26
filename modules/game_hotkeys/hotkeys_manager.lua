@@ -1051,14 +1051,14 @@ function isHotkeyUsedByManager(keyCombo)
     if not keyCombo or keyCombo == "" then
         return false
     end
-    if boundCombosCallback[keyCombo] then
-        return true
-    end
+    -- Projeto: so conta como "em uso" o atalho que faz algo. As F1 a F12 vazias que este gerenciador
+    -- cria por padrao nao fazem nada e bloqueavam as teclas da barra de acoes (F1 a F12 da classe).
     if currentHotkeys then
         local hotkeyLabel = currentHotkeys:getChildById(keyCombo)
         if hotkeyLabel then
-            return true
+            local temValor = hotkeyLabel.value and #hotkeyLabel.value > 0
+            return (temValor or hotkeyLabel.itemId ~= nil or (hotkeyLabel.action or 0) > 0) and true or false
         end
     end
-    return false
+    return boundCombosCallback[keyCombo] ~= nil and currentHotkeys == nil
 end

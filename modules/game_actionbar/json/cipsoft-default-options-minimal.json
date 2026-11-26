@@ -2,19 +2,21 @@
     "chatOptions": {
         "chatModeOn": true
     },
-    "profiles": ["Druid", "Knight", "Paladin", "Sorcerer", "Monk"],
+    "profiles": [
+        "padrao"
+    ],
     "hotkeyOptions": {
         "autoSwitchHotkeyPreset": true,
-        "currentHotkeySetName": "Knight",
+        "currentHotkeySetName": "padrao",
         "hotkeySets": {
-            "Druid": {
+            "padrao": {
                 "actionBarOptions": {
                     "mappings": [
                         {
                             "actionBar": 1,
                             "actionButton": 1,
                             "actionsetting": {
-                                "useObject": 7876,
+                                "useObject": 10040,
                                 "useType": "UseOnYourself"
                             }
                         },
@@ -22,32 +24,8 @@
                             "actionBar": 1,
                             "actionButton": 2,
                             "actionsetting": {
-                                "useObject": 268,
+                                "useObject": 10041,
                                 "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 3,
-                            "actionsetting": {
-                                "chatText": "exura infir",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 4,
-                            "actionsetting": {
-                                "chatText": "exori infir tera",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 5,
-                            "actionsetting": {
-                                "chatText": "exevo infir frigo hur",
-                                "sendAutomatically": true
                             }
                         }
                     ]
@@ -64,6 +42,66 @@
                             "action": "TriggerActionButton_1.2"
                         },
                         "keysequence": "F2"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.3"
+                        },
+                        "keysequence": "F3"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.4"
+                        },
+                        "keysequence": "F4"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.5"
+                        },
+                        "keysequence": "F5"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.6"
+                        },
+                        "keysequence": "F6"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.7"
+                        },
+                        "keysequence": "F7"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.8"
+                        },
+                        "keysequence": "F8"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.9"
+                        },
+                        "keysequence": "F9"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.10"
+                        },
+                        "keysequence": "F10"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.11"
+                        },
+                        "keysequence": "F11"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.12"
+                        },
+                        "keysequence": "F12"
                     }
                 ],
                 "chatOn": [
@@ -78,302 +116,66 @@
                             "action": "TriggerActionButton_1.2"
                         },
                         "keysequence": "F2"
-                    }
-                ]
-            },
-            "Knight": {
-                "actionBarOptions": {
-                    "mappings": [
-                        {
-                            "actionBar": 1,
-                            "actionButton": 1,
-                            "actionsetting": {
-                                "useObject": 7876,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 2,
-                            "actionsetting": {
-                                "useObject": 268,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 3,
-                            "actionsetting": {
-                                "chatText": "exura infir",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 4,
-                            "actionsetting": {
-                                "chatText": "exori infir tera",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 5,
-                            "actionsetting": {
-                                "chatText": "exevo infir frigo hur",
-                                "sendAutomatically": true
-                            }
-                        }
-                    ]
-                },
-                "chatOff": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.3"
                         },
-                        "keysequence": "F2"
-                    }
-                ],
-                "chatOn": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F3"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.4"
                         },
-                        "keysequence": "F2"
-                    }
-                ]
-            },
-            "Paladin": {
-                "actionBarOptions": {
-                    "mappings": [
-                        {
-                            "actionBar": 1,
-                            "actionButton": 1,
-                            "actionsetting": {
-                                "useObject": 7876,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 2,
-                            "actionsetting": {
-                                "useObject": 268,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 3,
-                            "actionsetting": {
-                                "chatText": "exura infir",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 4,
-                            "actionsetting": {
-                                "chatText": "exori infir tera",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 5,
-                            "actionsetting": {
-                                "chatText": "exevo infir frigo hur",
-                                "sendAutomatically": true
-                            }
-                        }
-                    ]
-                },
-                "chatOff": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F4"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.5"
                         },
-                        "keysequence": "F2"
-                    }
-                ],
-                "chatOn": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F5"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.6"
                         },
-                        "keysequence": "F2"
-                    }
-                ]
-            },
-            "Sorcerer": {
-                "actionBarOptions": {
-                    "mappings": [
-                        {
-                            "actionBar": 1,
-                            "actionButton": 1,
-                            "actionsetting": {
-                                "useObject": 7876,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 2,
-                            "actionsetting": {
-                                "useObject": 268,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 3,
-                            "actionsetting": {
-                                "chatText": "exura infir",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 4,
-                            "actionsetting": {
-                                "chatText": "exori infir tera",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 5,
-                            "actionsetting": {
-                                "chatText": "exevo infir frigo hur",
-                                "sendAutomatically": true
-                            }
-                        }
-                    ]
-                },
-                "chatOff": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F6"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.7"
                         },
-                        "keysequence": "F2"
-                    }
-                ],
-                "chatOn": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F7"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.8"
                         },
-                        "keysequence": "F2"
-                    }
-                ]
-            },
-            "Monk": {
-                "actionBarOptions": {
-                    "mappings": [
-                        {
-                            "actionBar": 1,
-                            "actionButton": 1,
-                            "actionsetting": {
-                                "useObject": 7876,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 2,
-                            "actionsetting": {
-                                "useObject": 268,
-                                "useType": "UseOnYourself"
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 3,
-                            "actionsetting": {
-                                "chatText": "exura infir",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 4,
-                            "actionsetting": {
-                                "chatText": "exori infir tera",
-                                "sendAutomatically": true
-                            }
-                        },
-                        {
-                            "actionBar": 1,
-                            "actionButton": 5,
-                            "actionsetting": {
-                                "chatText": "exevo infir frigo hur",
-                                "sendAutomatically": true
-                            }
-                        }
-                    ]
-                },
-                "chatOff": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F8"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.9"
                         },
-                        "keysequence": "F2"
-                    }
-                ],
-                "chatOn": [
-                    {
-                        "actionsetting": {
-                            "action": "TriggerActionButton_1.1"
-                        },
-                        "keysequence": "F1"
+                        "keysequence": "F9"
                     },
                     {
                         "actionsetting": {
-                            "action": "TriggerActionButton_1.2"
+                            "action": "TriggerActionButton_1.10"
                         },
-                        "keysequence": "F2"
+                        "keysequence": "F10"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.11"
+                        },
+                        "keysequence": "F11"
+                    },
+                    {
+                        "actionsetting": {
+                            "action": "TriggerActionButton_1.12"
+                        },
+                        "keysequence": "F12"
                     }
                 ]
             }

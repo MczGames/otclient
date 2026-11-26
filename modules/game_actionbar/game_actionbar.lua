@@ -252,6 +252,18 @@ end
 -- =============================================*/
 
 
+--- Projeto: ao entrar (a vocacao chega depois do onGameStart) ou trocar de classe, usa o perfil de
+--- atalhos da classe (F1 a F12, criado na primeira vez com pocoes e as tecnicas padrao)
+local function onVocacaoMudou(localPlayer, vocacao)
+    if not ApiJson or not ApiJson.garantirPerfilDaClasse then
+        return
+    end
+    local nome, mudou = ApiJson.garantirPerfilDaClasse(vocacao)
+    if nome and mudou then
+        selectHotkeySet(nome)
+    end
+end
+
 --- Connects player events
 local function connecting()
     if areEventsConnected then
@@ -259,6 +271,7 @@ local function connecting()
     end
 
     connect(LocalPlayer, {
+        onVocationChange = onVocacaoMudou,
         onManaChange = onUpdateActionBarStatus,
         onSoulChange = onUpdateActionBarStatus,
         onLevelChange = onUpdateLevel,
@@ -283,6 +296,7 @@ local function disconnecting()
     end
 
     disconnect(LocalPlayer, {
+        onVocationChange = onVocacaoMudou,
         onManaChange = onUpdateActionBarStatus,
         onSoulChange = onUpdateActionBarStatus,
         onLevelChange = onUpdateLevel,
@@ -379,6 +393,11 @@ end
 
 --- Handles game start event
 function ActionBarController:onGameStart()
+    -- Projeto: perfil de atalhos da classe (se a vocacao ja chegou; senao, onVocacaoMudou cuida)
+    local jogador = g_game.getLocalPlayer()
+    if jogador and ApiJson and ApiJson.garantirPerfilDaClasse then
+        ApiJson.garantirPerfilDaClasse(jogador:getVocation())
+    end
     onCreateActionBars()
     
     -- Ensure fresh cache
