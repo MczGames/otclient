@@ -1106,8 +1106,8 @@
    "ir": "caverna_amarela_a_1"
   },
   {
-   "x": 2066,
-   "y": 2373,
+   "x": 2069,
+   "y": 2370,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1163,8 +1163,8 @@
    "ir": "caverna_amarela_a_2"
   },
   {
-   "x": 2216,
-   "y": 2114,
+   "x": 2213,
+   "y": 2118,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1220,8 +1220,8 @@
    "ir": "caverna_amarela_a_3"
   },
   {
-   "x": 2231,
-   "y": 2450,
+   "x": 2250,
+   "y": 2454,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1277,8 +1277,8 @@
    "ir": "caverna_amarela_a_4"
   },
   {
-   "x": 2548,
-   "y": 2151,
+   "x": 2551,
+   "y": 2154,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1334,8 +1334,8 @@
    "ir": "caverna_amarela_a_5"
   },
   {
-   "x": 2785,
-   "y": 2515,
+   "x": 2790,
+   "y": 2514,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1392,7 +1392,7 @@
   },
   {
    "x": 2934,
-   "y": 1995,
+   "y": 1998,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1448,8 +1448,8 @@
    "ir": "caverna_amarela_a_7"
   },
   {
-   "x": 3028,
-   "y": 2283,
+   "x": 3030,
+   "y": 2286,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1505,8 +1505,8 @@
    "ir": "caverna_amarela_b_1"
   },
   {
-   "x": 798,
-   "y": 2018,
+   "x": 799,
+   "y": 2022,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1563,7 +1563,7 @@
   },
   {
    "x": 498,
-   "y": 1967,
+   "y": 1974,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1619,8 +1619,8 @@
    "ir": "caverna_amarela_b_3"
   },
   {
-   "x": 638,
-   "y": 2116,
+   "x": 631,
+   "y": 2118,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1677,7 +1677,7 @@
   },
   {
    "x": 643,
-   "y": 2307,
+   "y": 2310,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1733,8 +1733,8 @@
    "ir": "caverna_amarela_b_5"
   },
   {
-   "x": 926,
-   "y": 2510,
+   "x": 932,
+   "y": 2514,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1790,8 +1790,8 @@
    "ir": "caverna_amarela_b_6"
   },
   {
-   "x": 283,
-   "y": 2209,
+   "x": 295,
+   "y": 2214,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1847,8 +1847,8 @@
    "ir": "caverna_amarela_b_7"
   },
   {
-   "x": 426,
-   "y": 2423,
+   "x": 424,
+   "y": 2430,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1904,8 +1904,8 @@
    "ir": "caverna_amarela_b_8"
   },
   {
-   "x": 681,
-   "y": 2546,
+   "x": 676,
+   "y": 2550,
    "z": 8,
    "tipo": "monstros",
    "zoom": -1,
@@ -1961,8 +1961,8 @@
    "ir": "caverna_cidade_inicial_1"
   },
   {
-   "x": 831,
-   "y": 2045,
+   "x": 810,
+   "y": 2022,
    "z": 8,
    "tipo": "boss",
    "zoom": -5
