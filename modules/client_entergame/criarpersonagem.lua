@@ -28,7 +28,8 @@ local VISUAIS = {
     }
 }
 
--- As 6 classes (docs/classes-v2.md). vocacao = id em datapack/xml/vocations.xml.
+-- Classes escolhidas na criação (docs/classes-v2.md). O Restringido não aparece aqui
+-- (decisão do Robson em 26/11/2026). vocacao = id em datapack/xml/vocations.xml.
 -- Textos neutros (valem nas duas peles).
 local CLASSES = {
     {
@@ -60,12 +61,6 @@ local CLASSES = {
         descricao = 'O pilar do grupo. Cura os aliados, ergue barreiras, fortalece o time e enfraquece '
             .. 'as maldições inimigas.',
         atributos = 'Vida: baixa  |  Energia: alta  |  Alcance: médio'
-    },
-    {
-        id = 'restringido', vocacao = 7, nome = 'Restringido',
-        descricao = 'Nasceu sem energia amaldiçoada, mas com um corpo sobre-humano: força, velocidade e '
-            .. 'sentidos extremos e domínio total das armas. Não usa técnicas de energia.',
-        atributos = 'Vida: muito alta  |  Energia: nenhuma  |  Velocidade: máxima'
     }
 }
 

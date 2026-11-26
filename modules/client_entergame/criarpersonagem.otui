@@ -125,7 +125,7 @@ CriarPersonagemWindow < MainWindow
     margin-top: 12
     text-auto-resize: true
 
-  // Botoes das 6 classes (criados no Lua, 2 por linha)
+  // Botoes das 5 classes (criados no Lua, 2 por linha)
   Panel
     id: botoesClasse
     anchors.top: rotuloClasse.bottom
