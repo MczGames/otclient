@@ -636,6 +636,99 @@ local function layoutChat(estendido)
     abasDoChat(fundoDoChat)
 end
 
+-- ------------------------------------------------------------------ minimapa
+
+-- No HUD o minimapa sai do painel da direita e fica no canto inferior direito da tela, 20% maior.
+local ESCALA_MINIMAPA = 1.2
+local minimapaOriginal = nil -- tamanhos e pai de antes de mover, para restaurar
+
+local function janelaDoMinimapa()
+    local mm = modules.game_minimap
+    local mini = mm and mm.getMiniMapUi and mm.getMiniMapUi()
+    local borda = mini and mini:getParent()
+    -- em tela cheia o minimapa sai da moldura: nao mexe
+    if not borda or borda:getId() ~= 'minimapBorder' then
+        return nil
+    end
+    local janela = borda:getParent()
+    if not janela or janela:isDestroyed() then
+        return nil
+    end
+    return janela, borda
+end
+
+local function layoutMinimapa(estendido)
+    local janela, borda = janelaDoMinimapa()
+    if not janela then
+        return
+    end
+    local gi = modules.game_interface
+    local raiz = gi.getRootPanel()
+    local direito = gi.getRightPanel()
+    if estendido then
+        if not minimapaOriginal then
+            local b = borda:getSize()
+            local largura = janela:getWidth()
+            minimapaOriginal = {
+                pai = janela:getParent(),
+                largura = largura > 0 and largura or 176,
+                altura = janela:getHeight(),
+                borda = { width = b.width, height = b.height },
+                arrastavel = janela:isDraggable()
+            }
+        end
+        local o = minimapaOriginal
+        local bw = math.floor(o.borda.width * ESCALA_MINIMAPA)
+        local bh = math.floor(o.borda.height * ESCALA_MINIMAPA)
+        if janela:getParent() ~= raiz then
+            local pai = janela:getParent()
+            if pai then
+                pai:removeChild(janela)
+            end
+            raiz:addChild(janela)
+        end
+        janela:breakAnchors()
+        janela:addAnchor(AnchorRight, 'parent', AnchorRight)
+        janela:addAnchor(AnchorBottom, 'parent', AnchorBottom)
+        janela:setMarginRight(MARGEM)
+        janela:setMarginBottom(MARGEM)
+        borda:setSize({ width = bw, height = bh })
+        janela:setSize({ width = o.largura + bw - o.borda.width, height = o.altura + bh - o.borda.height })
+        janela:setDraggable(false)
+        janela:show()
+        janela:raise()
+        -- as janelas do painel direito terminam acima do minimapa
+        if direito then
+            direito:setMarginBottom(janela:getHeight() + MARGEM * 2)
+        end
+    elseif minimapaOriginal then
+        local o = minimapaOriginal
+        minimapaOriginal = nil
+        borda:setSize(o.borda)
+        janela:breakAnchors()
+        janela:setMarginRight(0)
+        janela:setMarginBottom(0)
+        janela:setSize({ width = o.largura, height = o.altura })
+        janela:setDraggable(o.arrastavel)
+        -- o game_minimap.extendedView(false) ja devolve ao painel; se nao devolveu, devolve aqui
+        if janela:getParent() == raiz and o.pai and not o.pai:isDestroyed() then
+            raiz:removeChild(janela)
+            o.pai:insertChild(1, janela)
+        end
+        if direito then
+            direito:setMarginBottom(0)
+        end
+    end
+end
+
+-- painel de vida e energia da direita: o HUD ja tem as barras embaixo da barra de habilidades
+local function esconderPainelDeVida(estendido)
+    local hi = modules.game_healthinfo
+    if estendido and hi and hi.esconder then
+        hi.esconder()
+    end
+end
+
 -- ------------------------------------------------------------------ geral
 
 local function esconderBarrasOriginais(estendido)
@@ -675,6 +768,8 @@ function aplicarLayout(estendido)
     layoutTopo(estendido)
     layoutAcoes(estendido)
     layoutChat(estendido)
+    layoutMinimapa(estendido)
+    esconderPainelDeVida(estendido)
     if estendido then
         aplicarIcones()
         ordenarBotoes()
@@ -717,6 +812,9 @@ local function aoIniciarJogo()
         esconderOutrosDoTopo()
         ajustarLarguraTopo()
         atualizarBarras()
+        -- minimapa e painel de vida sao (re)criados no login
+        layoutMinimapa(ativo)
+        esconderPainelDeVida(ativo)
         if vezes < 4 then
             eventoIcones = scheduleEvent(repetir, 700)
         else

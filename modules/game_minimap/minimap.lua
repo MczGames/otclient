@@ -333,6 +333,11 @@ function extendedView(extendedView)
         mapController.ui:setBorderWidth(0)
         local mainRightPanel = modules.game_interface.getMainRightPanel()
         if not mainRightPanel:hasChild(mapController.ui) then
+            -- Projeto: o HUD (game_hud) leva o minimapa para o canto da tela; tira de la antes de voltar
+            local pai = mapController.ui:getParent()
+            if pai then
+                pai:removeChild(mapController.ui)
+            end
             mainRightPanel:insertChild(1, mapController.ui)
         end
         mapController.ui:show()
