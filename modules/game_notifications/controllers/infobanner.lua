@@ -101,7 +101,7 @@ local infoPopUp = {
         --type(int), lookType(int), skinName(string), skinType(int)
         {
             title = "Visual liberado",
-            description = "Você liberou '%s'.", --skinName
+            description = "VocÃª liberou '%s'.", --skinName
             hasCreatureId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -110,7 +110,7 @@ local infoPopUp = {
         --type(int), raceId(int), progressLevel(int)
         {
             title = "Arquivo de Chefes",
-            description = "Seu registro avançou para o estágio %s.",--progressLevel
+            description = "Seu registro avanÃ§ou para o estÃ¡gio %s.",--progressLevel
             hasRaceId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -118,8 +118,8 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_BESTIARY] = {
         --type(int), raceId(int), progressLevel(int)
         {
-            title = "Arquivo de Maldições",
-            description = "Seu registro avançou para o estágio %s.", --progressLevel
+            title = "Arquivo de MaldiÃ§Ãµes",
+            description = "Seu registro avanÃ§ou para o estÃ¡gio %s.", --progressLevel
             hasRaceId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -128,15 +128,15 @@ local infoPopUp = {
         -- type(int), name(string)
         {
             title = "Nova conquista",
-            description = "Você conquistou '%s'.", --name
+            description = "VocÃª conquistou '%s'.", --name
             img = "/game_notifications/assets/images/nodo/icon-infobanner-achievements"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_TITLE] = {
         -- type(int), name(string)
         {
-            title = "Novo título",
-            description = "Você recebeu o título '%s'.", --name
+            title = "Novo tÃ­tulo",
+            description = "VocÃª recebeu o tÃ­tulo '%s'.", --name
             img = "/game_notifications/assets/images/nodo/icon-infobanner-title"
         }
     },
@@ -144,7 +144,7 @@ local infoPopUp = {
         -- type(int), itemId(int), message(string)
         {
             title = "Maestria de arma",
-            description = "Você aprimorou '%s'.", -- message
+            description = "VocÃª aprimorou '%s'.", -- message
             hasItemId = true,
             img = "/game_notifications/assets/images/nodo/icon-infobanner-unlock"
         }
@@ -152,20 +152,20 @@ local infoPopUp = {
     [eventCategory.CLIENT_EVENT_TYPE_QUEST] = {
         -- type(int), questName(string), isCompleted(bool)
         [true] = { -- isCompleted(bool)
-            title = "Missão concluída",
-            description = "Você concluiu '%s'.",
+            title = "MissÃ£o concluÃ­da",
+            description = "VocÃª concluiu '%s'.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         },
         [false] = { -- isCompleted(bool)
-            title = "Missão iniciada",
-            description = "Você começou '%s'.",
+            title = "MissÃ£o iniciada",
+            description = "VocÃª comeÃ§ou '%s'.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         }
     },
     [eventCategory.CLIENT_EVENT_TYPE_LEVEL] = {
         {
-            title = "Nível %d!",
-            description = "Sua vida, energia amaldiçoada e capacidade aumentaram.",
+            title = "NÃ­vel %d!",
+            description = "Sua vida, energia amaldiÃ§oada e capacidade aumentaram.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-levelup"
         }
     },
@@ -173,7 +173,7 @@ local infoPopUp = {
         -- type(int), skillId(int), level(int)
         {
             title = "%s",
-            description = "Sua habilidade subiu para o nível %d.",
+            description = "Sua habilidade subiu para o nÃ­vel %d.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-skill-%s"
         }
     },
@@ -185,23 +185,23 @@ local infoPopUp = {
             img = "/game_notifications/assets/images/nodo/icon-infobanner-quests"
         },
         [eventType.CLIENT_EVENT_OUTOFAMMO] = {
-            title = "Sem munição",
-            description = "Você não tem munição equipada.",
+            title = "Sem muniÃ§Ã£o",
+            description = "VocÃª nÃ£o tem muniÃ§Ã£o equipada.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_TARGETTOOCLOSE] = {
             title = "Alvo perto demais",
-            description = "Seu ataque à distância está colado no alvo.",
+            description = "Seu ataque Ã  distÃ¢ncia estÃ¡ colado no alvo.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_OUTOFSOULPOINTS] = {
             title = "Energia insuficiente",
-            description = "Falta energia amaldiçoada para usar esta técnica.",
+            description = "Falta energia amaldiÃ§oada para usar esta tÃ©cnica.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-hint"
         },
         [eventType.CLIENT_EVENT_TUTORIALCOMPLETE] = {
             title = "Hora de partir",
-            description = "Deixe o treino para trás e comece sua jornada de verdade.",
+            description = "Deixe o treino para trÃ¡s e comece sua jornada de verdade.",
             img = "/game_notifications/assets/images/nodo/icon-infobanner-offtonewshores"
         }
     }
@@ -277,9 +277,9 @@ function notificationsController:onClientEvent(eventCat, ...)
         local skinName = args[2]
         local skinType = tonumber(args[3])
         if skinType == 1 then
-            skinName = skinName .. " (adereço 1)"
+            skinName = skinName .. " (adereÃ§o 1)"
         elseif skinType == 2 then
-            skinName = skinName .. " (adereço 2)"
+            skinName = skinName .. " (adereÃ§o 2)"
         end
         description = type(description) == 'string' and description:format(skinName) or description
         if popupTemplate.hasCreatureId then
