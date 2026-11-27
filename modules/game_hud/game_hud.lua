@@ -657,6 +657,84 @@ local function janelaDoMinimapa()
     return janela, borda
 end
 
+-- Tamanho ajustavel: alca no canto superior esquerdo (a janela fica presa no canto inferior
+-- direito, entao arrastar para cima/esquerda aumenta). O tamanho fica salvo em g_settings.
+local MINIMAPA_MIN = { width = 150, height = 120 }
+local CHAVE_TAMANHO = 'hudMinimapaTamanho'
+
+local function limitarTamanhoMinimapa(tamanho)
+    local raiz = modules.game_interface.getRootPanel()
+    local maxL = math.max(MINIMAPA_MIN.width, math.floor(raiz:getWidth() * 0.6))
+    local maxA = math.max(MINIMAPA_MIN.height, math.floor(raiz:getHeight() * 0.7))
+    return {
+        width = math.max(MINIMAPA_MIN.width, math.min(maxL, math.floor(tamanho.width))),
+        height = math.max(MINIMAPA_MIN.height, math.min(maxA, math.floor(tamanho.height)))
+    }
+end
+
+local function tamanhoSalvoDoMinimapa()
+    local s = g_settings.get(CHAVE_TAMANHO)
+    local t = (type(s) == 'string' and s ~= '') and tosize(s) or nil
+    if t and t.width and t.width > 0 and t.height > 0 then
+        return limitarTamanhoMinimapa(t)
+    end
+    return nil
+end
+
+local function ajustarPainelDireito(janela)
+    local direito = modules.game_interface.getRightPanel()
+    if direito then
+        direito:setMarginBottom(janela:getHeight() + MARGEM * 2)
+    end
+end
+
+local function criarAlcaDoMinimapa(janela)
+    local alca = janela:getChildById('hudAlcaMinimapa')
+    if alca then
+        alca:show()
+        alca:raise()
+        return
+    end
+    alca = g_ui.createWidget('UIWidget', janela)
+    alca:setId('hudAlcaMinimapa')
+    alca:setSize({ width = 12, height = 12 })
+    alca:addAnchor(AnchorTop, 'parent', AnchorTop)
+    alca:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+    alca:setBackgroundColor('#ffffff55')
+    alca:setBorderColor('#000000')
+    alca:setBorderWidth(1)
+    alca:setTooltip('Arraste para mudar o tamanho do mapa')
+    alca:setPhantom(false)
+    alca.onMousePress = function(w, pos, botao)
+        if botao ~= MouseLeftButton then
+            return false
+        end
+        w.inicio = { x = pos.x, y = pos.y, tamanho = janela:getSize() }
+        return true
+    end
+    alca.onMouseMove = function(w, pos)
+        if not w.inicio then
+            return false
+        end
+        local t = limitarTamanhoMinimapa({
+            width = w.inicio.tamanho.width + (w.inicio.x - pos.x),
+            height = w.inicio.tamanho.height + (w.inicio.y - pos.y)
+        })
+        janela:setSize(t)
+        ajustarPainelDireito(janela)
+        return true
+    end
+    alca.onMouseRelease = function(w)
+        if not w.inicio then
+            return false
+        end
+        w.inicio = nil
+        g_settings.set(CHAVE_TAMANHO, sizetostring(janela:getSize()))
+        return true
+    end
+    alca:raise()
+end
+
 local function layoutMinimapa(estendido)
     local janela, borda = janelaDoMinimapa()
     if not janela then
@@ -692,7 +770,9 @@ local function layoutMinimapa(estendido)
         janela:addAnchor(AnchorBottom, 'parent', AnchorBottom)
         janela:setMarginRight(MARGEM)
         janela:setMarginBottom(MARGEM)
-        janela:setSize({ width = o.largura + bw - o.borda.width, height = o.altura + bh - o.borda.height })
+        janela:setSize(tamanhoSalvoDoMinimapa()
+            or { width = o.largura + bw - o.borda.width, height = o.altura + bh - o.borda.height })
+        criarAlcaDoMinimapa(janela)
         -- o mapa ocupa a janela toda, menos a coluna dos botoes (zoom, andares e rosa) a direita
         borda:breakAnchors()
         borda:addAnchor(AnchorTop, 'parent', AnchorTop)
@@ -726,6 +806,10 @@ local function layoutMinimapa(estendido)
         janela:setMarginBottom(0)
         janela:setSize({ width = o.largura, height = o.altura })
         janela:setDraggable(o.arrastavel)
+        local alca = janela:getChildById('hudAlcaMinimapa')
+        if alca then
+            alca:hide()
+        end
         -- o game_minimap.extendedView(false) ja devolve ao painel; se nao devolveu, devolve aqui
         if janela:getParent() == raiz and o.pai and not o.pai:isDestroyed() then
             raiz:removeChild(janela)
