@@ -934,6 +934,82 @@ function ApiJson.setCurrentHotkeySetName(name)
     return true
 end
 
+-- Projeto: perfil de atalhos por classe. Na primeira entrada com uma classe, cria o perfil dela com
+-- F1 a F12 nos 12 slots da barra 1, pocoes em F1 (vida) e F2 (energia) e as tecnicas padrao da classe
+-- de F3 em diante. Depois disso o perfil e do jogador: o que ele mudar fica salvo e nao e refeito.
+local PERFIL_POR_VOCACAO = {
+    [1] = "lutador", [2] = "combate", [3] = "controlador", [4] = "suporte",
+    [5] = "suporte", [6] = "tecnica", [7] = "restringido"
+}
+local POCAO_CURA, POCAO_ENERGIA = 10040, 10041
+-- palavras das magias (modules/gamelib/spells.lua); slots 3 a 12, na ordem
+local TECNICAS_PADRAO = { "t1", "t2", "t3", "t4", "ep", "ckt", "ds", "t5", "t6", "t7" }
+local TECNICAS_RESTRINGIDO = { "t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8" }  -- sem energia: sem ep, ckt e ds
+
+local function montarPerfilDaClasse(nome)
+    local mapeamentos = {
+        { actionBar = 1, actionButton = 1, actionsetting = { useObject = POCAO_CURA, useType = "UseOnYourself" } },
+        { actionBar = 1, actionButton = 2, actionsetting = { useObject = POCAO_ENERGIA, useType = "UseOnYourself" } },
+    }
+    local tecnicas = nome == "restringido" and TECNICAS_RESTRINGIDO or TECNICAS_PADRAO
+    for i, palavras in ipairs(tecnicas) do
+        mapeamentos[#mapeamentos + 1] = {
+            actionBar = 1, actionButton = i + 2,
+            actionsetting = { chatText = palavras, sendAutomatically = true }
+        }
+    end
+
+    local teclas = function()
+        local lista = {}
+        for i = 1, 12 do
+            lista[#lista + 1] = { keysequence = "F" .. i, actionsetting = { action = "TriggerActionButton_1." .. i } }
+        end
+        return lista
+    end
+
+    return { actionBarOptions = { mappings = mapeamentos }, chatOff = teclas(), chatOn = teclas() }
+end
+
+--- Garante e seleciona o perfil da classe. Retorna o nome do perfil (ou nil) e se o perfil atual mudou.
+function ApiJson.garantirPerfilDaClasse(vocacao)
+    local nome = PERFIL_POR_VOCACAO[vocacao]
+    if not nome then
+        return nil, false
+    end
+
+    ApiJson.bootstrap()
+    local options = ensureState()
+    local array = options.array
+    if not array then
+        return nil, false
+    end
+
+    local hotkeyOptions = array.hotkeyOptions or {}
+    array.hotkeyOptions = hotkeyOptions
+    local hotkeySets = hotkeyOptions.hotkeySets or options.hotkeySets or {}
+    hotkeyOptions.hotkeySets = hotkeySets
+    options.hotkeySets = hotkeySets
+
+    if not hotkeySets[nome] then
+        hotkeySets[nome] = montarPerfilDaClasse(nome)
+        array.profiles = array.profiles or {}
+        if not table.contains(array.profiles, nome) then
+            table.insert(array.profiles, nome)
+        end
+        if options.profiles and options.profiles ~= array.profiles and not table.contains(options.profiles, nome) then
+            table.insert(options.profiles, nome)
+        end
+    end
+
+    local atual = options.currentHotkeySetName or hotkeyOptions.currentHotkeySetName
+    if atual == nome and options.currentHotkeySet == hotkeySets[nome] then
+        return nome, false
+    end
+
+    ApiJson.setCurrentHotkeySetName(nome)
+    return nome, true
+end
+
 function ApiJson.createHotkeySet(name, sourceName)
     if not name or name == "" then
         return false
