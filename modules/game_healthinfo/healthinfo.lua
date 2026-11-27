@@ -59,6 +59,14 @@ function extendedView(extendedView)
     healthManaController.ui.moveOnlyToMain = not extendedView
 end
 
+-- Projeto: o HUD (game_hud) ja mostra vida e energia embaixo da barra de habilidades; esconde este painel
+function esconder()
+    healthManaController.ui:hide()
+    if iconTopMenu then
+        iconTopMenu:setOn(false)
+    end
+end
+
 function toggle()
     if iconTopMenu:isOn() then
         healthManaController.ui:hide()

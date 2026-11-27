@@ -636,6 +636,199 @@ local function layoutChat(estendido)
     abasDoChat(fundoDoChat)
 end
 
+-- ------------------------------------------------------------------ minimapa
+
+-- No HUD o minimapa sai do painel da direita e fica no canto inferior direito da tela, 20% maior.
+local ESCALA_MINIMAPA = 1.2
+local minimapaOriginal = nil -- tamanhos e pai de antes de mover, para restaurar
+
+local function janelaDoMinimapa()
+    local mm = modules.game_minimap
+    local mini = mm and mm.getMiniMapUi and mm.getMiniMapUi()
+    local borda = mini and mini:getParent()
+    -- em tela cheia o minimapa sai da moldura: nao mexe
+    if not borda or borda:getId() ~= 'minimapBorder' then
+        return nil
+    end
+    local janela = borda:getParent()
+    if not janela or janela:isDestroyed() then
+        return nil
+    end
+    return janela, borda
+end
+
+-- Tamanho ajustavel: alca no canto superior esquerdo (a janela fica presa no canto inferior
+-- direito, entao arrastar para cima/esquerda aumenta). O tamanho fica salvo em g_settings.
+local MINIMAPA_MIN = { width = 150, height = 120 }
+local CHAVE_TAMANHO = 'hudMinimapaTamanho'
+
+local function limitarTamanhoMinimapa(tamanho)
+    local raiz = modules.game_interface.getRootPanel()
+    local maxL = math.max(MINIMAPA_MIN.width, math.floor(raiz:getWidth() * 0.6))
+    local maxA = math.max(MINIMAPA_MIN.height, math.floor(raiz:getHeight() * 0.7))
+    return {
+        width = math.max(MINIMAPA_MIN.width, math.min(maxL, math.floor(tamanho.width))),
+        height = math.max(MINIMAPA_MIN.height, math.min(maxA, math.floor(tamanho.height)))
+    }
+end
+
+local function tamanhoSalvoDoMinimapa()
+    local s = g_settings.get(CHAVE_TAMANHO)
+    local t = (type(s) == 'string' and s ~= '') and tosize(s) or nil
+    if t and t.width and t.width > 0 and t.height > 0 then
+        return limitarTamanhoMinimapa(t)
+    end
+    return nil
+end
+
+local function ajustarPainelDireito(janela)
+    local direito = modules.game_interface.getRightPanel()
+    if direito then
+        direito:setMarginBottom(janela:getHeight() + MARGEM * 2)
+    end
+end
+
+local function criarAlcaDoMinimapa(janela)
+    local alca = janela:getChildById('hudAlcaMinimapa')
+    if alca then
+        alca:show()
+        alca:raise()
+        return
+    end
+    alca = g_ui.createWidget('UIWidget', janela)
+    alca:setId('hudAlcaMinimapa')
+    alca:setSize({ width = 12, height = 12 })
+    alca:addAnchor(AnchorTop, 'parent', AnchorTop)
+    alca:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+    alca:setBackgroundColor('#ffffff55')
+    alca:setBorderColor('#000000')
+    alca:setBorderWidth(1)
+    alca:setTooltip('Arraste para mudar o tamanho do mapa')
+    alca:setPhantom(false)
+    alca.onMousePress = function(w, pos, botao)
+        if botao ~= MouseLeftButton then
+            return false
+        end
+        w.inicio = { x = pos.x, y = pos.y, tamanho = janela:getSize() }
+        return true
+    end
+    alca.onMouseMove = function(w, pos)
+        if not w.inicio then
+            return false
+        end
+        local t = limitarTamanhoMinimapa({
+            width = w.inicio.tamanho.width + (w.inicio.x - pos.x),
+            height = w.inicio.tamanho.height + (w.inicio.y - pos.y)
+        })
+        janela:setSize(t)
+        ajustarPainelDireito(janela)
+        return true
+    end
+    alca.onMouseRelease = function(w)
+        if not w.inicio then
+            return false
+        end
+        w.inicio = nil
+        g_settings.set(CHAVE_TAMANHO, sizetostring(janela:getSize()))
+        return true
+    end
+    alca:raise()
+end
+
+local function layoutMinimapa(estendido)
+    local janela, borda = janelaDoMinimapa()
+    if not janela then
+        return
+    end
+    local gi = modules.game_interface
+    local raiz = gi.getRootPanel()
+    local direito = gi.getRightPanel()
+    if estendido then
+        if not minimapaOriginal then
+            local b = borda:getSize()
+            local largura = janela:getWidth()
+            minimapaOriginal = {
+                pai = janela:getParent(),
+                largura = largura > 0 and largura or 176,
+                altura = janela:getHeight(),
+                borda = { width = b.width, height = b.height },
+                arrastavel = janela:isDraggable()
+            }
+        end
+        local o = minimapaOriginal
+        local bw = math.floor(o.borda.width * ESCALA_MINIMAPA)
+        local bh = math.floor(o.borda.height * ESCALA_MINIMAPA)
+        if janela:getParent() ~= raiz then
+            local pai = janela:getParent()
+            if pai then
+                pai:removeChild(janela)
+            end
+            raiz:addChild(janela)
+        end
+        janela:breakAnchors()
+        janela:addAnchor(AnchorRight, 'parent', AnchorRight)
+        janela:addAnchor(AnchorBottom, 'parent', AnchorBottom)
+        janela:setMarginRight(MARGEM)
+        janela:setMarginBottom(MARGEM)
+        janela:setSize(tamanhoSalvoDoMinimapa()
+            or { width = o.largura + bw - o.borda.width, height = o.altura + bh - o.borda.height })
+        criarAlcaDoMinimapa(janela)
+        -- o mapa ocupa a janela toda, menos a coluna dos botoes (zoom, andares e rosa) a direita
+        borda:breakAnchors()
+        borda:addAnchor(AnchorTop, 'parent', AnchorTop)
+        borda:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+        borda:addAnchor(AnchorBottom, 'parent', AnchorBottom)
+        borda:addAnchor(AnchorRight, 'zoomIn', AnchorLeft)
+        borda:setMarginTop(5)
+        borda:setMarginLeft(5)
+        borda:setMarginBottom(5)
+        borda:setMarginRight(4)
+        janela:setDraggable(false)
+        janela:show()
+        janela:raise()
+        -- as janelas do painel direito terminam acima do minimapa
+        if direito then
+            direito:setMarginBottom(janela:getHeight() + MARGEM * 2)
+        end
+    elseif minimapaOriginal then
+        local o = minimapaOriginal
+        minimapaOriginal = nil
+        borda:breakAnchors()
+        borda:addAnchor(AnchorTop, 'parent', AnchorTop)
+        borda:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+        borda:setMarginTop(5)
+        borda:setMarginLeft(8)
+        borda:setMarginBottom(0)
+        borda:setMarginRight(0)
+        borda:setSize(o.borda)
+        janela:breakAnchors()
+        janela:setMarginRight(0)
+        janela:setMarginBottom(0)
+        janela:setSize({ width = o.largura, height = o.altura })
+        janela:setDraggable(o.arrastavel)
+        local alca = janela:getChildById('hudAlcaMinimapa')
+        if alca then
+            alca:hide()
+        end
+        -- o game_minimap.extendedView(false) ja devolve ao painel; se nao devolveu, devolve aqui
+        if janela:getParent() == raiz and o.pai and not o.pai:isDestroyed() then
+            raiz:removeChild(janela)
+            o.pai:insertChild(1, janela)
+        end
+        if direito then
+            direito:setMarginBottom(0)
+        end
+    end
+end
+
+-- painel de vida e energia da direita: o HUD ja tem as barras embaixo da barra de habilidades
+local function esconderPainelDeVida(estendido)
+    local hi = modules.game_healthinfo
+    if estendido and hi and hi.esconder then
+        hi.esconder()
+    end
+end
+
 -- ------------------------------------------------------------------ geral
 
 local function esconderBarrasOriginais(estendido)
@@ -675,6 +868,8 @@ function aplicarLayout(estendido)
     layoutTopo(estendido)
     layoutAcoes(estendido)
     layoutChat(estendido)
+    layoutMinimapa(estendido)
+    esconderPainelDeVida(estendido)
     if estendido then
         aplicarIcones()
         ordenarBotoes()
@@ -717,6 +912,9 @@ local function aoIniciarJogo()
         esconderOutrosDoTopo()
         ajustarLarguraTopo()
         atualizarBarras()
+        -- minimapa e painel de vida sao (re)criados no login
+        layoutMinimapa(ativo)
+        esconderPainelDeVida(ativo)
         if vezes < 4 then
             eventoIcones = scheduleEvent(repetir, 700)
         else
