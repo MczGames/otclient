@@ -308,7 +308,15 @@ MiniWindow
         image-size: 9 9
       SkillPercentPanel
       margin-bottom: 5
-        
+
+    Button
+      id: passivasBotao
+      !text: tr('Passivas')
+      !tooltip: tr('Abrir a janela de passivas (Ctrl+Shift+P)')
+      height: 20
+      margin-bottom: 5
+      @onClick: modules.game_passivas.alternar()
+
     HorizontalSeparator
       id: separadorBonus
       margin-bottom: 3
