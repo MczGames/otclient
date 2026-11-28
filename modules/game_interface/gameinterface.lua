@@ -24,6 +24,10 @@ bottomSplitter = nil
 -- defined here so it is always present whenever this module is loaded
 lastManualWalk = 0
 limitedZoom = false
+-- mmo-jjk (27/11/2026, pedido do Adriano): a camera do jogo fica SEMPRE nesta medida, 15 tiles de altura (o boneco menor
+-- e mais mapa na tela, como no Tibia e no PKA). O Ctrl+= / Ctrl+- nao mudam mais o zoom. Vale para o jogo normal e para o
+-- prototipo HD (tile de 64 px): o tamanho do tile nao muda quantos tiles aparecem.
+ZOOM_FIXO = 15
 currentViewMode = 0
 leftIncreaseSidePanels = nil
 leftDecreaseSidePanels = nil
@@ -342,12 +346,14 @@ function show()
 
     addEvent(function()
         if not limitedZoom or g_game.isGM() then
-            gameMapPanel:setMaxZoomOut(513)
             gameMapPanel:setLimitVisibleRange(false)
         else
-            gameMapPanel:setMaxZoomOut(11)
             gameMapPanel:setLimitVisibleRange(true)
         end
+        -- zoom travado em ZOOM_FIXO: o setZoom(11) dos modos de visao e o Ctrl+= / Ctrl+- ficam presos nesta medida
+        gameMapPanel:setMaxZoomIn(ZOOM_FIXO)
+        gameMapPanel:setMaxZoomOut(ZOOM_FIXO)
+        gameMapPanel:setZoom(ZOOM_FIXO)
     end)
 end
 
