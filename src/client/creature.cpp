@@ -185,7 +185,10 @@ void Creature::drawInformation(const MapPosInfo& mapRect, const Point& dest, con
     const auto displacementY = g_game.getFeature(Otc::GameNegativeOffset) ? 0 : getDisplacementY();
 
     const auto& parentRect = mapRect.rect;
-    const auto& creatureOffset = Point(16 - displacementX, -displacementY - 2) + getDrawOffset();
+    // Centro e folga do nome proporcionais ao tamanho do sprite (16 e 2 no tile de 32;
+    // 32 e 4 no prototipo HD de 64). Com tile de 32 o resultado e o mesmo de antes.
+    const int spriteSize = g_gameConfig.getSpriteSize();
+    const auto& creatureOffset = Point(spriteSize / 2 - displacementX, -displacementY - spriteSize / 16) + getDrawOffset();
 
     Point p = dest - mapRect.drawOffset;
     p += (creatureOffset - Point(std::round(m_jumpOffset.x), std::round(m_jumpOffset.y))) * mapRect.scaleFactor;
